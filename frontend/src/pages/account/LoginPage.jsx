@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { signIn } from "../redux/reducers/AuthSlice";
+import { signIn } from "../../redux/reducers/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 

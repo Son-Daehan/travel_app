@@ -1,0 +1,28 @@
+.testing {
+    font-size: 50px;
+}
+
+.travel-information-container {
+    border-style: solid;
+    border-width: 2px;
+}
+
+.travel-information-map {
+    border-style: solid;
+    border-width: 2px;
+    margin-bottom: 1rem;
+}
+
+.travel-information-title {
+    margin-bottom: 1rem;
+}
+
+.travel-information-img {
+    border-style: solid;
+    border-width: 2px;
+}
+
+.travel-information-description {
+    border-style: solid;
+    border-width: 2px;
+}

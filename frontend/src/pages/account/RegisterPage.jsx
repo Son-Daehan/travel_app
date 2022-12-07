@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../redux/reducers/AuthSlice";
+import { signUp } from "../../redux/reducers/AuthSlice";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {

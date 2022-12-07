@@ -9,19 +9,23 @@ from django.http import JsonResponse
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
 
 @api_view(['GET', 'POST'])
-def manage_chat_log(request):
-    if request.method == 'GET':
-        response = redis_instance.lrange('cat_log_2', 0, -1)
+def manage_chat_log(request, **data):
 
+    # RETREIVES ALL CHAT LOG FOR A SPECIFIC ROOM
+    if request.method == 'GET':
+        room_name = data['room_name']
+        response = redis_instance.lrange(room_name, 0, -1)
+        # print(request)
         data = []
 
         for dict in response:
             data.append(json.loads(dict))
 
         # print(data[::-1])
-
+        #  data is stored 
         return JsonResponse({'data':data[::-1]},status=200)
         
+    # ADDS MESSAGE SENT TO THE SPECIFIC ROOM
     elif request.method == 'POST':
 
         response = request.data
@@ -35,8 +39,6 @@ def manage_chat_log(request):
 
         return Response(201)
 
-# get a dictionary for the specific room
-# set the chat log into the dictionary based on user:message
 
 
 

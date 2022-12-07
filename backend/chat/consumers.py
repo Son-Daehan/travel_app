@@ -5,6 +5,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 # from django.http import JsonResponse
 
 
+# todo - send and receive user info data with the message - maybe just the email
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]

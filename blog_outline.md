@@ -25,11 +25,28 @@ FRONTEND
     - a simple delete function available on the user's account page
 
 - user profile
+
   - basic information
   - a tab for MY BLOGS
     - will have basic info of the blog and a link and delete option
   - account delete option
   - password change option
+
+- PAGES
+
+  - Homepage
+  - travel information page
+
+    - flights
+    - places to stay
+    - blogs
+      - things to do
+        - sites to see
+        - cool things to visit
+    - chat room
+
+  - xx - login page
+  - xx - signup page
 
 BACKEND
 
@@ -44,3 +61,52 @@ BACKEND
 
 - user
   - need to add delete functionality
+
+https://api.geoapify.com/v2/places?PARAMS
+
+params
+
+categories
+
+- cat name
+- sub cat name
+  conditions
+  limit
+  offset
+  lang
+  name
+  apiKey
+
+YELP
+Client ID
+lh8VzYAxiBndyAuWulZqIg
+
+API Key
+sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx
+
+African
+American
+British
+Cajun
+Caribbean
+Chinese
+Eastern European
+European
+French
+German
+Greek
+Indian
+Irish
+Italian
+Japanese
+Jewish
+Korean
+Latin American
+Mediterranean
+Mexican
+Middle Eastern
+Nordic
+Southern
+Spanish
+Thai
+Vietnamese
