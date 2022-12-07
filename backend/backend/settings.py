@@ -39,9 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
+    'blog',
     'chat',
-    'travel',
     'corsheaders',
     'rest_framework',
 ]
@@ -84,7 +83,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'chat_backend_db',
+        'NAME': 'restaurant_blog_db',
     }
 }
 
@@ -135,7 +134,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'blog.User'
 
 CORS_ALLOW_ALL_ORIGINS = True
 

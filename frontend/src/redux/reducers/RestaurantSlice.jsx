@@ -1,6 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const spoonacular_api = "66575477d7ce44a2b94ecaa2d0369436";
+const spoonacular_base_url =
+	"https://api.spoonacular.com/food/restaurants/search";
+
+const tomtom_api = "R4RR2AYd7TteGcGbC22mWOiYlGAiAaaG";
+const tomtom_base_url = "https://api.tomtom.com/search/2/geocode/";
+
 const initialState = {
 	address: null,
 	lat: null,

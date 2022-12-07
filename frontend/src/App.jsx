@@ -12,6 +12,7 @@ import BlogsPage from "./pages/travel/BlogsPage";
 import Footer from "./components/Footer";
 import CategoryDetailPage from "./pages/travel/CategoryDetailPage";
 import RestaurantsPage from "./pages/travel/RestaurantsPage";
+import BlogCreatePage from "./pages/travel/BlogCreatePage";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -28,6 +29,7 @@ function App() {
 					{/* TRAVEL ROUTES */}
 					<Route path="/travel_information" element={<RestaurantsPage />} />
 					<Route path="/blogs" element={<BlogsPage />} />
+					<Route path="/blogs/create" element={<BlogCreatePage />} />
 
 					{/* ACCOUNT ROUTES */}
 					<Route path="/account/login" element={<LoginPage />} />

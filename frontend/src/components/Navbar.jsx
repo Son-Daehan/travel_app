@@ -13,7 +13,7 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 
 	const logout = async () => {
-		const response = await axios.post("/account/log_out/");
+		const response = await axios.post("/api/account/log_out/");
 		console.log(response.data);
 		dispatch(signOut());
 	};
