@@ -129,9 +129,15 @@ def blogs(request):
         return JsonResponse({'success': True})
         
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
+
+    if request.method == 'GET':
+
+        blog_serialized = BlogSerializer(blog)
+        print(blog_serialized.data)
+        return JsonResponse({'blog': blog_serialized.data})
 
     if request.method == 'PUT':
         pass

@@ -21,6 +21,7 @@ const BlogsPage = () => {
 							<h4>{blog.category}</h4>
 							<h4>{blog.user}</h4>
 							<p>{blog.description}</p>
+							<Link to={`/blogs/${blog.id}`}>Click for more detail</Link>
 						</>
 					);
 				})}
