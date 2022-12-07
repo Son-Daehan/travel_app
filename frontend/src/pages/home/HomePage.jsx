@@ -1,6 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import maplibregl from "maplibre-gl";
-import "./map.css";
 
 const HomePage = () => {
 	// const mapContainer = useRef(null);

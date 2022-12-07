@@ -7,7 +7,9 @@ import { useState } from "react";
 const CategoryDetailPage = () => {
 	const { categoryName } = useParams();
 	const [cuisines, setCuisines] = useState([]);
+	// const suggesticToken = "49d97c2edfb97df2911f0999383a29c4e4c6ac84";
 
+	const token = "66575477d7ce44a2b94ecaa2d0369436";
 	const url = "https://api.spoonacular.com/recipes/complexSearch";
 
 	const getRestaurants = async () => {

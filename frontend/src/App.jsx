@@ -8,10 +8,10 @@ import ProfilePage from "./pages/account/ProfilePage";
 import ChatPage from "./pages/chat/ChatPage";
 import ChatRoomPage from "./pages//chat/ChatRoomPage";
 import axios from "axios";
-import TravelInformationPage from "./pages/travel/TravelInformationPage";
 import BlogsPage from "./pages/travel/BlogsPage";
 import Footer from "./components/Footer";
 import CategoryDetailPage from "./pages/travel/CategoryDetailPage";
+import RestaurantsPage from "./pages/travel/RestaurantsPage";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -26,10 +26,7 @@ function App() {
 					<Route path="/" element={<HomePage />} />
 
 					{/* TRAVEL ROUTES */}
-					<Route
-						path="/travel_information"
-						element={<TravelInformationPage />}
-					/>
+					<Route path="/travel_information" element={<RestaurantsPage />} />
 					<Route path="/blogs" element={<BlogsPage />} />
 
 					{/* ACCOUNT ROUTES */}
