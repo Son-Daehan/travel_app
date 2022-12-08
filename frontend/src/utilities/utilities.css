@@ -1,0 +1,28 @@
+.restaurant-card-container {
+    box-shadow: 3px 3px 3px rgb(192, 191, 191);;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    border-width: 1px;
+    border-color: rgb(190, 190, 190);
+}
+
+.restaurant-card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+p {
+    font-size: 18px;
+}
+
+.restaurant-img-container {
+    height: 100px;
+    width: 100px;
+
+}
+
+.restaurant-img {
+    height: 100%;
+    width: 100%
+}

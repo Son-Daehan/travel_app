@@ -1,47 +1,86 @@
 import "./restaurant.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	getGeoLocation,
+	getRestaurantDetail,
 	getRestaurants,
-	setAddress,
+	getUserLocation,
 	setCuisine,
 } from "../../redux/reducers/RestaurantSlice";
+import RestaurantCard from "../../utilities/RestaurantCard";
 
 const RestaurantsPage = () => {
 	// const [address, setAddress] = useState(null);
+	// const [placeID, setPlaceID] = useState(null);
 
-	const [addressChoice, setAddressChoice] = useState(null);
 	const [inputCuisine, setInputCuisine] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const dispatch = useDispatch();
-	const { address, cuisine } = useSelector((state) => state.restaurants);
+	const { address, cuisine, restaurants, lat, long } = useSelector(
+		(state) => state.restaurants
+	);
 
 	const searchRestaurants = async () => {
-		await dispatch(setAddress({ address: addressChoice }));
-		await dispatch(setCuisine({ cuisine: inputCuisine }));
-
-		await dispatch(getGeoLocation(address));
-		await dispatch(getRestaurants());
+		// GET USER'S LOCATION BASED ON IP ADDRESS
+		await dispatch(getUserLocation());
+		// SET THE STATE CUISINE BASED ON THE USER'S INPUT
+		// await dispatch(setCuisine({ cuisine: inputCuisine }));
+		// GET THE RESTAURANT BASED ON GEOLOCATION AND CUISINE INPUT
+		await dispatch(getRestaurants({ lat: lat, long: long }));
+		setLoading(true);
 	};
 
+	const handleGetRestaurantDetail = (placeID) => {
+		dispatch(getRestaurantDetail({ placeID: placeID }));
+	};
+
+	useEffect(() => {
+		dispatch(getUserLocation());
+	}, []);
+
+	// useEffect(() => {
+	// 	handleGetRestaurantDetail();
+	// }, [placeID]);
+
 	return (
-		<div className="">
-			<input
-				placeholder="cuisine"
-				onChange={(event) => {
-					setInputCuisine(event.target.value);
-				}}
-			/>
-			<input
-				placeholder="address"
-				onChange={(event) => {
-					setAddressChoice(event.target.value);
-				}}
-			/>
-			<button onClick={searchRestaurants}>search</button>
+		<div className="restaurants-container">
+			<div className="restaurants-top-wrapper">
+				<div>
+					<p>View different restaurants within your area!</p>
+				</div>
+				<input
+					placeholder="cuisine"
+					onChange={(event) => {
+						setInputCuisine(event.target.value);
+					}}
+				/>
+				<button onClick={searchRestaurants}>search</button>
+			</div>
+			<div className="restaurants-bottom-wrapper">
+				<div className="restaurants-scroll-container">
+					{loading
+						? restaurants.map((restaurant) => {
+								return (
+									<>
+										<div
+											onClick={() => {
+												handleGetRestaurantDetail(restaurant.id);
+											}}
+										>
+											<RestaurantCard restaurant={restaurant} />
+											{/* {restaurant.name}
+									{restaurant.id} */}
+										</div>
+									</>
+								);
+						  })
+						: null}
+				</div>
+				<div className="map-container">
+					<img src="https://i.stack.imgur.com/xLP06.png" className="map-img" />
+				</div>
+			</div>
 		</div>
 	);
 };

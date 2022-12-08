@@ -1,31 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const spoonacular_api = "66575477d7ce44a2b94ecaa2d0369436";
-const spoonacular_base_url =
-	"https://api.spoonacular.com/food/restaurants/search";
-
-const tomtom_api = "R4RR2AYd7TteGcGbC22mWOiYlGAiAaaG";
-const tomtom_base_url = "https://api.tomtom.com/search/2/geocode/";
-
 const initialState = {
 	address: null,
 	lat: null,
 	long: null,
 	cuisine: null,
+	restaurants: null,
+	restaurant: null,
 };
 
+export const getRestaurantDetail = createAsyncThunk(
+	"getRestaurantDetail",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`/api/restaurants/${data.placeID}/`);
+			// console.log(response);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
 export const getRestaurants = createAsyncThunk(
 	"getRestaurants",
-	async (data, { getState, rejectWithValue }) => {
-		const state = getState().restaurants;
-		console.log(state.lat);
-		console.log(state.long);
+	async (data, { rejectWithValue }) => {
+		console.log(data);
+		// console.log(user_location);
+		const user_location = {
+			lat: data.lat,
+			long: data.long,
+		};
+		// console.log(user_location);
 		try {
-			const response = await axios.get(
-				`${spoonacular_base_url}?cuisine=${state.cuisine}&lat=${state.lat}&lng=${state.long}&apiKey=${spoonacular_api}`
-			);
-			console.log(response);
+			const response = await axios.post(`/api/restaurants/`, user_location);
+			// console.log(response);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -33,16 +42,12 @@ export const getRestaurants = createAsyncThunk(
 	}
 );
 
-export const getGeoLocation = createAsyncThunk(
-	"getGeoLocation",
+export const getUserLocation = createAsyncThunk(
+	"getUserLocation",
 	async (data, { rejectWithValue }) => {
-		console.log(data);
 		try {
-			const response = await axios.get(
-				`${tomtom_base_url}${data}.json?key=${tomtom_api}`
-			);
-			console.log(response);
-			return response.data.results[0];
+			const response = await axios.get(`http://ip-api.com/json/`);
+			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
 		}
@@ -53,26 +58,40 @@ const RestaurantSlice = createSlice({
 	name: "restaurants",
 	initialState,
 	reducers: {
-		setAddress: (state, action) => {
-			console.log(action.payload);
-			state.address = action.payload.address;
-		},
 		setCuisine: (state, action) => {
 			console.log(action.payload);
 			state.cuisine = action.payload.cuisine;
 		},
 	},
 	extraReducers: {
-		[getRestaurants.pending]: (state) => {},
-		[getRestaurants.fulfilled]: (state, action) => {},
-		[getRestaurants.rejected]: (state, action) => {},
-		[getGeoLocation.pending]: (state) => {},
-		[getGeoLocation.fulfilled]: (state, action) => {
-			const position = action.payload.position;
-			state.lat = position.lat;
-			state.long = position.lon;
+		[getRestaurants.pending]: (state) => {
+			state.restaurants = null;
 		},
-		[getGeoLocation.rejected]: (state, action) => {
+		[getRestaurants.fulfilled]: (state, action) => {
+			// action.payload.restaurants.map((restaurant) => {
+			// 	state.restaurants.push(restaurant);
+			// });
+			state.restaurants = action.payload.restaurants;
+		},
+		[getRestaurants.rejected]: (state, action) => {},
+
+		[getRestaurantDetail.pending]: (state) => {
+			state.restaurant = null;
+		},
+
+		[getRestaurantDetail.fulfilled]: (state, action) => {
+			state.restaurant = action.payload.restaurant;
+		},
+
+		[getRestaurantDetail.rejected]: (state, action) => {},
+
+		[getUserLocation.pending]: (state) => {},
+		[getUserLocation.fulfilled]: (state, action) => {
+			console.log(action.payload);
+			state.lat = action.payload.lat;
+			state.long = action.payload.lon;
+		},
+		[getUserLocation.rejected]: (state, action) => {
 			state.lat = null;
 			state.long = null;
 		},

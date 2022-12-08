@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs } from "../../redux/reducers/BlogSlice";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const BlogsPage = () => {
 	const dispatch = useDispatch();

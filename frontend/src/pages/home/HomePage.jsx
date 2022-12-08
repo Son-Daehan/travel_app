@@ -1,24 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
 
 const HomePage = () => {
-	// const mapContainer = useRef(null);
-	// const map = useRef(null);
-	// const [lng] = useState(139.753);
-	// const [lat] = useState(35.6844);
-	// const [zoom] = useState(1);
-	// const [API_KEY] = useState("4c0553c6869b4ac4966bca7c1149354a");
+	const getRestaurants = async () => {
+		const response = await axios("/api/google/");
+		console.log(JSON.stringify(response.data));
+	};
 
-	// useEffect(() => {
-	// 	if (map.current) return; //stops map from intializing more than once
-	// 	map.current = new maplibregl.Map({
-	// 		container: mapContainer.current,
-	// 		style: `https://maps.geoapify.com/v1/styles/osm-bright/style.json?apiKey=${API_KEY}`,
-	// 		center: [lng, lat],
-	// 		zoom: zoom,
-	// 	});
-	// });
-
-	// const marker = new maplibregl.Marker().setLngLat([lng, lat]).addTo(map);
+	useEffect(() => {
+		getRestaurants();
+	}, []);
 
 	return (
 		<div className="map-wrap">

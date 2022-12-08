@@ -5,6 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from .user_serializer import UserSerializer
 from .blog_serializer import BlogSerializer
+import requests
+import json
 
 def index(request):
 
@@ -149,3 +151,59 @@ def blog(request, blog_id):
         
         except Exception as e:
             return JsonResponse({'error': e})
+
+
+@api_view(['GET', 'POST'])
+def restaurants(request):
+    if request.method == 'POST':
+
+        data = request.data
+        lat = data['lat']
+        long = data['long']
+        radius = 5000
+
+        yelp_api = 'sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx'
+        url = "https://api.yelp.com/v3/businesses/search?"
+
+        params = {
+            'latitude': lat,
+            'longitude': long,
+            'limit': 50, # default is 20 // up to 50
+            'term': 'Chinese', # common search terms
+            'sort_by': 'distance', # distance, best_match, review_count, rating
+        }
+
+        headers = {
+            "accept": "application/json",
+            'Authorization': 'Bearer ' + yelp_api
+            }
+
+        response = requests.get(url, params, headers=headers)
+        restaurants = response.json()
+
+        # print(restaurants)
+
+
+        return JsonResponse({'restaurants': restaurants['businesses']})
+
+    
+    return JsonResponse({'success':True})
+
+
+@api_view(['GET'])
+def restaurant(request, place_id):
+    if request.method == 'GET':
+
+        url = f'https://api.yelp.com/v3/businesses/{place_id}'
+
+        headers = {
+            "accept": "application/json",
+            "Authorization": "Bearer sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx"
+        }
+
+
+        response = requests.get(url, headers=headers)
+
+        data = response.json()
+
+        return JsonResponse({'restaurant': data})

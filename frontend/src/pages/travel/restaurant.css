@@ -1,28 +1,33 @@
-.testing {
-    font-size: 50px;
+.restaurants-container {
+    display: grid;
+    grid-template-rows: auto;
+    justify-content: center;
 }
 
-.travel-information-container {
-    border-style: solid;
-    border-width: 2px;
+.restaurants-top-wrapper {
+    display: grid;
+    padding: 3rem;
+    justify-content: center;
 }
 
-.travel-information-map {
-    border-style: solid;
-    border-width: 2px;
-    margin-bottom: 1rem;
+.restaurants-bottom-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 5rem;
+    margin-right: 5rem;
 }
 
-.travel-information-title {
-    margin-bottom: 1rem;
+.restaurants-scroll-container {
+    max-height: 600px;
+    overflow-y: scroll;
 }
 
-.travel-information-img {
-    border-style: solid;
-    border-width: 2px;
+.map-container {
+    display: grid;
+    justify-items: center;
 }
 
-.travel-information-description {
-    border-style: solid;
-    border-width: 2px;
+.map-img {
+    height: 600px;
+    width: 450px;
 }
