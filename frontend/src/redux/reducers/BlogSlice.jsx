@@ -29,6 +29,23 @@ export const createBlog = createAsyncThunk(
 	}
 );
 
+export const getBlogsByRestaurant = createAsyncThunk(
+	"getBlogsByRestaurant",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(
+				`/api/blogs/restaurant/${data.restaurantID}`
+			);
+
+			console.log(response.data);
+
+			return response.data;
+		} catch {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 const BlogSlice = createSlice({
 	name: "blog",
 	initialState,
@@ -46,6 +63,11 @@ const BlogSlice = createSlice({
 		[createBlog.pending]: (state) => {},
 		[createBlog.fulfilled]: (state, action) => {},
 		[createBlog.rejected]: (state, { payload }) => {},
+		[getBlogsByRestaurant.pending]: (state) => {},
+		[getBlogsByRestaurant.fulfilled]: (state, action) => {
+			state.blogs = action.payload.blogs;
+		},
+		[getBlogsByRestaurant.rejected]: (state, { payload }) => {},
 	},
 });
 

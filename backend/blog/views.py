@@ -123,6 +123,7 @@ def blogs(request):
             'description': response['description'],
             'text': response['text'],
             'user': request.user,
+            'restaurant_id': response['restaurantID']
         }
 
         new_blog = Blog(**data)
@@ -153,14 +154,32 @@ def blog(request, blog_id):
             return JsonResponse({'error': e})
 
 
+@api_view(['GET'])
+def blogs_restaurant(request, restaurant_id):
+
+    if request.method == 'GET':
+        blogs = Blog.objects.filter(restaurant_id=restaurant_id)
+        blogs_serialized = BlogSerializer(blogs, many=True)
+        print(blogs_serialized.data)
+
+        try:
+            return JsonResponse({'blogs':blogs_serialized.data})
+        except:
+            return JsonResponse({'Success':False})
+
+
+
+
+
 @api_view(['GET', 'POST'])
 def restaurants(request):
     if request.method == 'POST':
 
         data = request.data
+        # print(data)
         lat = data['lat']
         long = data['long']
-        radius = 5000
+        search = data['search']
 
         yelp_api = 'sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx'
         url = "https://api.yelp.com/v3/businesses/search?"
@@ -169,7 +188,7 @@ def restaurants(request):
             'latitude': lat,
             'longitude': long,
             'limit': 50, # default is 20 // up to 50
-            'term': 'Chinese', # common search terms
+            'term': search, # common search terms
             'sort_by': 'distance', # distance, best_match, review_count, rating
         }
 
@@ -180,8 +199,12 @@ def restaurants(request):
 
         response = requests.get(url, params, headers=headers)
         restaurants = response.json()
+        # if 'businesses' in restaurants:
+        #     print('yes')
+        # else:
+        #     print('NO')
 
-        # print(restaurants)
+        # print(restaurants['businesses'])
 
 
         return JsonResponse({'restaurants': restaurants['businesses']})

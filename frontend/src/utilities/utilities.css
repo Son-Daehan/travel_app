@@ -1,9 +1,18 @@
 .restaurant-card-container {
-    box-shadow: 3px 3px 3px rgb(192, 191, 191);;
+
     border-bottom-style: solid;
+    border-top-style: solid;
+    border-width: .1px;
+    border-color: rgb(233, 232, 232);
+    /* transition-delay: 1s;
+    transition:ease-in; */
+}
+.restaurant-card-container:hover {
+    box-shadow: 3px 3px 3px rgb(210, 209, 209);;
     border-right-style: solid;
-    border-width: 1px;
-    border-color: rgb(190, 190, 190);
+    border-left-style: solid;
+    border-color: rgb(236, 235, 235);
+    /* transition:ease-in; */
 }
 
 .restaurant-card-wrapper {
@@ -26,3 +35,4 @@ p {
     height: 100%;
     width: 100%
 }
+

@@ -21,6 +21,7 @@ const BlogDetailPage = () => {
 
 	return (
 		<div>
+			Hi
 			{blog && (
 				<>
 					<div>{blog.title}</div>

@@ -15,19 +15,5 @@
     grid-template-columns: repeat(2, 1fr);
     margin-left: 5rem;
     margin-right: 5rem;
-}
-
-.restaurants-scroll-container {
-    max-height: 600px;
-    overflow-y: scroll;
-}
-
-.map-container {
-    display: grid;
-    justify-items: center;
-}
-
-.map-img {
-    height: 600px;
-    width: 450px;
+    gap: 1rem;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { createBlog } from "../../redux/reducers/BlogSlice";
 
 const BlogCreatePage = () => {
@@ -10,6 +11,7 @@ const BlogCreatePage = () => {
 	const [inputText, setInputText] = useState(null);
 
 	const dispatch = useDispatch();
+	const { restaurantID } = useParams();
 
 	const handleCreateBlog = () => {
 		const data = {
@@ -17,6 +19,7 @@ const BlogCreatePage = () => {
 			category: inputCategory,
 			description: inputDescription,
 			text: inputText,
+			restaurantID: restaurantID,
 		};
 
 		dispatch(createBlog(data));

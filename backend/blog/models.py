@@ -25,4 +25,5 @@ class Blog(models.Model):
     description = models.TextField()
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
+    restaurant_id = models.TextField()
     

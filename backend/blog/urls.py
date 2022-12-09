@@ -9,7 +9,8 @@ urlpatterns = [
     # CREATE OR GET ALL BLOGS
     path('api/blogs/', views.blogs),
     # DELETE OR UPDATE BLOG
-    path('api/blogs/<int:blog_id>', views.blog),
+    path('api/blogs/<int:blog_id>/', views.blog),
+    path('api/blogs/restaurant/<str:restaurant_id>/', views.blogs_restaurant),
 
     # ACCOUNT
     path('api/account/register/', views.signup),

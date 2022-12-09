@@ -1,4 +1,5 @@
 import "./utilities.css";
+import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }) => {
 	return (
@@ -20,6 +21,7 @@ const RestaurantCard = ({ restaurant }) => {
 					<p>{restaurant.display_address}</p>
 					<p>{restaurant.display_phone}</p>
 					<p>{restaurant.distance}</p>
+					<Link to={`/blogs/${restaurant.id}`}>View reviews!</Link>
 				</div>
 			</div>
 		</div>

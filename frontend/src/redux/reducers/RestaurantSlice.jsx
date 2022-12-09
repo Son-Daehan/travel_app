@@ -8,6 +8,9 @@ const initialState = {
 	cuisine: null,
 	restaurants: null,
 	restaurant: null,
+	userPositionLoading: true,
+	restaurantsLoading: true,
+	restaurantsPosition: [],
 };
 
 export const getRestaurantDetail = createAsyncThunk(
@@ -30,6 +33,7 @@ export const getRestaurants = createAsyncThunk(
 		const user_location = {
 			lat: data.lat,
 			long: data.long,
+			search: data.search,
 		};
 		// console.log(user_location);
 		try {
@@ -66,12 +70,21 @@ const RestaurantSlice = createSlice({
 	extraReducers: {
 		[getRestaurants.pending]: (state) => {
 			state.restaurants = null;
+			state.restaurantsLoading = true;
 		},
 		[getRestaurants.fulfilled]: (state, action) => {
 			// action.payload.restaurants.map((restaurant) => {
 			// 	state.restaurants.push(restaurant);
 			// });
 			state.restaurants = action.payload.restaurants;
+			state.restaurantsLoading = false;
+			action.payload.restaurants.map((restaurant) => {
+				console.log(restaurant.coordinates);
+				state.restaurantsPosition.push({
+					lat: restaurant.coordinates.latitude,
+					long: restaurant.coordinates.longitude,
+				});
+			});
 		},
 		[getRestaurants.rejected]: (state, action) => {},
 
@@ -87,9 +100,10 @@ const RestaurantSlice = createSlice({
 
 		[getUserLocation.pending]: (state) => {},
 		[getUserLocation.fulfilled]: (state, action) => {
-			console.log(action.payload);
+			// console.log(action.payload);
 			state.lat = action.payload.lat;
 			state.long = action.payload.lon;
+			state.userPositionLoading = false;
 		},
 		[getUserLocation.rejected]: (state, action) => {
 			state.lat = null;

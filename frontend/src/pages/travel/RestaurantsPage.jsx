@@ -5,62 +5,59 @@ import {
 	getRestaurantDetail,
 	getRestaurants,
 	getUserLocation,
-	setCuisine,
 } from "../../redux/reducers/RestaurantSlice";
 import RestaurantCard from "../../utilities/RestaurantCard";
+import CategoryNavbar from "../../components/CategoryNavbar";
+
+import LeafletMap from "../../utilities/LeafletMap";
+import Review from "../../components/Review";
 
 const RestaurantsPage = () => {
-	// const [address, setAddress] = useState(null);
-	// const [placeID, setPlaceID] = useState(null);
-
-	const [inputCuisine, setInputCuisine] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const [inputSearch, setInputSearch] = useState(null);
+	const [reviewMapDisplay, setReviewMapDisplay] = useState(false);
 
 	const dispatch = useDispatch();
-	const { address, cuisine, restaurants, lat, long } = useSelector(
-		(state) => state.restaurants
-	);
+	const {
+		restaurants,
+		lat,
+		long,
+		userPositionLoading,
+		restaurantsLoading,
+		restaurantsPosition,
+	} = useSelector((state) => state.restaurants);
 
-	const searchRestaurants = async () => {
-		// GET USER'S LOCATION BASED ON IP ADDRESS
-		await dispatch(getUserLocation());
-		// SET THE STATE CUISINE BASED ON THE USER'S INPUT
-		// await dispatch(setCuisine({ cuisine: inputCuisine }));
+	const handleSearchRestaurants = () => {
 		// GET THE RESTAURANT BASED ON GEOLOCATION AND CUISINE INPUT
-		await dispatch(getRestaurants({ lat: lat, long: long }));
-		setLoading(true);
+		dispatch(getRestaurants({ lat: lat, long: long, search: inputSearch }));
 	};
 
 	const handleGetRestaurantDetail = (placeID) => {
 		dispatch(getRestaurantDetail({ placeID: placeID }));
+		setReviewMapDisplay(true);
 	};
 
 	useEffect(() => {
 		dispatch(getUserLocation());
 	}, []);
 
-	// useEffect(() => {
-	// 	handleGetRestaurantDetail();
-	// }, [placeID]);
+	useEffect(() => {
+		if (!userPositionLoading) {
+			dispatch(getRestaurants({ lat: lat, long: long, search: "food" }));
+		}
+	}, [userPositionLoading]);
 
 	return (
-		<div className="restaurants-container">
-			<div className="restaurants-top-wrapper">
-				<div>
-					<p>View different restaurants within your area!</p>
-				</div>
-				<input
-					placeholder="cuisine"
-					onChange={(event) => {
-						setInputCuisine(event.target.value);
-					}}
-				/>
-				<button onClick={searchRestaurants}>search</button>
-			</div>
-			<div className="restaurants-bottom-wrapper">
-				<div className="restaurants-scroll-container">
-					{loading
-						? restaurants.map((restaurant) => {
+		<>
+			<CategoryNavbar
+				setInputSearch={setInputSearch}
+				handleSearchRestaurants={handleSearchRestaurants}
+			/>
+			<div className="restaurants-container">
+				<div className="restaurants-top-wrapper"></div>
+				<div className="restaurants-bottom-wrapper">
+					<div className="restaurants-scroll-container">
+						{!restaurantsLoading &&
+							restaurants.map((restaurant) => {
 								return (
 									<>
 										<div
@@ -68,20 +65,38 @@ const RestaurantsPage = () => {
 												handleGetRestaurantDetail(restaurant.id);
 											}}
 										>
-											<RestaurantCard restaurant={restaurant} />
-											{/* {restaurant.name}
-									{restaurant.id} */}
+											<RestaurantCard
+												restaurant={restaurant}
+												setReviewMapDisplay={setReviewMapDisplay}
+											/>
 										</div>
 									</>
 								);
-						  })
-						: null}
-				</div>
-				<div className="map-container">
-					<img src="https://i.stack.imgur.com/xLP06.png" className="map-img" />
+							})}
+					</div>
+
+					{!reviewMapDisplay ? (
+						<LeafletMap
+							lat={lat}
+							long={long}
+							positions={restaurantsPosition}
+							loading={restaurantsLoading}
+						/>
+					) : (
+						<Review setReviewMapDisplay={setReviewMapDisplay} />
+					)}
+
+					{/* <div>
+						<LeafletMap
+							lat={lat}
+							long={long}
+							positions={restaurantsPosition}
+							loading={restaurantsLoading}
+						/>
+					</div> */}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

@@ -1,0 +1,15 @@
+.category-navbar-container {
+    display: grid;
+    justify-items: center;
+}
+
+.category-navbar-top-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+.category-navbar-bottom-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8rem;
+}
