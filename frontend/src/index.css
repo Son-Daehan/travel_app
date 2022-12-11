@@ -8,6 +8,7 @@
     box-sizing: border-box;    
 }
 
-li {
-
+a:-webkit-any-link {
+    text-decoration: none;
+    color: inherit;
 }

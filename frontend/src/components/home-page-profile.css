@@ -1,0 +1,12 @@
+.home-page-profile-container {
+    
+}
+
+.home-page-profile-wrapper {
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    width: 17rem;
+    margin-left: 1rem;
+}

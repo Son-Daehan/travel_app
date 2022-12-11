@@ -19,17 +19,9 @@ const Navbar = () => {
 	};
 
 	return (
-		<div>
+		<>
 			<nav className="navbar-container">
-				<ul className="nav-links-container-account">
-					<Link to="/account/profile">Profile</Link>
-					<Link to="/account/login">Login</Link>
-					<Link to="/account/register">Register</Link>
-					<Link onClick={logout} to="/">
-						Logout
-					</Link>
-				</ul>
-				<ul className="nav-links-container-travel">
+				<ul className="navbar-wrapper">
 					{/* HOME LINK */}
 					<Link to="/">Home</Link>
 
@@ -40,11 +32,17 @@ const Navbar = () => {
 					{/* CHAT LINK */}
 					<Link to="/chat">Chat</Link>
 
+					<Link to="/account/profile">Profile</Link>
+					<Link to="/account/login">Login</Link>
+					<Link to="/account/register">Register</Link>
+					<Link onClick={logout} to="/">
+						Logout
+					</Link>
+
 					{/* ACCOUNT LINKS */}
 				</ul>
 			</nav>
-			<hr />
-		</div>
+		</>
 	);
 };
 

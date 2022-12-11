@@ -1,0 +1,52 @@
+
+.home-middle-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-create-review-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.home-reviews-container {
+    display: grid;
+    grid-template-rows: auto;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.home-reviews-header {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.home-reviews-description {
+
+}
+
+.home-reviews-likes-comments {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-reviews-likes-comments-two {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-reviews-comments-section {
+
+}
+
+.home-reviews-create-comments-section {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}

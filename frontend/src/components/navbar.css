@@ -1,12 +1,19 @@
 .navbar-container {
     display: grid;
-    height: 8rem;
-    background-color: rgb(193, 193, 193);
-    border-bottom: 1px;
-    border-style: solid;
+    /* background-color: rgb(193, 193, 193); */
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    
+    height: 6rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    background-color: white;
 }
 
-.nav-links-container-account {
+.navbar-wrapper {
     display: flex;
     justify-content: flex-end;
     gap: 2rem;
@@ -14,6 +21,8 @@
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+
 
 .nav-links-container-travel {
     display: flex;
