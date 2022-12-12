@@ -19,11 +19,26 @@ export const sendMessage = createAsyncThunk(
 	}
 );
 
+export const getChatLog = createAsyncThunk(
+	"getChatLog",
+	async (room, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`/chat/chat_log/${room}`);
+			return response.data.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 export const ChatSlice = createSlice({
 	name: "chat",
 	initialState: {
 		messages: [],
+		// roomName: null,
 		loading: false,
+		chatLogLoading: false,
+		roomName: null,
 	},
 	reducers: {
 		setMessages: (state, action) => {
@@ -36,19 +51,45 @@ export const ChatSlice = createSlice({
 				state.messages.push(action.payload);
 			}
 		},
+		setRoomName: (state, action) => {
+			try {
+				state.roomName = action.payload;
+				state.chatLogLoading = true;
+			} catch {
+				console.log("error");
+			}
+		},
 	},
 	extraReducers: {
 		[sendMessage.pending]: (state, action) => {
-			state.loading = true;
+			// state.loading = true;
 		},
 		[sendMessage.fulfilled]: (state, action) => {
+			state.messages.push(action.payload);
+
 			state.loading = false;
 		},
 		[sendMessage.rejected]: (state, action) => {},
+
+		[getChatLog.pending]: (state, action) => {
+			state.chatLogLoading = true;
+		},
+		[getChatLog.fulfilled]: (state, action) => {
+			try {
+				state.messages = JSON.parse(action.payload);
+			} catch {
+				state.messages = action.payload;
+
+				state.chatLogLoading = false;
+			}
+		},
+		[getChatLog.rejected]: (state, action) => {
+			state.chatLogLoading = false;
+		},
 	},
 });
 
 // export const selectMessages = (state) => state.chat.messages;
 
-export const { setMessages } = ChatSlice.actions;
+export const { setMessages, setRoomName } = ChatSlice.actions;
 export default ChatSlice.reducer;

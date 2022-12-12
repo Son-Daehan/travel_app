@@ -27,3 +27,21 @@ class Blog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
     restaurant_id = models.TextField()
     
+
+# not migrated as of yet
+class Review(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    restaurant_id = models.TextField()
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='likes')
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')

@@ -1,0 +1,189 @@
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	getChatLog,
+	setMessages,
+	setRoomName,
+} from "../../redux/reducers/ChatSlice";
+import { sendMessage } from "../../redux/reducers/ChatSlice";
+import axios from "axios";
+import "./chatlog.css";
+import { useEffect } from "react";
+
+const ChatLog = ({ user }) => {
+	// TO GET THE ROOM NAME
+	const [inputRoomName, setInputRoomName] = useState(null);
+	const [displayChat, setDisplayChat] = useState(false);
+
+	const [text, setText] = useState([]);
+
+	const [socket, setSocket] = useState(null);
+
+	const { userInfo } = useSelector((state) => state.user);
+	const { messages, loading, chatLogLoading, roomName } = useSelector(
+		(state) => state.chat
+	);
+
+	const dispatch = useDispatch();
+
+	// HAVE THE ONCLOSE HAVE A POST REQUEST SENT TO REDIS STORING CHAT LOG
+	// chat.onclose = function (e) {
+	// 	console.error("Chat socket closed unexpectedly");
+	// };
+
+	// HAVE THE ONOPEN HAVE A GET REQUEST TO GET CHAT LOG FROM REDIS
+	// chatSocket.onopen = function (e) {
+	// 	console.log("Chat socket has been connected");
+	// };
+
+	const sendText = () => {
+		const data = {
+			room_name: inputRoomName,
+			user: userInfo.email,
+			message: text,
+		};
+
+		// sends the data to REDIS
+		dispatch(sendMessage({ data }));
+
+		// sends the data to the server
+		socket.send(
+			JSON.stringify({
+				message: `${userInfo.email}: ${text}`,
+			})
+		);
+	};
+
+	// const getChatLog = async () => {
+	// 	const response = await axios.get(`/chat/chat_log/${inputRoomName}`);
+	// 	const data = response.data.data;
+	// 	console.log(inputRoomName);
+	// 	// console.log(data);
+	// 	// const messageLog = data.map((msg) => {
+	// 	// 	return {
+	// 	// 		user: msg.user,
+	// 	// 		message: msg.msg,
+	// 	// 	};
+	// 	// });
+	// 	// console.log(messageLog);
+	// 	// console.log(messageLog);
+	// 	return data;
+	// };
+	// if (socket) {
+	// 	socket.onOpen = async () => {
+	// 		const response = await axios.get(`/chat/chat_log/${inputRoomName}`);
+	// 		console.log(inputRoomName);
+	// 		const data = response.data.data;
+	// 		console.log(response);
+	// 		// console.log(data);
+	// 		// const messageLog = data.map((msg) => {
+	// 		// 	return {
+	// 		// 		user: msg.user,
+	// 		// 		message: msg.msg,
+	// 		// 	};
+	// 		// });
+	// 		// console.log(messageLog);
+	// 		// console.log(messageLog);
+	// 		return data;
+	// 	};
+	// }
+
+	// event when a message is sent - socket.send()
+	// this will trigger whenever a server sends a message
+	// the if statement ensures it does not fire on first load due to null value on socket
+	// useEffect(() => {
+	// 	if (chatLogLoading) {
+	// 		socket.onmessage = async (event) => {
+	// 			// chat that is sent will be pushed into messages state that holds a history of chat messages for the current state
+	// 			// console.log(getChatLog());
+
+	// 			// chat log from REDIS
+	// 			// todo - have to change the way data is pulled or sort it to go from oldest to earliest
+	// 			const data = await getChatLog();
+	// 			console.log(data);
+	// 			data.map((msg) =>
+	// 				dispatch(
+	// 					setMessages({
+	// 						user: msg.user,
+	// 						message: msg.msg,
+	// 					})
+	// 				)
+	// 			);
+
+	// 			dispatch(setMessages(event.data));
+	// 		};
+	// 	}
+	// }, [chatLogLoading]);
+
+	useEffect(() => {
+		if (chatLogLoading) {
+			dispatch(getChatLog(roomName));
+		}
+	}, [chatLogLoading]);
+
+	const handleRoomConnect = () => {
+		const chatSocket = new WebSocket(
+			`ws://localhost:8000/ws/chat/${inputRoomName}/`
+		);
+		setSocket(chatSocket);
+		dispatch(setRoomName(inputRoomName));
+	};
+
+	const handleDisplayChat = () => {
+		if (displayChat) {
+			setDisplayChat(false);
+			document.getElementById("change-this").classList.remove("changed");
+		} else {
+			setDisplayChat(true);
+			document.getElementById("change-this").classList.add("changed");
+		}
+	};
+
+	return (
+		<div className="chat-container">
+			<div className="chat-wrapper" id="change-this">
+				<div className="chat-header-wrapper">
+					<div>Chat with people around you!</div>
+					<button onClick={handleDisplayChat}>-</button>
+				</div>
+				{displayChat && (
+					<>
+						<hr />
+						<div>
+							<div>
+								<input
+									placeholder="Room Name"
+									onChange={(event) => {
+										setInputRoomName(event.target.value);
+									}}
+								/>
+								<button onClick={handleRoomConnect}>Enter room</button>
+							</div>
+						</div>
+						<hr />
+						<div className="chat-log-wrapper">
+							<hr />
+							<div id="chat-log" cols="100" rows="20">
+								{messages &&
+									messages.map((message, i) => {
+										return <div key={i}>{message.msg}</div>;
+									})}
+							</div>
+						</div>
+						<div className="chat-message-wrapper">
+							<input
+								type="text"
+								placeholder="Write a message..."
+								onChange={(event) => setText(event.target.value)}
+							/>
+							<button onClick={sendText}>Send</button>
+						</div>
+					</>
+				)}
+			</div>
+		</div>
+	);
+};
+
+export default ChatLog;

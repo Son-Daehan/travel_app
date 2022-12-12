@@ -1,4 +1,4 @@
-import "./restaurant.css";
+import "./restaurantspage.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,10 +7,10 @@ import {
 	getUserLocation,
 } from "../../redux/reducers/RestaurantSlice";
 import RestaurantCard from "../../utilities/RestaurantCard";
-import CategoryNavbar from "../../components/CategoryNavbar";
+import ReastaurantsHeader from "../../components/restaurants/RestaurantsHeader";
 
-import LeafletMap from "../../utilities/LeafletMap";
-import Review from "../../components/Review";
+import LeafletMap from "../../components/restaurants/map/LeafletMap";
+import Review from "../../components/restaurants/map/Review";
 
 const RestaurantsPage = () => {
 	const [inputSearch, setInputSearch] = useState(null);
@@ -48,12 +48,13 @@ const RestaurantsPage = () => {
 
 	return (
 		<>
-			<CategoryNavbar
-				setInputSearch={setInputSearch}
-				handleSearchRestaurants={handleSearchRestaurants}
-			/>
 			<div className="restaurants-container">
-				<div className="restaurants-top-wrapper"></div>
+				<div className="restaurants-top-wrapper">
+					<ReastaurantsHeader
+						setInputSearch={setInputSearch}
+						handleSearchRestaurants={handleSearchRestaurants}
+					/>
+				</div>
 				<div className="restaurants-bottom-wrapper">
 					<div className="restaurants-scroll-container">
 						{!restaurantsLoading &&
@@ -85,15 +86,6 @@ const RestaurantsPage = () => {
 					) : (
 						<Review setReviewMapDisplay={setReviewMapDisplay} />
 					)}
-
-					{/* <div>
-						<LeafletMap
-							lat={lat}
-							long={long}
-							positions={restaurantsPosition}
-							loading={restaurantsLoading}
-						/>
-					</div> */}
 				</div>
 			</div>
 		</>

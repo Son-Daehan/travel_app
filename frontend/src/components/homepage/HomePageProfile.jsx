@@ -1,4 +1,4 @@
-import "./home-page-profile.css";
+import "./homepageprofile.css";
 
 const HomePageProfile = () => {
 	return (

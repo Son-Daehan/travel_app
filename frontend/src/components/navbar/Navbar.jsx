@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { signOut } from "../redux/reducers/AuthSlice";
+import { signOut } from "../../redux/reducers/AuthSlice";
 import "./navbar.css";
 
 const Navbar = () => {
@@ -27,10 +27,6 @@ const Navbar = () => {
 
 					{/* TRAVEL LINKS */}
 					<Link to="/travel_information">Travel Information</Link>
-					<Link to="/blogs">Blogs</Link>
-
-					{/* CHAT LINK */}
-					<Link to="/chat">Chat</Link>
 
 					<Link to="/account/profile">Profile</Link>
 					<Link to="/account/login">Login</Link>

@@ -2,12 +2,21 @@
     display: grid;
     grid-template-rows: auto;
     justify-content: center;
+    margin-top: 7rem;
 }
 
 .restaurants-top-wrapper {
     display: grid;
     padding: 3rem;
-    justify-content: center;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    /* left: 21rem; */
+    width: calc(100vw - 115px);
+    left: 3rem;
+    z-index: 3;
+    background-color: white;
 }
 
 .restaurants-bottom-wrapper {
@@ -16,4 +25,5 @@
     margin-left: 5rem;
     margin-right: 5rem;
     gap: 1rem;
+    margin-top: 5rem;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import "./reviews-section.css";
+import "./reviewssection.css";
 
 const ReviewsSectionHeader = () => {
 	return (

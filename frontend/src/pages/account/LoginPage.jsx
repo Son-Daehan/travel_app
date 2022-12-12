@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../../redux/reducers/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "./account.css";
 
 const LoginPage = () => {
 	const [username, setUsername] = useState("");
@@ -26,7 +27,7 @@ const LoginPage = () => {
 	}, [navigate, userInfo]);
 
 	return (
-		<div>
+		<div className="login-container">
 			<input
 				type="text"
 				placeholder="username"

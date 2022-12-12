@@ -1,7 +1,7 @@
 import React from "react";
-import "./category-navbar.css";
+import "./restaurantsheader.css";
 
-const CategoryNavbar = ({ setInputSearch, handleSearchRestaurants }) => {
+const ReastaurantsHeader = ({ setInputSearch, handleSearchRestaurants }) => {
 	return (
 		<div className="category-navbar-container">
 			<div className="category-navbar-top-wrapper"></div>
@@ -23,4 +23,4 @@ const CategoryNavbar = ({ setInputSearch, handleSearchRestaurants }) => {
 	);
 };
 
-export default CategoryNavbar;
+export default ReastaurantsHeader;

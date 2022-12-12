@@ -1,9 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import FriendsList from "../../components/FriendsList";
-import HomePageProfile from "../../components/HomePageProfile";
-import ReviewsSection from "../../components/ReviewsSection";
-import ReviewsSectionHeader from "../../components/ReviewsSectionHeader";
-import "./home-page.css";
+import Chat from "../../components/chat/ChatLog";
+import HomePageProfile from "../../components/homepage/HomePageProfile";
+import ReviewsSection from "../../components/homepage/ReviewsSection";
+import ReviewsSectionHeader from "../../components/homepage/ReviewsSectionHeader";
+import "./homepage.css";
 
 const HomePage = () => {
 	return (
@@ -14,7 +13,7 @@ const HomePage = () => {
 				<ReviewsSection />
 				<ReviewsSection />
 			</div>
-			<FriendsList />
+			<Chat />
 		</div>
 	);
 };

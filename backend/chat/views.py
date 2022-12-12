@@ -7,14 +7,18 @@ import json
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
+print(redis_instance)
 
 @api_view(['GET', 'POST'])
 def manage_chat_log(request, **data):
 
+
     # RETREIVES ALL CHAT LOG FOR A SPECIFIC ROOM
     if request.method == 'GET':
         room_name = data['room_name']
+        print('name', room_name)
         response = redis_instance.lrange(room_name, 0, -1)
+        print(response)
         # print(request)
         data = []
 
@@ -33,11 +37,16 @@ def manage_chat_log(request, **data):
         room_name = response['room_name']
         user = response['user']
         message = response['message']
+        print(room_name)
         print(response)
 
         redis_instance.lpush(room_name, json.dumps({'user':user, 'msg':message}))
+        data = {
+            'user': user,
+            'msg': message
+        }
 
-        return Response(201)
+        return JsonResponse(data)
 
 
 

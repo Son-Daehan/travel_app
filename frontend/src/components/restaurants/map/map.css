@@ -4,9 +4,8 @@
     flex-direction: column;
     position: sticky;
     transition: top .4s ease,margin-top .4s ease,height .4s ease;
-    top: 100px;
+    top: 160px;
     /* right: 0px; */
-    margin-top: 34px;
     height: calc(100vh - 180px);
     width: 100%;
 }
@@ -15,4 +14,7 @@
     height: 100%;
     width: 100%;
     left: 60px;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
 }
