@@ -164,10 +164,26 @@ const ChatLog = ({ user }) => {
 						<hr />
 						<div className="chat-log-wrapper">
 							<hr />
-							<div id="chat-log" cols="100" rows="20">
+							<div className="chat-log-wrapper-inner">
 								{messages &&
 									messages.map((message, i) => {
-										return <div key={i}>{message.msg}</div>;
+										return (
+											<div
+												key={i}
+												className={
+													userInfo.email === message.user
+														? "user-chat-setting"
+														: ""
+												}
+											>
+												<div className="chat-message-setting">
+													<div>
+														<em>User: {message.user}</em>
+													</div>
+													<div>{message.msg}</div>
+												</div>
+											</div>
+										);
 									})}
 							</div>
 						</div>

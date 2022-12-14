@@ -27,6 +27,10 @@
     height: 18rem;
 }
 
+.chat-log-wrapper-inner {
+    width: 90%
+}
+
 .chat-message-wrapper {
     display: flex;
     flex-direction: row;
@@ -36,4 +40,16 @@
 
 .changed {
     height: 30rem;
+}
+
+.user-chat-setting {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chat-message-setting {
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 2px;
+    border-radius: 5px;
 }

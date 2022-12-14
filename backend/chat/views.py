@@ -50,7 +50,6 @@ def manage_chat_log(request, **data):
 
 
 
-
 # @api_view(['GET', 'PUT', 'DELETE'])
 # def manage_item(request, *args, **kwargs):
 #     if request.method == 'GET':

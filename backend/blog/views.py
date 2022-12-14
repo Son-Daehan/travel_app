@@ -1,10 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Blog
+from .models import User, Review, Comment
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from .user_serializer import UserSerializer
-from .blog_serializer import BlogSerializer
+from .review_serializer import ReviewSerializer
 import requests
 import json
 
@@ -100,72 +100,124 @@ def user_profile(request):
         return JsonResponse({'authenticated':False})
 
 
+
+
 @api_view(['GET', 'POST'])
-def blogs(request):
+def reviews(request):
     if request.method == 'GET':
-        try:
-            blogs = Blog.objects.all()
-            print(blogs)
-            
-            serialized_data = BlogSerializer(blogs, many=True)
+        reviews = Review.objects.all()
+        # print(reviews)
 
-            return JsonResponse({'blogs': serialized_data.data})
+        serialized_reviews = ReviewSerializer(reviews, many=True)
+        print(serialized_reviews.data)
 
-        except Exception as e:
-            return JsonResponse({'success': False}, status=400)
+        return JsonResponse({'reviews':serialized_reviews.data})
 
     if request.method == 'POST':
         response = request.data
 
+        user = User.objects.get(email=response['username'])
+
         data = {
-            'title': response['title'],
-            'category': response['category'],
-            'description': response['description'],
-            'text': response['text'],
-            'user': request.user,
-            'restaurant_id': response['restaurantID']
+            'title': response['review_title'],
+            'text': response['review'],
+            'restaurant_name': response['restaurant_name'],
+            'user': user
         }
 
-        new_blog = Blog(**data)
-        new_blog.save()
+        new_review = Review(**data)
+        new_review.save()
 
-        return JsonResponse({'success': True})
+        return JsonResponse({'success':True})
+
+
+@api_view(['GET', 'POST'])
+def comments(request):
+
+    if request.method == 'POST':
+        response = request.data
+
+        user = User.objects.get(email=response['username'])
+        review = Review.objects.get(id=response['review_id'])
+
+        data = {
+            'text': response['text'],
+            'review_id': review,
+            'user': user
+        }
+
+        new_comment = Comment(**data)
+        new_comment.save()
+
+        return JsonResponse({'success':True})
+
+
+# @api_view(['GET', 'POST'])
+# def blogs(request):
+#     if request.method == 'GET':
+#         try:
+#             blogs = Blog.objects.all()
+#             print(blogs)
+            
+#             serialized_data = BlogSerializer(blogs, many=True)
+
+#             return JsonResponse({'blogs': serialized_data.data})
+
+#         except Exception as e:
+#             return JsonResponse({'success': False}, status=400)
+
+#     if request.method == 'POST':
+#         response = request.data
+
+#         data = {
+#             'title': response['title'],
+#             'category': response['category'],
+#             'description': response['description'],
+#             'text': response['text'],
+#             'user': request.user,
+#             'restaurant_id': response['restaurantID']
+#         }
+
+#         new_blog = Blog(**data)
+#         new_blog.save()
+
+#         return JsonResponse({'success': True})
         
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def blog(request, blog_id):
-    blog = Blog.objects.get(id=blog_id)
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def blog(request, blog_id):
+#     blog = Blog.objects.get(id=blog_id)
 
-    if request.method == 'GET':
+#     if request.method == 'GET':
 
-        blog_serialized = BlogSerializer(blog)
-        print(blog_serialized.data)
-        return JsonResponse({'blog': blog_serialized.data})
+#         blog_serialized = BlogSerializer(blog)
+#         print(blog_serialized.data)
+#         return JsonResponse({'blog': blog_serialized.data})
 
-    if request.method == 'PUT':
-        pass
+#     if request.method == 'PUT':
+#         pass
 
-    if request.method == 'DELETE':
-        try:
-            blog.delete()
-            return JsonResponse({'success': True})
+#     if request.method == 'DELETE':
+#         try:
+#             blog.delete()
+#             return JsonResponse({'success': True})
         
-        except Exception as e:
-            return JsonResponse({'error': e})
+#         except Exception as e:
+#             return JsonResponse({'error': e})
 
 
-@api_view(['GET'])
-def blogs_restaurant(request, restaurant_id):
+# @api_view(['GET'])
+# def blogs_restaurant(request, restaurant_id):
 
-    if request.method == 'GET':
-        blogs = Blog.objects.filter(restaurant_id=restaurant_id)
-        blogs_serialized = BlogSerializer(blogs, many=True)
-        print(blogs_serialized.data)
+#     if request.method == 'GET':
+#         blogs = Blog.objects.filter(restaurant_id=restaurant_id)
+#         blogs_serialized = BlogSerializer(blogs, many=True)
+#         print(blogs_serialized.data)
 
-        try:
-            return JsonResponse({'blogs':blogs_serialized.data})
-        except:
-            return JsonResponse({'Success':False})
+#         try:
+#             return JsonResponse({'blogs':blogs_serialized.data})
+#         except:
+#             return JsonResponse({'Success':False})
 
 
 

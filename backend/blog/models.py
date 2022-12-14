@@ -17,15 +17,6 @@ class User(AbstractUser):
     # django uses the 'username' to identify users by default, but many modern applications use 'email' instead
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] # Email & Password are required by default.
-
-
-class Blog(models.Model):
-    title = models.CharField(max_length=100)
-    category = models.CharField(max_length=50)
-    description = models.TextField()
-    text = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
-    restaurant_id = models.TextField()
     
 
 # not migrated as of yet
@@ -33,7 +24,7 @@ class Review(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
-    restaurant_id = models.TextField()
+    restaurant_name = models.CharField(max_length=100)
 
 
 class Comment(models.Model):
@@ -43,5 +34,5 @@ class Comment(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='likes')
-    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='likes', blank=True)
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes', blank=True)

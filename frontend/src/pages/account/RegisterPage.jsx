@@ -36,7 +36,7 @@ const RegisterPage = () => {
 	}, [navigate, userInfo, success]);
 
 	return (
-		<div>
+		<div className="register-container">
 			<input
 				type="text"
 				placeholder="first name"
