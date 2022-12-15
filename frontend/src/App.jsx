@@ -24,6 +24,10 @@ function App() {
 
 					{/* TRAVEL ROUTES */}
 					<Route path="/travel_information" element={<RestaurantsPage />} />
+					<Route
+						path="/travel_information/:restaurantNameParam"
+						element={<RestaurantsPage />}
+					/>
 
 					{/* ACCOUNT ROUTES */}
 					<Route path="/account/login" element={<LoginPage />} />

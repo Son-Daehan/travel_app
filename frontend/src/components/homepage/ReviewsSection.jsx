@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getAllReviews } from "../../redux/reducers/ReviewSlice";
 import CommentsSection from "./CommentsSection";
 import ReviewLikeSection from "./ReviewLikeSection";
@@ -25,7 +26,9 @@ const ReviewsSection = () => {
 								<div>Image</div>
 								<div>{review.user}</div>
 								<div>{review.title}</div>
-								<div>{review.restaurant_name}</div>
+								<Link to={`/travel_information/${review.restaurant_name}`}>
+									{review.restaurant_name}
+								</Link>
 							</div>
 							<hr />
 							<p className="home-reviews-description">{review.text}</p>

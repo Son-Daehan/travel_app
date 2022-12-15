@@ -206,7 +206,7 @@ def comment_likes(request):
 
         response = request.data
 
-        comment = Review.objects.get(id=response['comment_id'])
+        comment = Comment.objects.get(id=response['comment_id'])
         user = User.objects.get(email=response['username'])
 
         data = {

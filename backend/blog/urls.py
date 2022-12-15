@@ -25,7 +25,7 @@ urlpatterns = [
     # COMMENT
     path('api/comments/', views.comments),
     path('api/comments/likes/', views.comment_likes),
-    path('api/comments/likes/', views.comment_likes_delete),
+    path('api/comments/likes/delete/', views.comment_likes_delete),
 
     # LIKE
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../redux/reducers/CommentSlice";
+import CommentLikeSection from "./CommentLikeSection";
 
 const CommentsSection = ({ reviewID, comments }) => {
 	const [inputComment, setInputComment] = useState(null);
@@ -28,6 +29,10 @@ const CommentsSection = ({ reviewID, comments }) => {
 						<div className="home-reviews-comments-section">
 							<div>{comment.user}</div>
 							<div>{comment.text}</div>
+							<CommentLikeSection
+								commentID={comment.id}
+								commentLikes={comment.comment_likes}
+							/>
 						</div>
 					);
 				})}
