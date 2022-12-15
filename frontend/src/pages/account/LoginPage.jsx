@@ -13,7 +13,6 @@ const LoginPage = () => {
 
 	const dispatch = useDispatch();
 	const loginUser = () => {
-		console.log(username, password);
 		dispatch(signIn({ username, password }));
 	};
 

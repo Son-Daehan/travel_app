@@ -7,13 +7,8 @@ import "./map.css";
 // import icon from "leaflet/dist/images/marker-icon.png";
 // import iconShadow from "leaflet/dist/images/marker-shadow.png";
 // import { Icon } from "leaflet";
-import L from "leaflet";
-import { useEffect } from "react";
 
 const LeafletMap = ({ lat, long, positions, loading }) => {
-	useEffect(() => {
-		console.log(positions);
-	});
 	return (
 		<div className="map-container">
 			{lat && (

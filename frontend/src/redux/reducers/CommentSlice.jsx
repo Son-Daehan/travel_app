@@ -21,10 +21,7 @@ export const likeAComment = createAsyncThunk(
 	"likeAComment",
 	async (data, { rejectWithValue }) => {
 		try {
-			// console.log(data);
 			const response = await axios.post("/api/comments/likes/", data);
-
-			// console.log(response.data.reviews);
 
 			return response.data;
 		} catch (error) {
@@ -37,12 +34,9 @@ export const deleteCommentLike = createAsyncThunk(
 	"deleteCommentLike",
 	async (data, { rejectWithValue }) => {
 		try {
-			// console.log(data);
 			const response = await axios.delete("/api/comments/likes/delete/", {
 				data: data,
 			});
-
-			// console.log(response.data.reviews);
 
 			return response.data;
 		} catch (error) {

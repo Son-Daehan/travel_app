@@ -7,8 +7,6 @@ const CommentsSection = ({ reviewID, comments }) => {
 	const [inputComment, setInputComment] = useState(null);
 	const { userInfo } = useSelector((state) => state.user);
 
-	// console.log(comments);
-
 	const dispatch = useDispatch();
 
 	const handleCreateComment = () => {

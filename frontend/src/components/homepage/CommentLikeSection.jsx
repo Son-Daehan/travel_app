@@ -6,8 +6,6 @@ import {
 } from "../../redux/reducers/CommentSlice";
 
 const CommentLikeSection = ({ commentID, commentLikes }) => {
-	// console.log("commentid here", commentID);
-	// console.log("comment likes here!", commentLikes);
 	const [loading, setLoading] = useState(true);
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
@@ -41,7 +39,6 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 			comment_id: commentID,
 			username: userInfo.email,
 		};
-		// console.log(data);
 
 		dispatch(deleteCommentLike(data));
 	};

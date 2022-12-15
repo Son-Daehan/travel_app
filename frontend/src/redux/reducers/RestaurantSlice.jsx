@@ -18,7 +18,6 @@ export const getRestaurantDetail = createAsyncThunk(
 	async (data, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(`/api/restaurants/${data.placeID}/`);
-			// console.log(response);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -28,17 +27,13 @@ export const getRestaurantDetail = createAsyncThunk(
 export const getRestaurants = createAsyncThunk(
 	"getRestaurants",
 	async (data, { rejectWithValue }) => {
-		console.log(data);
-		// console.log(user_location);
 		const user_location = {
 			lat: data.lat,
 			long: data.long,
 			search: data.search,
 		};
-		// console.log(user_location);
 		try {
 			const response = await axios.post(`/api/restaurants/`, user_location);
-			// console.log(response);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -73,13 +68,9 @@ const RestaurantSlice = createSlice({
 			state.restaurantsLoading = true;
 		},
 		[getRestaurants.fulfilled]: (state, action) => {
-			// action.payload.restaurants.map((restaurant) => {
-			// 	state.restaurants.push(restaurant);
-			// });
 			state.restaurants = action.payload.restaurants;
 			state.restaurantsLoading = false;
 			action.payload.restaurants.map((restaurant) => {
-				console.log(restaurant.coordinates);
 				state.restaurantsPosition.push({
 					lat: restaurant.coordinates.latitude,
 					long: restaurant.coordinates.longitude,
@@ -100,7 +91,6 @@ const RestaurantSlice = createSlice({
 
 		[getUserLocation.pending]: (state) => {},
 		[getUserLocation.fulfilled]: (state, action) => {
-			// console.log(action.payload);
 			state.lat = action.payload.lat;
 			state.long = action.payload.lon;
 			state.userPositionLoading = false;

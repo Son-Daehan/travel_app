@@ -26,7 +26,6 @@ const ReviewLikeSection = ({ reviewID, review_likes }) => {
 			review_id: reviewID,
 			username: userInfo.email,
 		};
-		// console.log(data);
 
 		dispatch(deleteReviewLike(data));
 	};
@@ -35,9 +34,6 @@ const ReviewLikeSection = ({ reviewID, review_likes }) => {
 		const likes_by_review = Object.values(review_likes);
 
 		for (let i = 0; i < likes_by_review.length; i++) {
-			console.log(likes_by_review[i].user);
-			console.log(userInfo.email);
-
 			if (likes_by_review[i].user === userInfo.email) {
 				setLoading(false);
 

@@ -27,8 +27,6 @@ export const signIn = createAsyncThunk(
 		try {
 			const response = await axios.post("/api/account/log_in/", data);
 
-			// console.log(response);
-
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -53,7 +51,6 @@ const AuthSlice = createSlice({
 			state.error = null;
 		},
 		[signIn.fulfilled]: (state, { payload }) => {
-			// console.log(payload);
 			state.loading = false;
 			// THE RESPONSE SENT FROM BACKEND IS AN OBJECT WITH PROPERTIES?? WONT SET TO STATE
 			const newUserInfo = {

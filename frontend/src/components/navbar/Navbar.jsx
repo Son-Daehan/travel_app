@@ -6,10 +6,6 @@ import { signOut } from "../../redux/reducers/AuthSlice";
 import "./navbar.css";
 
 const Navbar = () => {
-	// const logout = async () => {
-	// 	await axios.post("/account/log_out/");
-	// };
-
 	const dispatch = useDispatch();
 
 	const logout = async () => {

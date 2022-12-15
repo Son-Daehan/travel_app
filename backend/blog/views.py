@@ -19,7 +19,6 @@ def index(request):
 def signup(request):
     try:
         body = request.data
-        print(body)
         data = {
             'username': body['email'],
             'email': body['email'],
@@ -71,13 +70,11 @@ def log_in(request):
             return JsonResponse({'user':False}, status=401)
             # Return an 'invalid login' error message.
     except Exception as e:
-        print(e)
         return JsonResponse({'success':False}, status=401)
         
 
 @api_view(['POST'])
 def log_out(request):
-    print(request)
     logout(request)
     return JsonResponse({'success':True})
 
@@ -95,7 +92,6 @@ def user_profile(request):
             else:
                 return JsonResponse({'user':None})
     except Exception as e:
-        print(e)
 
         return JsonResponse({'authenticated':False})
 
@@ -106,10 +102,8 @@ def user_profile(request):
 def reviews(request):
     if request.method == 'GET':
         reviews = Review.objects.all()
-        # print(reviews)
 
         serialized_reviews = ReviewSerializer(reviews, many=True)
-        print(serialized_reviews.data)
 
         return JsonResponse({'reviews':serialized_reviews.data})
 
@@ -188,7 +182,6 @@ def review_likes_delete(request):
 
 
             review_like = ReviewLike.objects.filter(user=user and review_id == review_id)
-            print(review_like)
 
             review_like.delete()
 
@@ -234,7 +227,6 @@ def comment_likes_delete(request):
 
 
             comment_like = CommentLike.objects.filter(user=user and comment_id == comment_id)
-            print(comment_like)
 
             comment_like.delete()
 
@@ -323,7 +315,6 @@ def restaurants(request):
     if request.method == 'POST':
 
         data = request.data
-        # print(data)
         lat = data['lat']
         long = data['long']
         search = data['search']
