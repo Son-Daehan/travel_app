@@ -200,11 +200,48 @@ def review_likes_delete(request):
 
 @api_view(['GET', 'POST'])
 def comment_likes(request):
+    print(request.data)
 
     if request.method == 'POST':
 
+        response = request.data
 
+        comment = Review.objects.get(id=response['comment_id'])
+        user = User.objects.get(email=response['username'])
+
+        data = {
+            'user': user,
+            'comment_id': comment,
+        }
+
+        new_comment_like = CommentLike(**data)
+
+        new_comment_like.save()
+        
         return JsonResponse({'success':True})
+
+
+@api_view(['DELETE'])
+def comment_likes_delete(request):
+
+    if request.method == 'DELETE':
+        
+        try:
+            response = request.data
+
+            user = User.objects.get(email=response['username'])
+            comment_id = request.data['comment_id']
+
+
+            comment_like = CommentLike.objects.filter(user=user and comment_id == comment_id)
+            print(comment_like)
+
+            comment_like.delete()
+
+            return JsonResponse({'success':True})
+        
+        except:
+            return JsonResponse({'success':False})
 
 
 

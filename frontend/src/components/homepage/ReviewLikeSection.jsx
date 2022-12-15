@@ -50,6 +50,7 @@ const ReviewLikeSection = ({ reviewID, review_likes }) => {
 		<>
 			<div className="home-reviews-likes-comments">
 				<div>{review_likes.length}</div>
+				{review_likes.length > 1 ? <div>likes</div> : <div>like</div>}
 				<div>Comments??</div>
 			</div>
 			<hr />
