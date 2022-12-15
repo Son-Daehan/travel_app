@@ -32,6 +32,40 @@ export const getAllReviews = createAsyncThunk(
 	}
 );
 
+export const likeAReview = createAsyncThunk(
+	"likeAReview",
+	async (data, { rejectWithValue }) => {
+		try {
+			// console.log(data);
+			const response = await axios.post("/api/reviews/likes/", data);
+
+			// console.log(response.data.reviews);
+
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
+export const deleteReviewLike = createAsyncThunk(
+	"deleteReviewLike",
+	async (data, { rejectWithValue }) => {
+		try {
+			// console.log(data);
+			const response = await axios.delete("/api/reviews/likes/delete/", {
+				data: data,
+			});
+
+			// console.log(response.data.reviews);
+
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 const ReviewSlice = createSlice({
 	name: "review",
 	initialState,
@@ -39,7 +73,7 @@ const ReviewSlice = createSlice({
 	extraReducers: {
 		[getAllReviews.pending]: (state) => {},
 		[getAllReviews.fulfilled]: (state, action) => {
-			console.log(action.payload);
+			// console.log(action.payload);
 			state.reviews = action.payload;
 		},
 		[getAllReviews.rejected]: (state, { payload }) => {},

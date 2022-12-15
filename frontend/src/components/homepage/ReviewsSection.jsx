@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllReviews } from "../../redux/reducers/ReviewSlice";
 import CommentsSection from "./CommentsSection";
+import ReviewLikeSection from "./ReviewLikeSection";
 import "./reviewssection.css";
 
 const ReviewsSection = () => {
@@ -29,15 +30,11 @@ const ReviewsSection = () => {
 							<hr />
 							<p className="home-reviews-description">{review.text}</p>
 							<hr />
-							<div className="home-reviews-likes-comments">
-								<div># of likes</div>
-								<div>Comments??</div>
-							</div>
-							<hr />
-							<div className="home-reviews-likes-comments-two">
-								<div>Like</div>
-								<div>Comment</div>
-							</div>
+
+							<ReviewLikeSection
+								reviewID={review.id}
+								review_likes={review.review_likes}
+							/>
 
 							<CommentsSection
 								reviewID={review.id}

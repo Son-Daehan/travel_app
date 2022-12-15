@@ -19,9 +19,12 @@ urlpatterns = [
 
     # REVIEW
     path('api/reviews/', views.reviews),
+    path('api/reviews/likes/', views.review_likes),
+    path('api/reviews/likes/delete/', views.review_likes_delete),
 
     # COMMENT
     path('api/comments/', views.comments),
+    path('api/comments/likes/', views.comment_likes),
 
     # LIKE
 

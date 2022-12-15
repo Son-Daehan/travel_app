@@ -6,7 +6,7 @@ const CommentsSection = ({ reviewID, comments }) => {
 	const [inputComment, setInputComment] = useState(null);
 	const { userInfo } = useSelector((state) => state.user);
 
-	console.log(comments);
+	// console.log(comments);
 
 	const dispatch = useDispatch();
 
@@ -25,7 +25,10 @@ const CommentsSection = ({ reviewID, comments }) => {
 			{comments &&
 				comments.map((comment) => {
 					return (
-						<div className="home-reviews-comments-section">{comment.text}</div>
+						<div className="home-reviews-comments-section">
+							<div>{comment.user}</div>
+							<div>{comment.text}</div>
+						</div>
 					);
 				})}
 			<hr />

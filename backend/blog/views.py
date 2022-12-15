@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
-from .models import User, Review, Comment
+from .models import User, Review, Comment, ReviewLike, CommentLike
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from .user_serializer import UserSerializer
@@ -150,6 +150,64 @@ def comments(request):
         new_comment.save()
 
         return JsonResponse({'success':True})
+
+
+@api_view(['GET', 'POST'])
+def review_likes(request):
+    print(request.data)
+
+    if request.method == 'POST':
+
+        response = request.data
+
+        review = Review.objects.get(id=response['review_id'])
+        user = User.objects.get(email=response['username'])
+
+        data = {
+            'user': user,
+            'review_id': review,
+        }
+
+        new_review_like = ReviewLike(**data)
+
+        new_review_like.save()
+        
+        return JsonResponse({'success':True})
+
+
+@api_view(['DELETE'])
+def review_likes_delete(request):
+
+    if request.method == 'DELETE':
+        
+        try:
+            response = request.data
+
+            user = User.objects.get(email=response['username'])
+            review_id = request.data['review_id']
+
+
+            review_like = ReviewLike.objects.filter(user=user and review_id == review_id)
+            print(review_like)
+
+            review_like.delete()
+
+            return JsonResponse({'success':True})
+        
+        except:
+            return JsonResponse({'success':False})
+
+
+@api_view(['GET', 'POST'])
+def comment_likes(request):
+
+    if request.method == 'POST':
+
+
+        return JsonResponse({'success':True})
+
+
+
 
 
 # @api_view(['GET', 'POST'])

@@ -32,7 +32,12 @@ class Comment(models.Model):
     text = models.TextField()
     review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
 
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='likes', blank=True)
-    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes', blank=True)
+
+class ReviewLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_likes')
+    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='review_likes', blank=True)
+
+
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_likes')
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='comment_likes', blank=True)
