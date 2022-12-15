@@ -7,6 +7,13 @@ from .user_serializer import UserSerializer
 from .review_serializer import ReviewSerializer
 import requests
 import json
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+YELP_API_KEY = os.getenv('YELP_API_KEY')
+print(YELP_API_KEY)
 
 def index(request):
 
@@ -319,7 +326,7 @@ def restaurants(request):
         long = data['long']
         search = data['search']
 
-        yelp_api = 'sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx'
+        yelp_api = YELP_API_KEY
         url = "https://api.yelp.com/v3/businesses/search?"
 
         params = {
@@ -332,7 +339,7 @@ def restaurants(request):
 
         headers = {
             "accept": "application/json",
-            'Authorization': 'Bearer ' + yelp_api
+            'Authorization': yelp_api
             }
 
         response = requests.get(url, params, headers=headers)
@@ -359,7 +366,7 @@ def restaurant(request, place_id):
 
         headers = {
             "accept": "application/json",
-            "Authorization": "Bearer sY6fVKHcjC3SY_HN8f1J5NJ1wHFbO8CwWYZztZztqFZWc8-0cV_DWvrQCkZdZM3-KaoxFjo140Hv42xvCmZB7yIOAQviJ9oPfxK24rvNHDiFjilcBxC5ouQav6mPY3Yx"
+            "Authorization": YELP_API_KEY
         }
 
 
