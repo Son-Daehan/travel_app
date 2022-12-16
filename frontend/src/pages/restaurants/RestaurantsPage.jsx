@@ -11,12 +11,14 @@ import ReastaurantsHeader from "../../components/restaurants/RestaurantsHeader";
 
 import LeafletMap from "../../components/restaurants/map/LeafletMap";
 import Review from "../../components/restaurants/map/Review";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const RestaurantsPage = () => {
 	const [inputSearch, setInputSearch] = useState(null);
 	const [reviewMapDisplay, setReviewMapDisplay] = useState(false);
 	const { restaurantNameParam } = useParams();
+	const { authorized } = useSelector((state) => state.user);
+	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 	const {
@@ -39,7 +41,10 @@ const RestaurantsPage = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getUserLocation());
+		if (!authorized) {
+			navigate("/account/login");
+			dispatch(getUserLocation());
+		}
 	}, []);
 
 	useEffect(() => {

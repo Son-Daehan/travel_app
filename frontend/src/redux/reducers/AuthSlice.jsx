@@ -7,6 +7,7 @@ const initialState = {
 	loading: false,
 	error: null,
 	success: false,
+	authorized: false,
 };
 
 export const signUp = createAsyncThunk(
@@ -43,12 +44,14 @@ const AuthSlice = createSlice({
 			state.loading = false;
 			state.userInfo = null;
 			state.error = null;
+			state.authorized = false;
 		},
 	},
 	extraReducers: {
 		[signIn.pending]: (state) => {
 			state.loading = true;
 			state.error = null;
+			state.authorized = false;
 		},
 		[signIn.fulfilled]: (state, { payload }) => {
 			state.loading = false;
@@ -62,10 +65,12 @@ const AuthSlice = createSlice({
 			localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
 			localStorage.setItem("hydrate", JSON.stringify(true));
 			// state.sessionID = payload.sessionID;
+			state.authorized = true;
 		},
 		[signIn.rejected]: (state, { payload }) => {
 			state.loading = false;
 			state.error = payload.message;
+			state.authorized = false;
 		},
 
 		// // sign up

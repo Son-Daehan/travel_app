@@ -9,6 +9,8 @@ import ProfilePage from "./pages/account/ProfilePage";
 import axios from "axios";
 import Footer from "./components/footer/Footer";
 import RestaurantsPage from "./pages/restaurants/RestaurantsPage";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";

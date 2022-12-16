@@ -1,8 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllReviews } from "../../redux/reducers/ReviewSlice";
+import CommentCreateSection from "./CommentCreateSection";
 import CommentsSection from "./CommentsSection";
 import ReviewLikeSection from "./ReviewLikeSection";
 import "./reviewssection.css";
@@ -10,6 +12,8 @@ import "./reviewssection.css";
 const ReviewsSection = () => {
 	const dispatch = useDispatch();
 	const { reviews } = useSelector((state) => state.review);
+
+	const [displayComments, setDisplayComments] = useState(false);
 
 	useEffect(() => {
 		dispatch(getAllReviews());
@@ -33,16 +37,18 @@ const ReviewsSection = () => {
 							<hr />
 							<p className="home-reviews-description">{review.text}</p>
 							<hr />
-
 							<ReviewLikeSection
 								reviewID={review.id}
 								review_likes={review.review_likes}
-							/>
-
-							<CommentsSection
-								reviewID={review.id}
+								setDisplayComments={setDisplayComments}
+								displayComments={displayComments}
 								comments={review.comments}
 							/>
+
+							{review.comments && displayComments && (
+								<CommentsSection comments={review.comments} />
+							)}
+							<CommentCreateSection reviewID={review.id} />
 						</div>
 					);
 				})}
