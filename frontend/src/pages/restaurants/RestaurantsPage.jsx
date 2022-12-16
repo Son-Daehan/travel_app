@@ -17,7 +17,6 @@ const RestaurantsPage = () => {
 	const [inputSearch, setInputSearch] = useState(null);
 	const [reviewMapDisplay, setReviewMapDisplay] = useState(false);
 	const { restaurantNameParam } = useParams();
-	const { authorized } = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
@@ -41,10 +40,11 @@ const RestaurantsPage = () => {
 	};
 
 	useEffect(() => {
+		const authorized = localStorage.getItem("hydrate");
 		if (!authorized) {
 			navigate("/account/login");
-			dispatch(getUserLocation());
 		}
+		dispatch(getUserLocation());
 	}, []);
 
 	useEffect(() => {

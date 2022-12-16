@@ -5,13 +5,12 @@ import ReviewsSectionHeader from "../../components/homepage/ReviewsSectionHeader
 import "./homepage.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const HomePage = () => {
-	const { authorized } = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		const authorized = localStorage.getItem("hydrate");
 		if (!authorized) {
 			navigate("/account/login");
 		}
