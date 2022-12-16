@@ -1,32 +1,66 @@
 Chat Application + Travel Blog/Information
 
-1. Connect and chat with people around the world.
+WHAT IS IT?
 
-- chat application will be based on region or country and anyone can connect to it
+A social media platform specifically targeting reviews for restaurants.
+Users are able to search for restaurants near their area and share their experience with other users through the form of reviews.
 
-2. Post blogs with amazing places to visit!
+BACKEND
 
-- Chat will be based on areas
+The backend consists of several tools:
 
-- Be able to upload photos for the blogs
+- Python/Django
+- Django Channels
+- Redis
 
-4. Travel information (api)
-
-5. Weather information (api)
-
-CRUD
+MODELS
 
 - Users
   - Full CRUD functionality
-- Blog
+- Reviews
   - Full CRUD functionality
-  - possibly comments
+  - Has many comments
+  - Has many likes
+- Comments
+  - Full CRUD functionality
+  - Belongs to a Review
+  - Has many likes
+- Liking a Review
+  - Belongs to a Review
+- Liking a Comment
+  - Belongs to a Comment
 - Chat log
   - Get and Post to Redis
+  - Allows users to chat with people in their area based on their geolation which is tracked by `http://ip-api.com/json/`.
+
+FRONTEND
+
+The frontend consists of several tools:
+
+- ReactJS
+- Redux
+- Websocket
 
 API
 
-- Implement some sort of travel API to list:
-  - hotels/flights/cars/etc. - not for booking but for information which will route to the sites
-- Use Google Maps API or Mapbox API for locations
-- Weather map to see a day-to-day weather forecast of places to visit
+- http://ip-api.com/json/
+  - Gets the user's current geolocation which is used to find restaurants nearby
+- Yelp API
+  - Used to get restaurants information based on the current location of the user
+- LeafletMap
+  - Used to map the locations of the restaurants results from the Yelp API call
+
+There are three parts to this application:
+
+- First Part
+
+  - First part consists of a user experience in interacting with a search function for restaurants near their area which is mapped through the use of Leaflet Map.
+
+- Second Part
+
+  - Users are able to create reviews and comments as well as being able to read both reviews and comments and leaving a like.
+
+- Third Part
+  - Users are able to connect to a real time chat application to interact with other users in their current location.
+  - Websockets allows users to connect to the server based on the url params which Django Channels intercepts to form a 2-way connection.
+  - Users outputs and inputs are also provided through an axios call which sends the data to django which is then saved to Redis.

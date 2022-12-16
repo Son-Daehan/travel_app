@@ -7,7 +7,6 @@ import json
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
-print(redis_instance)
 
 @api_view(['GET', 'POST'])
 def manage_chat_log(request, **data):
