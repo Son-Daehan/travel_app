@@ -7,6 +7,7 @@ import "./navbar.css";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
+	const authorized = localStorage.getItem("hydrate");
 
 	const logout = async () => {
 		const response = await axios.post("/api/account/log_out/");
@@ -25,8 +26,12 @@ const Navbar = () => {
 					<Link to="/travel_information">Restaurants</Link>
 
 					<Link to="/account/profile">Profile</Link>
-					<Link to="/account/login">Login</Link>
-					<Link to="/account/register">Register</Link>
+					{!authorized && (
+						<>
+							<Link to="/account/login">Login</Link>
+							<Link to="/account/register">Register</Link>
+						</>
+					)}
 					<Link onClick={logout} to="/">
 						Logout
 					</Link>

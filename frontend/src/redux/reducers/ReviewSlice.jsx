@@ -17,11 +17,41 @@ export const createReview = createAsyncThunk(
 	}
 );
 
+export const deleteReview = createAsyncThunk(
+	"deleteReview",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.delete("/api/review/delete/", {
+				data: data,
+			});
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 export const getAllReviews = createAsyncThunk(
 	"getAllReviews",
 	async (data, { rejectWithValue }) => {
 		try {
 			const response = await axios.get("/api/reviews/", data);
+
+			return response.data.reviews;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
+export const getReviewsByUser = createAsyncThunk(
+	"getReviewsByUser",
+	async (data, { rejectWithValue }) => {
+		console.log(data.username);
+		try {
+			const response = await axios.get(
+				`/api/reviews/profile/${data.username}/`
+			);
 
 			return response.data.reviews;
 		} catch (error) {
@@ -68,6 +98,11 @@ const ReviewSlice = createSlice({
 			state.reviews = action.payload;
 		},
 		[getAllReviews.rejected]: (state, { payload }) => {},
+		[getReviewsByUser.pending]: (state) => {},
+		[getReviewsByUser.fulfilled]: (state, action) => {
+			state.reviews = action.payload;
+		},
+		[getReviewsByUser.rejected]: (state, { payload }) => {},
 		[createReview.pending]: (state) => {},
 		[createReview.fulfilled]: (state, { payload }) => {},
 		[createReview.rejected]: (state, { payload }) => {},

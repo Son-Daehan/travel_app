@@ -22,7 +22,6 @@ const HomePage = () => {
 			<div>
 				<ReviewsSectionHeader />
 				<ReviewsSection />
-				<ReviewsSection />
 			</div>
 			<Chat />
 		</div>

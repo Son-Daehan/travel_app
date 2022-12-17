@@ -21,6 +21,8 @@ urlpatterns = [
     path('api/reviews/', views.reviews),
     path('api/reviews/likes/', views.review_likes),
     path('api/reviews/likes/delete/', views.review_likes_delete),
+    path('api/reviews/profile/<str:profile_name>/', views.reviews_by_user),
+    path('api/review/delete/', views.review_delete),
 
     # COMMENT
     path('api/comments/', views.comments),

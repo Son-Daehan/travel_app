@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getAllReviews } from "../../redux/reducers/ReviewSlice";
+import { Link, useParams } from "react-router-dom";
+import {
+	getAllReviews,
+	getReviewsByUser,
+} from "../../redux/reducers/ReviewSlice";
 import CommentCreateSection from "./CommentCreateSection";
 import CommentsSection from "./CommentsSection";
 import ReviewLikeSection from "./ReviewLikeSection";
@@ -13,10 +16,19 @@ const ReviewsSection = () => {
 	const dispatch = useDispatch();
 	const { reviews } = useSelector((state) => state.review);
 
+	const { usernameParam } = useParams();
+
 	const [displayComments, setDisplayComments] = useState(false);
 
 	useEffect(() => {
-		dispatch(getAllReviews());
+		if (!usernameParam) {
+			dispatch(getAllReviews());
+		} else {
+			const data = {
+				username: usernameParam,
+			};
+			dispatch(getReviewsByUser(data));
+		}
 	}, []);
 
 	return (
@@ -28,7 +40,7 @@ const ReviewsSection = () => {
 						<div className="home-reviews-container">
 							<div className="home-reviews-header">
 								<div>Image</div>
-								<div>{review.user}</div>
+								<Link to={`/profile/${review.user}`}>{review.user}</Link>
 								<div>{review.title}</div>
 								<Link to={`/travel_information/${review.restaurant_name}`}>
 									{review.restaurant_name}

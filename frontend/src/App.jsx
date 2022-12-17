@@ -5,7 +5,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/account/LoginPage";
 import RegisterPage from "./pages/account/RegisterPage";
 import HomePage from "./pages/home/HomePage";
-import ProfilePage from "./pages/account/ProfilePage";
+import ProfilePage from "./pages/account/profile/ProfilePage";
 import axios from "axios";
 import Footer from "./components/footer/Footer";
 import RestaurantsPage from "./pages/restaurants/RestaurantsPage";
@@ -23,6 +23,7 @@ function App() {
 				<Routes>
 					{/* HOMEPAGE ROUTE */}
 					<Route path="/" element={<HomePage />} />
+					<Route path="/profile/:usernameParam" element={<HomePage />} />
 
 					{/* TRAVEL ROUTES */}
 					<Route path="/travel_information" element={<RestaurantsPage />} />

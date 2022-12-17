@@ -131,6 +131,30 @@ def reviews(request):
 
         return JsonResponse({'success':True})
 
+@api_view(['GET', 'POST'])
+def reviews_by_user(request, profile_name):
+    print(profile_name)
+    if request.method == 'GET':
+        user = User.objects.get(email=profile_name)
+        reviews = Review.objects.filter(user=user)
+        # print(reviews)
+
+        serialized_reviews = ReviewSerializer(reviews, many=True)
+
+        return JsonResponse({'reviews':serialized_reviews.data})
+
+
+@api_view(['DELETE'])
+def review_delete(request):
+    if request.method == 'DELETE':
+        review_id = request.data['review_id']
+
+        review = Review.objects.get(id=review_id)
+
+        review.delete()
+
+        return JsonResponse({'succes':True})
+
 
 @api_view(['GET', 'POST'])
 def comments(request):
