@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { changePassword } from "../../../redux/reducers/AuthSlice";
 import {
 	deleteReview,
 	getReviewsByUser,
@@ -7,6 +9,10 @@ import {
 import "./profilepage.css";
 
 const ProfilePage = () => {
+	const [newPassword, setNewPassword] = useState(null);
+	const [confirmNewPassword, setConfirmNewPassword] = useState(null);
+	const [displayChangePassword, setDisplayChangePassword] = useState(false);
+
 	const { loading, error, success, userInfo } = useSelector(
 		(state) => state.user
 	);
@@ -30,6 +36,18 @@ const ProfilePage = () => {
 		dispatch(deleteReview(data));
 	};
 
+	const handleChangePassword = () => {
+		if (newPassword == confirmNewPassword) {
+			const data = {
+				username: userInfo.email,
+				new_password: newPassword,
+			};
+			dispatch(changePassword(data));
+		} else {
+			console.log("passwords do not match");
+		}
+	};
+
 	useEffect(() => {
 		handleGetReviewsByUser();
 	}, []);
@@ -51,7 +69,38 @@ const ProfilePage = () => {
 							</div>
 							<div>
 								<div className="profile-about-me-container">ABOUTME</div>
-								<div>Change Password</div>
+								<div>
+									<button
+										onClick={() => {
+											!displayChangePassword
+												? setDisplayChangePassword(true)
+												: setDisplayChangePassword(false);
+										}}
+									>
+										Change Password
+									</button>
+									<div>
+										{displayChangePassword && (
+											<>
+												<input
+													placeholder="New Password"
+													onChange={(event) =>
+														setNewPassword(event.target.value)
+													}
+												/>
+												<input
+													placeholder="Confirm New Password"
+													onChange={(event) =>
+														setConfirmNewPassword(event.target.value)
+													}
+												/>
+												<button onClick={handleChangePassword}>
+													Change Password
+												</button>
+											</>
+										)}
+									</div>
+								</div>
 							</div>
 						</div>
 						<div className="profile-page-bottom-wrapper"></div>

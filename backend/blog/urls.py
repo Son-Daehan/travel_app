@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/account/log_in/', views.log_in),
     path('api/account/log_out/', views.log_out),
     path('api/account/user_profile/', views.user_profile),
+    path('api/account/password_change/', views.password_change),
 
     
     # RESTAURANT

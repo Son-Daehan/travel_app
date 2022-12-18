@@ -103,6 +103,22 @@ def user_profile(request):
         return JsonResponse({'authenticated':False})
 
 
+@api_view(['PUT'])
+def password_change(request):
+    try:
+        print(request.data)
+        response = request.data
+        user = User.objects.get(email=response['username'])
+        print(user)
+        user.set_password(response['new_password'])
+        user.save()
+        return JsonResponse({'success':True})
+
+    except:
+
+        return JsonResponse({'success':False})
+
+
 
 
 @api_view(['GET', 'POST'])

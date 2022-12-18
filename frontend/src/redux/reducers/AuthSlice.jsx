@@ -35,6 +35,19 @@ export const signIn = createAsyncThunk(
 	}
 );
 
+export const changePassword = createAsyncThunk(
+	"changePassword",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.put("/api/account/password_change/", data);
+
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 const AuthSlice = createSlice({
 	name: "user",
 	initialState,
