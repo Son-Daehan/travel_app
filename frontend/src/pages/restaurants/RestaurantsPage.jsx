@@ -65,43 +65,45 @@ const RestaurantsPage = () => {
 	return (
 		<>
 			<div className="restaurants-container">
-				<div className="restaurants-top-wrapper">
+				<div className="restaurants-top-container">
 					<ReastaurantsHeader
 						setInputSearch={setInputSearch}
 						handleSearchRestaurants={handleSearchRestaurants}
 					/>
 				</div>
-				<div className="restaurants-bottom-wrapper">
-					<div className="restaurants-scroll-container">
-						{!restaurantsLoading &&
-							restaurants.map((restaurant) => {
-								return (
-									<>
-										<div
-											onClick={() => {
-												handleGetRestaurantDetail(restaurant.id);
-											}}
-										>
-											<RestaurantCard
-												restaurant={restaurant}
-												setReviewMapDisplay={setReviewMapDisplay}
-											/>
-										</div>
-									</>
-								);
-							})}
-					</div>
+				<div className="restaurants-bottom-container">
+					<div className="restaurants-bottom-wrapper">
+						<div className="restaurants-scroll-container">
+							{!restaurantsLoading &&
+								restaurants.map((restaurant) => {
+									return (
+										<>
+											<div
+												onClick={() => {
+													handleGetRestaurantDetail(restaurant.id);
+												}}
+											>
+												<RestaurantCard
+													restaurant={restaurant}
+													setReviewMapDisplay={setReviewMapDisplay}
+												/>
+											</div>
+										</>
+									);
+								})}
+						</div>
 
-					{!reviewMapDisplay ? (
-						<LeafletMap
-							lat={lat}
-							long={long}
-							positions={restaurantsPosition}
-							loading={restaurantsLoading}
-						/>
-					) : (
-						<Review setReviewMapDisplay={setReviewMapDisplay} />
-					)}
+						{!reviewMapDisplay ? (
+							<LeafletMap
+								lat={lat}
+								long={long}
+								positions={restaurantsPosition}
+								loading={restaurantsLoading}
+							/>
+						) : (
+							<Review setReviewMapDisplay={setReviewMapDisplay} />
+						)}
+					</div>
 				</div>
 			</div>
 		</>

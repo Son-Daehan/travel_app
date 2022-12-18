@@ -1,0 +1,11 @@
+.footer-container {
+    display: grid;
+    height: 7rem;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: center;
+    background-color: azure;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+}

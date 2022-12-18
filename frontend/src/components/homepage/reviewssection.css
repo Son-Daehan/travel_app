@@ -14,11 +14,14 @@
 
 .home-reviews-container {
     display: grid;
-    grid-template-rows: auto;
+    margin-top: 2rem;
+}
+
+.home-reviews-wrapper {
+    display: grid;
     box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
     padding: 10px;
     border-radius: 5px;
-
 }
 
 .home-reviews-header {

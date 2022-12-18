@@ -38,29 +38,31 @@ const ReviewsSection = () => {
 				reviews.map((review) => {
 					return (
 						<div className="home-reviews-container">
-							<div className="home-reviews-header">
-								<div>Image</div>
-								<Link to={`/profile/${review.user}`}>{review.user}</Link>
-								<div>{review.title}</div>
-								<Link to={`/travel_information/${review.restaurant_name}`}>
-									{review.restaurant_name}
-								</Link>
-							</div>
-							<hr />
-							<p className="home-reviews-description">{review.text}</p>
-							<hr />
-							<ReviewLikeSection
-								reviewID={review.id}
-								review_likes={review.review_likes}
-								setDisplayComments={setDisplayComments}
-								displayComments={displayComments}
-								comments={review.comments}
-							/>
+							<div className="home-reviews-wrapper">
+								<div className="home-reviews-header">
+									<div>Image</div>
+									<Link to={`/profile/${review.user}`}>{review.user}</Link>
+									<div>{review.title}</div>
+									<Link to={`/travel_information/${review.restaurant_name}`}>
+										{review.restaurant_name}
+									</Link>
+								</div>
+								<hr />
+								<p className="home-reviews-description">{review.text}</p>
+								<hr />
+								<ReviewLikeSection
+									reviewID={review.id}
+									review_likes={review.review_likes}
+									setDisplayComments={setDisplayComments}
+									displayComments={displayComments}
+									comments={review.comments}
+								/>
 
-							{review.comments && displayComments && (
-								<CommentsSection comments={review.comments} />
-							)}
-							<CommentCreateSection reviewID={review.id} />
+								{review.comments && displayComments && (
+									<CommentsSection comments={review.comments} />
+								)}
+								<CommentCreateSection reviewID={review.id} />
+							</div>
 						</div>
 					);
 				})}
