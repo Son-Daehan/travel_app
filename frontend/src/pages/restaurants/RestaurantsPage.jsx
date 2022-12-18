@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	getRestaurantDetail,
 	getRestaurants,
-	getUserLocation,
 } from "../../redux/reducers/RestaurantSlice";
+import { getUserLocation } from "../../redux/reducers/AuthSlice";
 import RestaurantCard from "../../utilities/RestaurantCard";
 import ReastaurantsHeader from "../../components/restaurants/RestaurantsHeader";
 
@@ -20,18 +20,23 @@ const RestaurantsPage = () => {
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
-	const {
-		restaurants,
-		lat,
-		long,
-		userPositionLoading,
-		restaurantsLoading,
-		restaurantsPosition,
-	} = useSelector((state) => state.restaurants);
+	const { restaurants, restaurantsLoading, restaurantsPosition } = useSelector(
+		(state) => state.restaurants
+	);
+
+	const { lat, long, userLocation, userPositionLoading } = useSelector(
+		(state) => state.user
+	);
 
 	const handleSearchRestaurants = () => {
 		// GET THE RESTAURANT BASED ON GEOLOCATION AND CUISINE INPUT
-		dispatch(getRestaurants({ lat: lat, long: long, search: inputSearch }));
+		dispatch(
+			getRestaurants({
+				lat: userLocation.lat,
+				long: userLocation.long,
+				search: inputSearch,
+			})
+		);
 	};
 
 	const handleGetRestaurantDetail = (placeID) => {
@@ -44,7 +49,6 @@ const RestaurantsPage = () => {
 		if (!authorized) {
 			navigate("/account/login");
 		}
-		dispatch(getUserLocation());
 	}, []);
 
 	useEffect(() => {
@@ -52,13 +56,19 @@ const RestaurantsPage = () => {
 		if (!userPositionLoading && restaurantNameParam) {
 			dispatch(
 				getRestaurants({
-					lat: lat,
-					long: long,
+					lat: userLocation.lat,
+					long: userLocation.long,
 					search: `${restaurantNameParam}`,
 				})
 			);
 		} else if (!userPositionLoading && !restaurantNameParam) {
-			dispatch(getRestaurants({ lat: lat, long: long, search: "food" }));
+			dispatch(
+				getRestaurants({
+					lat: userLocation.lat,
+					long: userLocation.long,
+					search: "food",
+				})
+			);
 		}
 	}, [userPositionLoading]);
 
@@ -95,8 +105,8 @@ const RestaurantsPage = () => {
 
 						{!reviewMapDisplay ? (
 							<LeafletMap
-								lat={lat}
-								long={long}
+								lat={userLocation.lat}
+								long={userLocation.long}
 								positions={restaurantsPosition}
 								loading={restaurantsLoading}
 							/>

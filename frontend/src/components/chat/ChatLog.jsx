@@ -25,6 +25,8 @@ const ChatLog = ({ user }) => {
 		(state) => state.chat
 	);
 
+	const { userLocation } = useSelector((state) => state.user);
+
 	const dispatch = useDispatch();
 
 	// HAVE THE ONCLOSE HAVE A POST REQUEST SENT TO REDIS STORING CHAT LOG
@@ -39,7 +41,7 @@ const ChatLog = ({ user }) => {
 
 	const sendText = () => {
 		const data = {
-			room_name: inputRoomName,
+			room_name: userLocation.city,
 			user: userInfo.email,
 			message: text,
 		};
@@ -118,16 +120,16 @@ const ChatLog = ({ user }) => {
 
 	useEffect(() => {
 		if (chatLogLoading) {
-			dispatch(getChatLog(roomName));
+			dispatch(getChatLog(userLocation.city));
 		}
 	}, [chatLogLoading]);
 
 	const handleRoomConnect = () => {
 		const chatSocket = new WebSocket(
-			`ws://localhost:8000/ws/chat/${inputRoomName}/`
+			`ws://localhost:8000/ws/chat/${userLocation.city}/`
 		);
 		setSocket(chatSocket);
-		dispatch(setRoomName(inputRoomName));
+		dispatch(setRoomName(userLocation.city));
 	};
 
 	const handleDisplayChat = () => {

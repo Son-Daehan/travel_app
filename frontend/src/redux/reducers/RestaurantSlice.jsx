@@ -3,12 +3,9 @@ import axios from "axios";
 
 const initialState = {
 	address: null,
-	lat: null,
-	long: null,
 	cuisine: null,
 	restaurants: null,
 	restaurant: null,
-	userPositionLoading: true,
 	restaurantsLoading: true,
 	restaurantsPosition: [],
 };
@@ -34,18 +31,6 @@ export const getRestaurants = createAsyncThunk(
 		};
 		try {
 			const response = await axios.post(`/api/restaurants/`, user_location);
-			return response.data;
-		} catch (error) {
-			return rejectWithValue(error);
-		}
-	}
-);
-
-export const getUserLocation = createAsyncThunk(
-	"getUserLocation",
-	async (data, { rejectWithValue }) => {
-		try {
-			const response = await axios.get(`http://ip-api.com/json/`);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -88,17 +73,6 @@ const RestaurantSlice = createSlice({
 		},
 
 		[getRestaurantDetail.rejected]: (state, action) => {},
-
-		[getUserLocation.pending]: (state) => {},
-		[getUserLocation.fulfilled]: (state, action) => {
-			state.lat = action.payload.lat;
-			state.long = action.payload.lon;
-			state.userPositionLoading = false;
-		},
-		[getUserLocation.rejected]: (state, action) => {
-			state.lat = null;
-			state.long = null;
-		},
 	},
 });
 

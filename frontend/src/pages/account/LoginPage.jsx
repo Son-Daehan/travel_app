@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../redux/reducers/AuthSlice";
+import { getUserLocation, signIn } from "../../redux/reducers/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./account.css";
@@ -14,6 +14,7 @@ const LoginPage = () => {
 	const dispatch = useDispatch();
 	const loginUser = () => {
 		dispatch(signIn({ username, password }));
+		dispatch(getUserLocation());
 	};
 
 	const navigate = useNavigate();

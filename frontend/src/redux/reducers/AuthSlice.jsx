@@ -8,6 +8,8 @@ const initialState = {
 	error: null,
 	success: false,
 	authorized: false,
+	userLocation: JSON.parse(localStorage.getItem("userLocation")) || null,
+	userPositionLoading: true,
 };
 
 export const signUp = createAsyncThunk(
@@ -48,6 +50,18 @@ export const changePassword = createAsyncThunk(
 	}
 );
 
+export const getUserLocation = createAsyncThunk(
+	"getUserLocation",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`http://ip-api.com/json/`);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
 const AuthSlice = createSlice({
 	name: "user",
 	initialState,
@@ -58,6 +72,7 @@ const AuthSlice = createSlice({
 			state.userInfo = null;
 			state.error = null;
 			state.authorized = false;
+			state.userLocation = null;
 		},
 	},
 	extraReducers: {
@@ -84,6 +99,7 @@ const AuthSlice = createSlice({
 			state.loading = false;
 			state.error = payload.message;
 			state.authorized = false;
+			localStorage.clear();
 		},
 
 		// // sign up
@@ -99,6 +115,24 @@ const AuthSlice = createSlice({
 			// console.log(action.payload.message);
 			state.error = payload.message;
 			state.loading = false;
+		},
+		[getUserLocation.pending]: (state) => {},
+		[getUserLocation.fulfilled]: (state, action) => {
+			const lat = action.payload.lat;
+			const long = action.payload.lon;
+			const city = action.payload.city;
+			state.userPositionLoading = false;
+
+			const userLocation = {
+				lat: lat,
+				long: long,
+				city: city,
+			};
+			state.userLocation = userLocation;
+			localStorage.setItem("userLocation", JSON.stringify(userLocation));
+		},
+		[getUserLocation.rejected]: (state, action) => {
+			state.userLocation = null;
 		},
 	},
 });
