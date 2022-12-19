@@ -21,22 +21,30 @@ const CommentsSection = ({ comments }) => {
 	};
 
 	return (
-		<>
+		<div className="home-reviews-comments-section-container">
 			{comments &&
 				comments.map((comment) => {
 					return (
-						<div className="home-reviews-comments-section">
-							<div>{comment.user}</div>
-							<div>{comment.text}</div>
-							<CommentLikeSection
-								commentID={comment.id}
-								commentLikes={comment.comment_likes}
-							/>
+						<div className="home-reviews-commits-section-wrapper">
+							<div className="home-reviews-comments-section-top-wrapper">
+								<div className="home-reviews-comments-section-user">
+									{comment.user}
+								</div>
+								<div></div>
+								<div className="home-reviews-comments-section-text">
+									{comment.text}
+								</div>
+							</div>
+							<div className="home-reviews-comments-section-bottom-wrapper">
+								<CommentLikeSection
+									commentID={comment.id}
+									commentLikes={comment.comment_likes}
+								/>
+							</div>
 						</div>
 					);
 				})}
-			<hr />
-		</>
+		</div>
 	);
 };
 

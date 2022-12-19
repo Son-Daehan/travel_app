@@ -272,8 +272,7 @@ def comment_likes_delete(request):
             user = User.objects.get(email=response['username'])
             comment_id = request.data['comment_id']
 
-
-            comment_like = CommentLike.objects.filter(user=user and comment_id == comment_id)
+            comment_like = CommentLike.objects.get(user=user, comment_id=comment_id)
 
             comment_like.delete()
 

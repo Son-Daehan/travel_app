@@ -4,6 +4,7 @@ import {
 	deleteCommentLike,
 	likeAComment,
 } from "../../redux/reducers/CommentSlice";
+import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 
 const CommentLikeSection = ({ commentID, commentLikes }) => {
 	const [loading, setLoading] = useState(true);
@@ -23,9 +24,6 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 		const likesByComment = Object.values(commentLikes);
 
 		for (let i = 0; i < likesByComment.length; i++) {
-			console.log(likesByComment[i].user);
-			console.log(userInfo.email);
-
 			if (likesByComment[i].user === userInfo.email) {
 				setLoading(false);
 
@@ -44,12 +42,28 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 	};
 
 	return (
-		<div>
-			{loading ? (
-				<div onClick={handleLikeComment}>Like</div>
-			) : (
-				<div onClick={handleDeleteCommentLike}>DeleteLike</div>
-			)}
+		<div className="comment-like-section-container">
+			<div className="comment-like-section-wrapper">
+				{loading ? (
+					<button
+						className="comment-like-section-like-button"
+						style={{ backgroundColor: "white" }}
+						onClick={handleLikeComment}
+					>
+						<AiOutlineLike /> {commentLikes.length}{" "}
+						{commentLikes.length > 1 ? "Likes" : "Like"}
+					</button>
+				) : (
+					<button
+						className="comment-like-section-like-button"
+						style={{ backgroundColor: "white" }}
+						onClick={handleDeleteCommentLike}
+					>
+						<AiTwotoneLike /> {commentLikes.length}{" "}
+						{commentLikes.length > 1 ? "Likes" : "Like"}
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };
