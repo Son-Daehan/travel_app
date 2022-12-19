@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../redux/reducers/CommentSlice";
 import CommentLikeSection from "./CommentLikeSection";
+import "./commentssection.css";
 
 const CommentsSection = ({ comments }) => {
 	const [inputComment, setInputComment] = useState(null);

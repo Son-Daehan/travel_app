@@ -66,21 +66,32 @@ const ReviewLikeSection = ({
 			<div className="home-reviews-likes-comments">
 				{/* <div onClick={loading ? handleLikeAReview : handleDeleteReviewLike}> */}
 				<>
-					<div>
+					<div className="home-reviews-likes-wrapper">
 						{loading ? (
-							<button onClick={handleLikeAReview}>
+							<button
+								onClick={handleLikeAReview}
+								style={{ backgroundColor: "white" }}
+							>
 								<AiOutlineLike />
 							</button>
 						) : (
-							<button onClick={handleDeleteReviewLike}>
+							<button
+								onClick={handleDeleteReviewLike}
+								style={{ backgroundColor: "white" }}
+							>
 								<AiTwotoneLike />
 							</button>
 						)}
+						{review_likes.length}
+						{review_likes.length > 1 ? <div>likes</div> : <div>like</div>}
 					</div>
-					{review_likes.length} {review_likes.length > 1 ? "likes" : "like"}
 				</>
 				{/* </div> */}
-				<div onClick={handleSetDisplayComments}>{comments.length} comments</div>
+				<div className="home-reviews-comments-wrapper">
+					<div onClick={handleSetDisplayComments}>
+						{comments.length} comments
+					</div>
+				</div>
 			</div>
 			<hr />
 		</>

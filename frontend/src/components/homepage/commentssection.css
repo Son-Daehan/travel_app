@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+
+
+
+/* COMMENT CREATE SECTION */
+
+.home-reviews-create-comments-section {
+    display: grid;
+    grid-template-columns: 10% 65% 5% 20%;
+}
+
+
+.home-reviews-create-comments-section-text-input {
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 5px;
+    border-radius: 5px;
+}
