@@ -161,32 +161,30 @@ const ChatLog = ({ user }) => {
 					<>
 						<hr />
 						<div className="chat-log-wrapper">
-							<hr />
-							<div className="chat-log-wrapper-inner">
-								{messages &&
-									messages.map((message, i) => {
-										return (
-											<div
-												key={i}
-												className={
-													userInfo.email === message.user
-														? "user-chat-setting"
-														: ""
-												}
-											>
-												<div className="chat-message-setting">
-													<div>
-														<em>User: {message.user}</em>
-													</div>
-													<div>{message.msg}</div>
+							{messages &&
+								messages.map((message, i) => {
+									return (
+										<div
+											className="chat-log-wrapper-inner"
+											style={
+												userInfo.email === message.user
+													? { "align-items": "flex-end" }
+													: { "align-items": "flex-start" }
+											}
+										>
+											<div className="chat-message-container">
+												<div>
+													<em>{message.user}</em>
 												</div>
+												<div>{message.msg}</div>
 											</div>
-										);
-									})}
-							</div>
+										</div>
+									);
+								})}
 						</div>
 						<div className="chat-message-wrapper">
 							<input
+								className="chat-message-input"
 								type="text"
 								placeholder="Write a message..."
 								onChange={(event) => setText(event.target.value)}

@@ -22,38 +22,30 @@
 
 .chat-log-wrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 20px;
     overflow-y:scroll;
-    height: 18rem;
+    height: 22.5rem;
 }
 
 .chat-log-wrapper-inner {
-    width: 90%
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.chat-message-wrapper {
+.chat-message-container {
     display: flex;
-    flex-direction: row;
-    position: fixed;
-    bottom: 15rem;
-}
-
-.changed {
-    height: 30rem;
-}
-
-.user-chat-setting {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.chat-message-setting {
+    flex-direction: column;
     box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
     padding: 2px;
     border-radius: 5px;
+    max-width: 250px;
+}
+
+
+.changed {
+    height: 30rem;
 }
 
 .chat-button {
@@ -61,4 +53,18 @@
     padding: 2px;
     border-radius: 5px;
     background-color: rgba(72, 160, 255, 0.384)
+}
+
+.chat-message-wrapper {
+    display: flex;
+    position: fixed;
+    bottom: 15rem;
+    right: 4rem;
+}
+
+.chat-message-input {
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 2px;
+    border-radius: 5px;
+    width: 17.5rem;
 }
