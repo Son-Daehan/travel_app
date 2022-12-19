@@ -15,7 +15,12 @@ const ReastaurantsHeader = ({ setInputSearch, handleSearchRestaurants }) => {
 						aria-label="Search"
 						onChange={(event) => setInputSearch(event.target.value)}
 					/>
-					<button onClick={handleSearchRestaurants}>Search</button>
+					<button
+						className="button-container"
+						onClick={handleSearchRestaurants}
+					>
+						Search
+					</button>
 				</div>
 				<div></div>
 			</div>

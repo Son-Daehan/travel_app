@@ -4,13 +4,8 @@
     flex-direction: column;
 }
 
-.home-create-review-container {
-    display: grid;
-    grid-template-columns: 20% 80%;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
-}
+
+/* REVIEWS PAGE CONTENT */
 
 .home-reviews-container {
     display: grid;
@@ -26,11 +21,49 @@
 
 .home-reviews-header {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 30% 70%;
 }
 
-.home-reviews-description {
+.home-reviews-header-profile-container{
+    display: flex;
+    flex-direction: column;
+}
 
+
+.home-reviews-header-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.home-reviews-header-title {
+    display: flex;
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 3px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.home-reviews-header-restaurant-name {
+    display: flex;
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 3px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.home-reviews-description {
+    display: grid;
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
 }
 
 .home-reviews-likes-comments {
@@ -49,7 +82,52 @@
 
 }
 
+
+
+/* REVIEWS PAGE HEADER */
+.home-create-review-container {
+    display: grid;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    gap: 10px;
+}
+
+.home-create-review-top-wrapper {
+    display: grid;
+    grid-template-columns: 15% 40% 5% 40%;
+}
+
 .home-reviews-create-comments-section {
     display: grid;
     grid-template-columns: 20% 80%;
+}
+
+.review-title-input {
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%
+}
+.review-name-input {
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%
+}
+
+.home-create-review-middle-wrapper {
+    height: 60px;
+}
+.review-description-input {
+    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.home-create-review-bottom-wrapper {
+    display:grid;
+    justify-content: middle;
 }

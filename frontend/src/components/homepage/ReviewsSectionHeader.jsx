@@ -25,26 +25,38 @@ const ReviewsSectionHeader = () => {
 
 	return (
 		<div className="home-create-review-container">
-			<div>Image</div>
-			<input
-				placeholder="Review Title"
-				onChange={(event) => {
-					setReviewTitle(event.target.value);
-				}}
-			/>
-			<input
-				placeholder="Restaurant Name"
-				onChange={(event) => {
-					setRestaurantName(event.target.value);
-				}}
-			/>
-			<input
-				placeholder="Write a review on a restaurant!"
-				onChange={(event) => {
-					setReview(event.target.value);
-				}}
-			/>
-			<button onClick={handleCreateReview}>Post Review</button>
+			<div className="home-create-review-top-wrapper">
+				<div>Image</div>
+				<input
+					className="review-title-input"
+					placeholder="Review Title"
+					onChange={(event) => {
+						setReviewTitle(event.target.value);
+					}}
+				/>
+				<div></div>
+				<input
+					className="review-name-input"
+					placeholder="Restaurant Name"
+					onChange={(event) => {
+						setRestaurantName(event.target.value);
+					}}
+				/>
+			</div>
+			<div className="home-create-review-middle-wrapper">
+				<input
+					className="review-description-input"
+					placeholder="Write a review on a restaurant!"
+					onChange={(event) => {
+						setReview(event.target.value);
+					}}
+				/>
+			</div>
+			<div className="home-create-review-bottom-wrapper">
+				<button className="button-container" onClick={handleCreateReview}>
+					Post Review
+				</button>
+			</div>
 		</div>
 	);
 };

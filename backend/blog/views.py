@@ -228,9 +228,9 @@ def review_likes_delete(request):
             review_id = request.data['review_id']
 
 
-            review_like = ReviewLike.objects.filter(user=user and review_id == review_id)
-
+            review_like = ReviewLike.objects.get(user=user, review_id=review_id)
             review_like.delete()
+            print('working')
 
             return JsonResponse({'success':True})
         

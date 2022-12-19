@@ -27,7 +27,9 @@ const CommentCreateSection = ({ reviewID }) => {
 						setInputComment(event.target.value);
 					}}
 				/>
-				<button onClick={handleCreateComment}>Post Comment</button>
+				<button className="button-container" onClick={handleCreateComment}>
+					Post Comment
+				</button>
 			</div>
 		</>
 	);

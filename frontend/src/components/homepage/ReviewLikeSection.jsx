@@ -7,6 +7,8 @@ import {
 	likeAReview,
 } from "../../redux/reducers/ReviewSlice";
 
+import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
+
 const ReviewLikeSection = ({
 	reviewID,
 	review_likes,
@@ -62,9 +64,22 @@ const ReviewLikeSection = ({
 	return (
 		<>
 			<div className="home-reviews-likes-comments">
-				<div onClick={loading ? handleLikeAReview : handleDeleteReviewLike}>
+				{/* <div onClick={loading ? handleLikeAReview : handleDeleteReviewLike}> */}
+				<>
+					<div>
+						{loading ? (
+							<button onClick={handleLikeAReview}>
+								<AiOutlineLike />
+							</button>
+						) : (
+							<button onClick={handleDeleteReviewLike}>
+								<AiTwotoneLike />
+							</button>
+						)}
+					</div>
 					{review_likes.length} {review_likes.length > 1 ? "likes" : "like"}
-				</div>
+				</>
+				{/* </div> */}
 				<div onClick={handleSetDisplayComments}>{comments.length} comments</div>
 			</div>
 			<hr />

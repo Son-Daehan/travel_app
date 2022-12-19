@@ -125,11 +125,15 @@ const ChatLog = ({ user }) => {
 	}, [chatLogLoading]);
 
 	const handleRoomConnect = () => {
-		const chatSocket = new WebSocket(
-			`ws://localhost:8000/ws/chat/${userLocation.city}/`
-		);
-		setSocket(chatSocket);
-		dispatch(setRoomName(userLocation.city));
+		try {
+			const chatSocket = new WebSocket(
+				`ws://localhost:8000/ws/chat/${userLocation.city}/`
+			);
+			setSocket(chatSocket);
+			dispatch(setRoomName(userLocation.city));
+		} catch {
+			console.log("No room input");
+		}
 	};
 
 	const handleDisplayChat = () => {
@@ -145,24 +149,16 @@ const ChatLog = ({ user }) => {
 	return (
 		<div className="chat-container">
 			<div className="chat-wrapper" id="change-this">
-				<div className="chat-header-wrapper">
-					<div>Chat with people around you!</div>
-					<button onClick={handleDisplayChat}>-</button>
+				<div onClick={handleDisplayChat} className="chat-header-wrapper">
+					<div>
+						Chat with people in {userLocation ? userLocation.city : ""}!
+					</div>
+					<button className="chat-button" onClick={handleRoomConnect}>
+						Enter room
+					</button>
 				</div>
 				{displayChat && (
 					<>
-						<hr />
-						<div>
-							<div>
-								<input
-									placeholder="Room Name"
-									onChange={(event) => {
-										setInputRoomName(event.target.value);
-									}}
-								/>
-								<button onClick={handleRoomConnect}>Enter room</button>
-							</div>
-						</div>
 						<hr />
 						<div className="chat-log-wrapper">
 							<hr />
@@ -195,7 +191,9 @@ const ChatLog = ({ user }) => {
 								placeholder="Write a message..."
 								onChange={(event) => setText(event.target.value)}
 							/>
-							<button onClick={sendText}>Send</button>
+							<button className="chat-button" onClick={sendText}>
+								Send
+							</button>
 						</div>
 					</>
 				)}

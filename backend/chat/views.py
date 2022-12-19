@@ -16,13 +16,16 @@ def manage_chat_log(request, **data):
     if request.method == 'GET':
         room_name = data['room_name']
         print('name', room_name)
-        response = redis_instance.lrange(room_name, 0, -1)
+        response = redis_instance.lrange(room_name, 0, 10)
         print(response)
         # print(request)
         data = []
 
         for dict in response:
+            print(json.loads(dict))
             data.append(json.loads(dict))
+
+        data.append({'user':'Chat Bot', 'msg':f'Welcome to the {room_name} chat room!'})
 
         # print(data[::-1])
         #  data is stored 

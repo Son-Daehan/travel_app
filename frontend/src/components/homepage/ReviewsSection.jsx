@@ -40,16 +40,26 @@ const ReviewsSection = () => {
 						<div className="home-reviews-container">
 							<div className="home-reviews-wrapper">
 								<div className="home-reviews-header">
-									<div>Image</div>
-									<Link to={`/profile/${review.user}`}>{review.user}</Link>
-									<div>{review.title}</div>
-									<Link to={`/travel_information/${review.restaurant_name}`}>
-										{review.restaurant_name}
-									</Link>
+									<div className="home-reviews-header-profile-container">
+										<div>Image</div>
+										<Link to={`/profile/${review.user}`}>{review.user}</Link>
+									</div>
+									<div className="home-reviews-header-title-container">
+										<div className="home-reviews-header-title">
+											{review.title}
+										</div>
+										<Link
+											className="home-reviews-header-restaurant-name"
+											to={`/travel_information/${review.restaurant_name}`}
+										>
+											{review.restaurant_name}
+										</Link>
+									</div>
 								</div>
 								<hr />
-								<p className="home-reviews-description">{review.text}</p>
-								<hr />
+								<div>
+									<p className="home-reviews-description">{review.text}</p>
+								</div>
 								<ReviewLikeSection
 									reviewID={review.id}
 									review_likes={review.review_likes}
