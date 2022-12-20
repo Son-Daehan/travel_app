@@ -2,6 +2,7 @@ import "./restaurantcard.css";
 import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
+	// BUTTON EVENT HANDLER, SETS THE STATE OF SINGLERESTAURANTLOCATION ON THE RESTAURANTS PAGE
 	const handleSetSingleRestaurantLocation = () => {
 		const location = {
 			lat: restaurant.coordinates.latitude,
@@ -33,7 +34,7 @@ const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
 					<p>{restaurant.display_address}</p>
 					<p>{restaurant.display_phone}</p>
 					<p>{restaurant.distance}</p>
-					<Link to={`/blogs/${restaurant.id}`}>View reviews!</Link>
+					<Link to={`/`}>View reviews!</Link>
 				</div>
 			</div>
 		</div>

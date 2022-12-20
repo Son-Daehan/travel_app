@@ -1,7 +1,28 @@
-import React from "react";
+// REACT
+import { useState } from "react";
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { getRestaurants } from "../../../../redux/reducers/RestaurantSlice";
+// STYLING
 import "./restaurantsheader.css";
 
-const ReastaurantsHeader = ({ setInputSearch, handleSearchRestaurants }) => {
+const ReastaurantsHeader = () => {
+	const [inputSearch, setInputSearch] = useState(null);
+	const { userLocation } = useSelector((state) => state.user);
+
+	const dispatch = useDispatch();
+
+	// BUTTON EVENT HANDLER THAT SENDS AXIOS REQUEST TO BACKEND WHICH SENDS OUT ANOTHER REQUEST TO YELP'S API
+	const handleSearchRestaurants = () => {
+		dispatch(
+			getRestaurants({
+				lat: userLocation.lat,
+				long: userLocation.long,
+				search: inputSearch,
+			})
+		);
+	};
+
 	return (
 		<div className="category-navbar-container">
 			<div className="category-navbar-top-wrapper"></div>

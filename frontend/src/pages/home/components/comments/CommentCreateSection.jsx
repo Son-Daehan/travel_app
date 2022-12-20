@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// REACT
+import { useState } from "react";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../../../redux/reducers/CommentSlice";
 
@@ -8,6 +10,7 @@ const CommentCreateSection = ({ reviewID }) => {
 
 	const dispatch = useDispatch();
 
+	// BUTTON EVENT HANDLER THAT SENDS AXIOS REQUEST TO CREATE A COMMENT
 	const handleCreateComment = () => {
 		const data = {
 			text: inputComment,

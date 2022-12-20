@@ -1,26 +1,28 @@
-import React from "react";
+// REDUX
+import { useSelector } from "react-redux";
+// LEAFLET
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import { MapContainer } from "react-leaflet";
-import { useSelector } from "react-redux";
+// STYLING
 import "./map.css";
-// import "leaflet/dist/leaflet.css";
-// import icon from '../../node_modules/leaflet/dist/images/marker-icon.png'
-// import icon from "leaflet/dist/images/marker-icon.png";
-// import iconShadow from "leaflet/dist/images/marker-shadow.png";
-// import { Icon } from "leaflet";
 
-const LeafletMap = ({ lat, long, positions, singleRestaurantLocation }) => {
+const LeafletMap = ({ singleRestaurantLocation }) => {
 	const { restaurantsPosition } = useSelector((state) => state.restaurants);
+	const { userLocation } = useSelector((state) => state.user);
 
 	return (
 		<div className="map-container">
-			{lat && (
-				<MapContainer center={[lat, long]} zoom={10} className="map-wrapper">
+			{restaurantsPosition && (
+				<MapContainer
+					center={[userLocation.lat, userLocation.long]}
+					zoom={10}
+					className="map-wrapper"
+				>
 					<TileLayer
 						attribution='&copy <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					/>
-					<Marker position={[lat, long]}>
+					<Marker position={[userLocation.lat, userLocation.long]}>
 						<Popup>You are here!</Popup>
 					</Marker>
 					;

@@ -1,9 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+// REACT
 import { useState, useEffect } from "react";
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
 import {
 	deleteCommentLike,
 	likeAComment,
 } from "../../../../redux/reducers/CommentSlice";
+// ICONS
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 
 const CommentLikeSection = ({ commentID, commentLikes }) => {
@@ -11,6 +14,7 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
+	// SENDS AXIOS REQUEST TO LIKE A COMMENT
 	const handleLikeComment = () => {
 		const data = {
 			comment_id: commentID,
@@ -20,6 +24,17 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 		dispatch(likeAComment(data));
 	};
 
+	// SENDS AXIOS REQUEST TO DELETE A LIKE ON A COMMENT
+	const handleDeleteCommentLike = () => {
+		const data = {
+			comment_id: commentID,
+			username: userInfo.email,
+		};
+
+		dispatch(deleteCommentLike(data));
+	};
+
+	// ON PAGE LOAD, DETERMINES IF USER HAS ALREADY LIKED THE COMMENT OR NOT
 	useEffect(() => {
 		const likesByComment = Object.values(commentLikes);
 
@@ -31,15 +46,6 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 			}
 		}
 	}, []);
-
-	const handleDeleteCommentLike = () => {
-		const data = {
-			comment_id: commentID,
-			username: userInfo.email,
-		};
-
-		dispatch(deleteCommentLike(data));
-	};
 
 	return (
 		<div className="comment-like-section-container">

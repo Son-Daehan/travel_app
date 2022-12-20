@@ -1,7 +1,9 @@
-import React from "react";
+// REACT
 import { useState } from "react";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { createReview } from "../../../../redux/reducers/ReviewSlice";
+// STYLING
 import "./reviewssection.css";
 
 const ReviewsSectionHeader = () => {
@@ -12,6 +14,7 @@ const ReviewsSectionHeader = () => {
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
+	// BUTTON EVENT HANDLER THAT SENDS AN AXIOS REQUEST TO CREATE A REVIEW
 	const handleCreateReview = () => {
 		const data = {
 			restaurant_name: restaurantName,

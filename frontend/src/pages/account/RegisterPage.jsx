@@ -1,8 +1,9 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+// REACT
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../redux/reducers/AuthSlice";
-import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
 	const [firstName, setFirstName] = useState("");
@@ -10,30 +11,34 @@ const RegisterPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { loading, error, success, userInfo } = useSelector(
+	const { loading, error, success, authorized } = useSelector(
 		(state) => state.user
 	);
 
-	axios.defaults.xsrfCookieName = "csrftoken";
-	axios.defaults.xsrfHeaderName = "X-CSRFToken";
-
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	// axios.defaults.xsrfCookieName = "csrftoken";
+	// axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
+	// BUTTON EVENT HANDLER, SENDS AN AXIOS CALL TO BACKEND TO REGISTER USER
 	const createUser = () => {
 		dispatch(signUp({ firstName, lastName, email, password }));
 	};
 
-	const navigate = useNavigate();
-
+	// ON PAGE LOAD, IF THE USER IS LOGGED IN, SEND USER TO HOMEPAGE
 	useEffect(() => {
-		// redirect authenticated user to profile screen
-		if (userInfo) {
-			navigate("/account/profile");
+		if (authorized) {
+			navigate("/");
 		}
-		// redirect user to login page if registration was successful
+	}, []);
+
+	// ON SUCCESSFUL REGISTRATION, SEND THE USER TO HOMEPAGE
+	useEffect(() => {
 		if (success) {
-			navigate("/account/login");
+			navigate("/");
 		}
-	}, [navigate, userInfo, success]);
+	}, [success]);
 
 	return (
 		<div className="register-container">

@@ -7,7 +7,6 @@ const initialState = {
 	loading: false,
 	error: null,
 	success: false,
-	authorized: false,
 	userLocation: JSON.parse(localStorage.getItem("userLocation")) || null,
 	userPositionLoading: true,
 };

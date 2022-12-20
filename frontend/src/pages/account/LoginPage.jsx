@@ -1,30 +1,34 @@
+// REACT
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getUserLocation, signIn } from "../../redux/reducers/AuthSlice";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import { getUserLocation, signIn } from "../../redux/reducers/AuthSlice";
+// STYLING
 import "./account.css";
 
 const LoginPage = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { userInfo, hydrate, error } = useSelector((state) => state.user);
+	const { authorized, error } = useSelector((state) => state.user);
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	// BUTTON EVENT HANDLER, SENDS AN AXIOS REQUEST TO BACKEND TO LOGIN
+	// ANOTHER AXIOS CALL IS DISPATCHED TO IP-API TO GET A USER'S GEOLOCATION
 	const loginUser = () => {
 		dispatch(signIn({ username, password }));
 		dispatch(getUserLocation());
 	};
 
-	const navigate = useNavigate();
-
+	// ON PAGE RELOAD, IF USER IS AUTHORIZED, NAVIGATE TO HOMEPAGE
 	useEffect(() => {
-		// redirect authenticated user to profile screen
-		if (userInfo) {
-			navigate("/account/profile");
+		if (authorized) {
+			navigate("/");
 		}
-	}, [navigate, userInfo]);
+	}, [authorized]);
 
 	return (
 		<div className="login-container">

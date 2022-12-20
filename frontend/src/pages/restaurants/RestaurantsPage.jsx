@@ -1,59 +1,45 @@
-import "./restaurantspage.css";
+// REACT
 import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+// REDUX
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getRestaurantDetail,
 	getRestaurants,
 } from "../../redux/reducers/RestaurantSlice";
+// COMPONENTS
 import RestaurantCard from "./components/card/RestaurantCard";
 import ReastaurantsHeader from "./components/header/RestaurantsHeader";
-
 import LeafletMap from "./components/map/LeafletMap";
-import { useParams, useNavigate } from "react-router-dom";
+// STYLING
+import "./restaurantspage.css";
 
 const RestaurantsPage = () => {
-	const [inputSearch, setInputSearch] = useState(null);
-	const [reviewMapDisplay, setReviewMapDisplay] = useState(false);
-	const [singleRestaurantOnMap, setSingleRestaurantOnMap] = useState(false);
 	const [singleRestaurantLocation, setSingleRestaurantLocation] =
 		useState(null);
-	const { restaurantNameParam } = useParams();
-	const navigate = useNavigate();
-
-	const dispatch = useDispatch();
-	const { restaurants, restaurantsLoading, restaurantsPosition } = useSelector(
+	const { restaurants, restaurantsLoading } = useSelector(
 		(state) => state.restaurants
 	);
+	const { userLocation } = useSelector((state) => state.user);
+	const { restaurantNameParam } = useParams();
 
-	const { lat, long, userLocation, userPositionLoading } = useSelector(
-		(state) => state.user
-	);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-	const handleSearchRestaurants = () => {
-		// GET THE RESTAURANT BASED ON GEOLOCATION AND CUISINE INPUT
-		dispatch(
-			getRestaurants({
-				lat: userLocation.lat,
-				long: userLocation.long,
-				search: inputSearch,
-			})
-		);
-	};
-
+	// BUTTON EVENT HANDLER THAT PLACES A MARKER ON THE MAP BASED ON THE RESTAURANT CARD THE USER CLICKS
 	const handleGetRestaurantDetail = (placeID) => {
 		dispatch(getRestaurantDetail({ placeID: placeID }));
-		setReviewMapDisplay(true);
 	};
 
 	useEffect(() => {
+		// ON PAGE LOAD, DIRECT THE USER TO LOGIN PAGE IF NOT AUTHORIZED
 		const authorized = localStorage.getItem("authorized");
 		if (!authorized) {
 			navigate("/account/login");
 		}
-	}, []);
 
-	useEffect(() => {
-		console.log(restaurantNameParam);
+		// ON PAGE LOAD, IF A USER CLICKED ON A RESTAURANT NAME SEARCH PARAM FROM HOMEPAGE
+		// USE THE PARAM, IF NOT, LOAD A GENERIC FOOD SEARCH
 		if (restaurantNameParam) {
 			dispatch(
 				getRestaurants({
@@ -71,16 +57,13 @@ const RestaurantsPage = () => {
 				})
 			);
 		}
-	}, [userPositionLoading]);
+	}, []);
 
 	return (
 		<>
 			<div className="restaurants-container">
 				<div className="restaurants-top-container">
-					<ReastaurantsHeader
-						setInputSearch={setInputSearch}
-						handleSearchRestaurants={handleSearchRestaurants}
-					/>
+					<ReastaurantsHeader />
 				</div>
 				<div className="restaurants-bottom-container">
 					<div className="restaurants-bottom-wrapper">
@@ -96,9 +79,6 @@ const RestaurantsPage = () => {
 											>
 												<RestaurantCard
 													restaurant={restaurant}
-													setReviewMapDisplay={setReviewMapDisplay}
-													singleRestaurantOnMap={singleRestaurantOnMap}
-													setSingleRestaurantOnMap={setSingleRestaurantOnMap}
 													setSingleRestaurantLocation={
 														setSingleRestaurantLocation
 													}
@@ -109,14 +89,7 @@ const RestaurantsPage = () => {
 								})}
 						</div>
 
-						<LeafletMap
-							lat={userLocation.lat}
-							long={userLocation.long}
-							positions={restaurantsPosition}
-							loading={restaurantsLoading}
-							singleRestaurantOnMap={singleRestaurantOnMap}
-							singleRestaurantLocation={singleRestaurantLocation}
-						/>
+						<LeafletMap singleRestaurantLocation={singleRestaurantLocation} />
 					</div>
 				</div>
 			</div>

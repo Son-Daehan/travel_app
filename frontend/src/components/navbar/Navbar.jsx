@@ -1,17 +1,21 @@
-import axios from "axios";
-import React from "react";
-import { useDispatch } from "react-redux";
+// REACT
 import { Link } from "react-router-dom";
+// AXIOS
+import axios from "axios";
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../redux/reducers/AuthSlice";
+// STYLING
 import "./navbar.css";
 
 const Navbar = () => {
-	const dispatch = useDispatch();
-	const authorized = localStorage.getItem("hydrate");
+	const { authorized } = useSelector((state) => state.user);
 
+	const dispatch = useDispatch();
+
+	// BUTTON CLICK EVENT, SENDS AXIOS REQUEST TO BACKEND TO LOG OUT THE USER
 	const logout = async () => {
 		const response = await axios.post("/api/account/log_out/");
-		console.log(response.data);
 		dispatch(signOut());
 	};
 
@@ -19,12 +23,8 @@ const Navbar = () => {
 		<>
 			<nav className="navbar-container">
 				<ul className="navbar-wrapper">
-					{/* HOME LINK */}
 					<Link to="/">Home</Link>
-
-					{/* TRAVEL LINKS */}
-					<Link to="/travel_information">Restaurants</Link>
-
+					<Link to="/restaurants">Restaurants</Link>
 					<Link to="/account/profile">Profile</Link>
 					{!authorized && (
 						<>
@@ -35,8 +35,6 @@ const Navbar = () => {
 					<Link onClick={logout} to="/">
 						Logout
 					</Link>
-
-					{/* ACCOUNT LINKS */}
 				</ul>
 			</nav>
 		</>

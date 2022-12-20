@@ -24,9 +24,9 @@ function App() {
 					<Route path="/profile/:usernameParam" element={<HomePage />} />
 
 					{/* TRAVEL ROUTES */}
-					<Route path="/travel_information" element={<RestaurantsPage />} />
+					<Route path="/restaurants" element={<RestaurantsPage />} />
 					<Route
-						path="/travel_information/:restaurantNameParam"
+						path="/restaurants/:restaurantNameParam"
 						element={<RestaurantsPage />}
 					/>
 

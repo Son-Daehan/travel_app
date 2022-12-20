@@ -1,25 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createComment } from "../../../../redux/reducers/CommentSlice";
+// COMPONENTS
 import CommentLikeSection from "./CommentLikeSection";
+// STYLING
 import "./commentssection.css";
 
 const CommentsSection = ({ comments }) => {
-	const [inputComment, setInputComment] = useState(null);
-	const { userInfo } = useSelector((state) => state.user);
-
-	const dispatch = useDispatch();
-
-	const handleCreateComment = () => {
-		const data = {
-			text: inputComment,
-			review_id: reviewID,
-			username: userInfo.email,
-		};
-
-		dispatch(createComment(data));
-	};
-
 	return (
 		<div className="home-reviews-comments-section-container">
 			{comments &&
