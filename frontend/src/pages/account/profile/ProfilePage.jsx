@@ -13,9 +13,7 @@ const ProfilePage = () => {
 	const [confirmNewPassword, setConfirmNewPassword] = useState(null);
 	const [displayChangePassword, setDisplayChangePassword] = useState(false);
 
-	const { loading, error, success, userInfo } = useSelector(
-		(state) => state.user
-	);
+	const { userInfo } = useSelector((state) => state.user);
 	const { reviews } = useSelector((state) => state.review);
 
 	const dispatch = useDispatch();
@@ -108,7 +106,12 @@ const ProfilePage = () => {
 				)}
 			</div>
 			<div className="profile-page-right-wrapper">
-				{reviews ? (
+				{!reviews ? (
+					<div className="profile-review-container">
+						You have made no reviews... does not work cause reviews is still an
+						empty list
+					</div>
+				) : (
 					reviews.map((review) => {
 						return (
 							<div className="profile-review-container">
@@ -124,11 +127,6 @@ const ProfilePage = () => {
 							</div>
 						);
 					})
-				) : (
-					<div>
-						You have made no reviews... does not work cause reviews is still an
-						empty list
-					</div>
 				)}
 			</div>
 		</div>

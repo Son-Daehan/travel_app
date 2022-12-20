@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-	reviews: [],
+	reviews: null,
 };
 
 export const createReview = createAsyncThunk(
@@ -93,16 +93,24 @@ const ReviewSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: {
-		[getAllReviews.pending]: (state) => {},
+		[getAllReviews.pending]: (state) => {
+			state.reviews = null;
+		},
 		[getAllReviews.fulfilled]: (state, action) => {
 			state.reviews = action.payload;
 		},
-		[getAllReviews.rejected]: (state, { payload }) => {},
-		[getReviewsByUser.pending]: (state) => {},
+		[getAllReviews.rejected]: (state, { payload }) => {
+			state.reviews = null;
+		},
+		[getReviewsByUser.pending]: (state) => {
+			state.reviews = null;
+		},
 		[getReviewsByUser.fulfilled]: (state, action) => {
 			state.reviews = action.payload;
 		},
-		[getReviewsByUser.rejected]: (state, { payload }) => {},
+		[getReviewsByUser.rejected]: (state, { payload }) => {
+			state.reviews = null;
+		},
 		[createReview.pending]: (state) => {},
 		[createReview.fulfilled]: (state, { payload }) => {},
 		[createReview.rejected]: (state, { payload }) => {},

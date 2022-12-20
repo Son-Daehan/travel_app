@@ -154,8 +154,12 @@ def reviews_by_user(request, profile_name):
         user = User.objects.get(email=profile_name)
         reviews = Review.objects.filter(user=user)
         # print(reviews)
+        if reviews:
 
-        serialized_reviews = ReviewSerializer(reviews, many=True)
+            serialized_reviews = ReviewSerializer(reviews, many=True)
+
+        else:
+            serialized_reviews = None
 
         return JsonResponse({'reviews':serialized_reviews.data})
 
