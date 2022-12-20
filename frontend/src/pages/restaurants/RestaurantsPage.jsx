@@ -5,17 +5,18 @@ import {
 	getRestaurantDetail,
 	getRestaurants,
 } from "../../redux/reducers/RestaurantSlice";
-import { getUserLocation } from "../../redux/reducers/AuthSlice";
 import RestaurantCard from "../../utilities/RestaurantCard";
 import ReastaurantsHeader from "../../components/restaurants/RestaurantsHeader";
 
 import LeafletMap from "../../components/restaurants/map/LeafletMap";
-import Review from "../../components/restaurants/map/Review";
 import { useParams, useNavigate } from "react-router-dom";
 
 const RestaurantsPage = () => {
 	const [inputSearch, setInputSearch] = useState(null);
 	const [reviewMapDisplay, setReviewMapDisplay] = useState(false);
+	const [singleRestaurantOnMap, setSingleRestaurantOnMap] = useState(false);
+	const [singleRestaurantLocation, setSingleRestaurantLocation] =
+		useState(null);
 	const { restaurantNameParam } = useParams();
 	const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ const RestaurantsPage = () => {
 
 	useEffect(() => {
 		console.log(restaurantNameParam);
-		if (!userPositionLoading && restaurantNameParam) {
+		if (restaurantNameParam) {
 			dispatch(
 				getRestaurants({
 					lat: userLocation.lat,
@@ -61,7 +62,7 @@ const RestaurantsPage = () => {
 					search: `${restaurantNameParam}`,
 				})
 			);
-		} else if (!userPositionLoading && !restaurantNameParam) {
+		} else if (!restaurantNameParam) {
 			dispatch(
 				getRestaurants({
 					lat: userLocation.lat,
@@ -96,6 +97,11 @@ const RestaurantsPage = () => {
 												<RestaurantCard
 													restaurant={restaurant}
 													setReviewMapDisplay={setReviewMapDisplay}
+													singleRestaurantOnMap={singleRestaurantOnMap}
+													setSingleRestaurantOnMap={setSingleRestaurantOnMap}
+													setSingleRestaurantLocation={
+														setSingleRestaurantLocation
+													}
 												/>
 											</div>
 										</>
@@ -103,16 +109,14 @@ const RestaurantsPage = () => {
 								})}
 						</div>
 
-						{!reviewMapDisplay ? (
-							<LeafletMap
-								lat={userLocation.lat}
-								long={userLocation.long}
-								positions={restaurantsPosition}
-								loading={restaurantsLoading}
-							/>
-						) : (
-							<Review setReviewMapDisplay={setReviewMapDisplay} />
-						)}
+						<LeafletMap
+							lat={userLocation.lat}
+							long={userLocation.long}
+							positions={restaurantsPosition}
+							loading={restaurantsLoading}
+							singleRestaurantOnMap={singleRestaurantOnMap}
+							singleRestaurantLocation={singleRestaurantLocation}
+						/>
 					</div>
 				</div>
 			</div>

@@ -57,6 +57,7 @@ const RestaurantSlice = createSlice({
 			state.restaurantsLoading = false;
 			action.payload.restaurants.map((restaurant) => {
 				state.restaurantsPosition.push({
+					name: restaurant.name,
 					lat: restaurant.coordinates.latitude,
 					long: restaurant.coordinates.longitude,
 				});

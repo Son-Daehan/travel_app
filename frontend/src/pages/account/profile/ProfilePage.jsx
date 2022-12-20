@@ -57,53 +57,53 @@ const ProfilePage = () => {
 			<div className="profile-page-left-wrapper">
 				{userInfo && (
 					<>
-						<div className="profile-page-top-wrapper">
-							<div>
-								<div className="profile-img-container">IMG</div>
-								<div className="profile-info-container">
-									<div>{userInfo.email}</div>
-									<div>
-										{userInfo.firstName} {userInfo.lastName}
-									</div>
-								</div>
+						<div className="profile-page-left-wrapper-left-container">
+							<div className="profile-img-container">IMG</div>
+							<div className="profile-info-container">
+								<div>Email: {userInfo.email}</div>
+								<div>First Name: {userInfo.firstName}</div>
+								<div>Last Name: {userInfo.lastName}</div>
 							</div>
-							<div>
-								<div className="profile-about-me-container">ABOUTME</div>
-								<div>
-									<button
-										onClick={() => {
-											!displayChangePassword
-												? setDisplayChangePassword(true)
-												: setDisplayChangePassword(false);
-										}}
-									>
-										Change Password
-									</button>
-									<div>
-										{displayChangePassword && (
-											<>
-												<input
-													placeholder="New Password"
-													onChange={(event) =>
-														setNewPassword(event.target.value)
-													}
-												/>
-												<input
-													placeholder="Confirm New Password"
-													onChange={(event) =>
-														setConfirmNewPassword(event.target.value)
-													}
-												/>
-												<button onClick={handleChangePassword}>
-													Change Password
-												</button>
-											</>
-										)}
-									</div>
+						</div>
+						<div className="profile-page-left-wrapper-right-container">
+							<div className="profile-about-me-container">ABOUTME</div>
+							<div className="profile-change-password-container">
+								<button
+									className="profile-change-password-btn"
+									onClick={() => {
+										!displayChangePassword
+											? setDisplayChangePassword(true)
+											: setDisplayChangePassword(false);
+									}}
+								>
+									Change Password
+								</button>
+								<div className="profile-change-password-container">
+									{displayChangePassword && (
+										<>
+											<input
+												className="password-input"
+												placeholder="New Password"
+												onChange={(event) => setNewPassword(event.target.value)}
+											/>
+											<input
+												className="password-input"
+												placeholder="Confirm New Password"
+												onChange={(event) =>
+													setConfirmNewPassword(event.target.value)
+												}
+											/>
+											<button
+												className="profile-change-password-btn"
+												onClick={handleChangePassword}
+											>
+												Submit
+											</button>
+										</>
+									)}
 								</div>
 							</div>
 						</div>
-						<div className="profile-page-bottom-wrapper"></div>
 					</>
 				)}
 			</div>
@@ -112,8 +112,13 @@ const ProfilePage = () => {
 					reviews.map((review) => {
 						return (
 							<div className="profile-review-container">
-								<div>{review.title}</div>
-								<button onClick={() => handleDeleteReview(review.id)}>
+								<div>
+									Review Title: <em>{review.title}</em>
+								</div>
+								<button
+									className="delete-button"
+									onClick={() => handleDeleteReview(review.id)}
+								>
 									Delete
 								</button>
 							</div>

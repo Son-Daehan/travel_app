@@ -1,9 +1,21 @@
 import "./utilities.css";
 import { Link } from "react-router-dom";
 
-const RestaurantCard = ({ restaurant }) => {
+const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
+	const handleSetSingleRestaurantLocation = () => {
+		const location = {
+			lat: restaurant.coordinates.latitude,
+			long: restaurant.coordinates.longitude,
+		};
+
+		setSingleRestaurantLocation(location);
+	};
+
 	return (
-		<div className="restaurant-card-container">
+		<div
+			className="restaurant-card-container"
+			onClick={handleSetSingleRestaurantLocation}
+		>
 			<div className="restaurant-card-wrapper">
 				{/* <p>{restaurant.id}</p> */}
 				<p>{restaurant.name}</p>
