@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createReview } from "../../redux/reducers/ReviewSlice";
+import { createReview } from "../../../../redux/reducers/ReviewSlice";
 import "./reviewssection.css";
 
 const ReviewsSectionHeader = () => {

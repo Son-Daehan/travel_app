@@ -6,9 +6,9 @@ import { Link, useParams } from "react-router-dom";
 import {
 	getAllReviews,
 	getReviewsByUser,
-} from "../../redux/reducers/ReviewSlice";
-import CommentCreateSection from "./CommentCreateSection";
-import CommentsSection from "./CommentsSection";
+} from "../../../../redux/reducers/ReviewSlice";
+import CommentCreateSection from "../comments/CommentCreateSection";
+import CommentsSection from "../comments/CommentsSection";
 import ReviewLikeSection from "./ReviewLikeSection";
 import "./reviewssection.css";
 

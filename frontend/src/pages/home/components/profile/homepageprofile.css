@@ -1,8 +1,11 @@
 .home-page-profile-container {
-    
+    display: grid;
 }
 
 .home-page-profile-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
     padding: 10px;
     border-radius: 5px;

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	deleteReviewLike,
 	likeAReview,
-} from "../../redux/reducers/ReviewSlice";
+} from "../../../../redux/reducers/ReviewSlice";
 
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 

@@ -9,8 +9,6 @@ import ProfilePage from "./pages/account/profile/ProfilePage";
 import axios from "axios";
 import Footer from "./components/footer/Footer";
 import RestaurantsPage from "./pages/restaurants/RestaurantsPage";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -36,8 +34,6 @@ function App() {
 					<Route path="/account/login" element={<LoginPage />} />
 					<Route path="/account/register" element={<RegisterPage />} />
 					<Route path="/account/profile" element={<ProfilePage />} />
-
-					{/* CHAT ROUTES */}
 				</Routes>
 				<Footer />
 			</Router>

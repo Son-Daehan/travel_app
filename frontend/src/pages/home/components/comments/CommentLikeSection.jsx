@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {
 	deleteCommentLike,
 	likeAComment,
-} from "../../redux/reducers/CommentSlice";
+} from "../../../../redux/reducers/CommentSlice";
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 
 const CommentLikeSection = ({ commentID, commentLikes }) => {

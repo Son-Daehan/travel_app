@@ -1,4 +1,4 @@
-import "./utilities.css";
+import "./restaurantcard.css";
 import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {

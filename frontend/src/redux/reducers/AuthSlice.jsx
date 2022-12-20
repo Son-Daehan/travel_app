@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
 	userInfo: JSON.parse(localStorage.getItem("userInfo")) || null,
-	hydrate: JSON.parse(localStorage.getItem("hydrate")) || false,
+	authorized: JSON.parse(localStorage.getItem("authorized")) || false,
 	loading: false,
 	error: null,
 	success: false,
@@ -91,7 +91,7 @@ const AuthSlice = createSlice({
 			};
 			state.userInfo = newUserInfo;
 			localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
-			localStorage.setItem("hydrate", JSON.stringify(true));
+			localStorage.setItem("authorized", JSON.stringify(true));
 			// state.sessionID = payload.sessionID;
 			state.authorized = true;
 		},

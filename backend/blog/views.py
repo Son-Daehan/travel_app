@@ -13,7 +13,6 @@ import os
 
 load_dotenv()
 YELP_API_KEY = os.getenv('YELP_API_KEY')
-print(YELP_API_KEY)
 
 def index(request):
 

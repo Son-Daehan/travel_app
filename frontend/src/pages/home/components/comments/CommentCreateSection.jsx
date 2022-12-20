@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createComment } from "../../redux/reducers/CommentSlice";
+import { createComment } from "../../../../redux/reducers/CommentSlice";
 
 const CommentCreateSection = ({ reviewID }) => {
 	const [inputComment, setInputComment] = useState(null);

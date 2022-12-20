@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getChatLog,
 	setMessages,
 	setRoomName,
-} from "../../redux/reducers/ChatSlice";
-import { sendMessage } from "../../redux/reducers/ChatSlice";
-import axios from "axios";
+	sendMessage,
+} from "../../../../redux/reducers/ChatSlice";
+
 import "./chatlog.css";
 import { useEffect } from "react";
 

@@ -1,16 +1,19 @@
-import Chat from "../../components/chat/ChatLog";
-import HomePageProfile from "../../components/homepage/HomePageProfile";
-import ReviewsSection from "../../components/homepage/ReviewsSection";
-import ReviewsSectionHeader from "../../components/homepage/ReviewsSectionHeader";
-import "./homepage.css";
+// REACT
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// COMPONENTS
+import Chat from "./components/chat/ChatLog";
+import HomePageProfile from "./components/profile/HomePageProfile";
+import ReviewsSection from "./components/reviews/ReviewsSection";
+import ReviewsSectionHeader from "./components/reviews/ReviewsSectionHeader";
+// STYLING
+import "./homepage.css";
 
 const HomePage = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const authorized = localStorage.getItem("hydrate");
+		const authorized = localStorage.getItem("authorized");
 		if (!authorized) {
 			navigate("/account/login");
 		}

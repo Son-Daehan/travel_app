@@ -5,10 +5,10 @@ import {
 	getRestaurantDetail,
 	getRestaurants,
 } from "../../redux/reducers/RestaurantSlice";
-import RestaurantCard from "../../utilities/RestaurantCard";
-import ReastaurantsHeader from "../../components/restaurants/RestaurantsHeader";
+import RestaurantCard from "./components/card/RestaurantCard";
+import ReastaurantsHeader from "./components/header/RestaurantsHeader";
 
-import LeafletMap from "../../components/restaurants/map/LeafletMap";
+import LeafletMap from "./components/map/LeafletMap";
 import { useParams, useNavigate } from "react-router-dom";
 
 const RestaurantsPage = () => {
@@ -46,7 +46,7 @@ const RestaurantsPage = () => {
 	};
 
 	useEffect(() => {
-		const authorized = localStorage.getItem("hydrate");
+		const authorized = localStorage.getItem("authorized");
 		if (!authorized) {
 			navigate("/account/login");
 		}
