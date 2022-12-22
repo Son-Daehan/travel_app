@@ -285,80 +285,6 @@ def comment_likes_delete(request):
             return JsonResponse({'success':False})
 
 
-
-
-
-# @api_view(['GET', 'POST'])
-# def blogs(request):
-#     if request.method == 'GET':
-#         try:
-#             blogs = Blog.objects.all()
-#             print(blogs)
-            
-#             serialized_data = BlogSerializer(blogs, many=True)
-
-#             return JsonResponse({'blogs': serialized_data.data})
-
-#         except Exception as e:
-#             return JsonResponse({'success': False}, status=400)
-
-#     if request.method == 'POST':
-#         response = request.data
-
-#         data = {
-#             'title': response['title'],
-#             'category': response['category'],
-#             'description': response['description'],
-#             'text': response['text'],
-#             'user': request.user,
-#             'restaurant_id': response['restaurantID']
-#         }
-
-#         new_blog = Blog(**data)
-#         new_blog.save()
-
-#         return JsonResponse({'success': True})
-        
-
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def blog(request, blog_id):
-#     blog = Blog.objects.get(id=blog_id)
-
-#     if request.method == 'GET':
-
-#         blog_serialized = BlogSerializer(blog)
-#         print(blog_serialized.data)
-#         return JsonResponse({'blog': blog_serialized.data})
-
-#     if request.method == 'PUT':
-#         pass
-
-#     if request.method == 'DELETE':
-#         try:
-#             blog.delete()
-#             return JsonResponse({'success': True})
-        
-#         except Exception as e:
-#             return JsonResponse({'error': e})
-
-
-# @api_view(['GET'])
-# def blogs_restaurant(request, restaurant_id):
-
-#     if request.method == 'GET':
-#         blogs = Blog.objects.filter(restaurant_id=restaurant_id)
-#         blogs_serialized = BlogSerializer(blogs, many=True)
-#         print(blogs_serialized.data)
-
-#         try:
-#             return JsonResponse({'blogs':blogs_serialized.data})
-#         except:
-#             return JsonResponse({'Success':False})
-
-
-
-
-
 @api_view(['GET', 'POST'])
 def restaurants(request):
     if request.method == 'POST':
@@ -386,12 +312,6 @@ def restaurants(request):
 
         response = requests.get(url, params, headers=headers)
         restaurants = response.json()
-        # if 'businesses' in restaurants:
-        #     print('yes')
-        # else:
-        #     print('NO')
-
-        # print(restaurants['businesses'])
 
 
         return JsonResponse({'restaurants': restaurants['businesses']})
