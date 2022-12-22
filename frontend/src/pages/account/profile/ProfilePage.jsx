@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changePassword } from "../../../redux/reducers/AuthSlice";
+import { changePassword, imageUpload } from "../../../redux/reducers/AuthSlice";
 import {
 	deleteReview,
 	getReviewsByUser,
@@ -12,8 +12,10 @@ const ProfilePage = () => {
 	const [newPassword, setNewPassword] = useState(null);
 	const [confirmNewPassword, setConfirmNewPassword] = useState(null);
 	const [displayChangePassword, setDisplayChangePassword] = useState(false);
+	const [image, setImage] = useState(null);
+	const [img, setImg] = useState(null);
 
-	const { userInfo } = useSelector((state) => state.user);
+	const { userInfo, profileImg } = useSelector((state) => state.user);
 	const { reviews } = useSelector((state) => state.review);
 
 	const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const ProfilePage = () => {
 		};
 
 		dispatch(deleteReview(data));
+		window.location.reload();
 	};
 
 	const handleChangePassword = () => {
@@ -41,9 +44,25 @@ const ProfilePage = () => {
 				new_password: newPassword,
 			};
 			dispatch(changePassword(data));
+			window.location.reload();
 		} else {
 			console.log("passwords do not match");
 		}
+	};
+
+	const handleImageUpload = () => {
+		let formData = new FormData();
+
+		formData.append("file", image);
+
+		const data = {
+			username: userInfo.email,
+			// img_title: image.name,
+			img: image,
+		};
+		console.log(data);
+
+		dispatch(imageUpload(data));
 	};
 
 	useEffect(() => {
@@ -56,7 +75,17 @@ const ProfilePage = () => {
 				{userInfo && (
 					<>
 						<div className="profile-page-left-wrapper-left-container">
-							<div className="profile-img-container">IMG</div>
+							<div className="profile-img-container">
+								<img src={profileImg.img_url} />
+							</div>
+							<div>
+								<input
+									type="file"
+									accept="image/"
+									onChange={(event) => setImage(event.target.files[0])}
+								/>
+								<button onClick={handleImageUpload}>Upload</button>
+							</div>
 							<div className="profile-info-container">
 								<div>Email: {userInfo.email}</div>
 								<div>First Name: {userInfo.firstName}</div>

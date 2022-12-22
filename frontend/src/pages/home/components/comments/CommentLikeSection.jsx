@@ -10,7 +10,8 @@ import {
 import { AiOutlineLike, AiTwotoneLike } from "react-icons/ai";
 
 const CommentLikeSection = ({ commentID, commentLikes }) => {
-	const [loading, setLoading] = useState(true);
+	const [commentLiked, setCommentLiked] = useState(false);
+	const [likesCount, setLikesCount] = useState(0);
 	const { userInfo } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
@@ -22,6 +23,8 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 		};
 
 		dispatch(likeAComment(data));
+		setCommentLiked(true);
+		setLikesCount((state) => state + 1);
 	};
 
 	// SENDS AXIOS REQUEST TO DELETE A LIKE ON A COMMENT
@@ -32,6 +35,8 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 		};
 
 		dispatch(deleteCommentLike(data));
+		setCommentLiked(false);
+		setLikesCount((state) => state - 1);
 	};
 
 	// ON PAGE LOAD, DETERMINES IF USER HAS ALREADY LIKED THE COMMENT OR NOT
@@ -40,24 +45,25 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 
 		for (let i = 0; i < likesByComment.length; i++) {
 			if (likesByComment[i].user === userInfo.email) {
-				setLoading(false);
+				setCommentLiked(true);
 
 				break;
 			}
 		}
+		setLikesCount(commentLikes.length);
 	}, []);
 
 	return (
 		<div className="comment-like-section-container">
 			<div className="comment-like-section-wrapper">
-				{loading ? (
+				{!commentLiked ? (
 					<button
 						className="comment-like-section-like-button"
 						style={{ backgroundColor: "white" }}
 						onClick={handleLikeComment}
 					>
 						<AiOutlineLike /> {commentLikes.length}{" "}
-						{commentLikes.length > 1 ? "Likes" : "Like"}
+						{{ likesCount } > 1 ? "Likes" : "Like"}
 					</button>
 				) : (
 					<button
@@ -65,8 +71,8 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 						style={{ backgroundColor: "white" }}
 						onClick={handleDeleteCommentLike}
 					>
-						<AiTwotoneLike /> {commentLikes.length}{" "}
-						{commentLikes.length > 1 ? "Likes" : "Like"}
+						<AiTwotoneLike /> {likesCount}{" "}
+						{{ likesCount } > 1 ? "Likes" : "Like"}
 					</button>
 				)}
 			</div>

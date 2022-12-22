@@ -19,6 +19,7 @@ const CommentCreateSection = ({ reviewID }) => {
 		};
 
 		dispatch(createComment(data));
+		window.location.reload();
 	};
 	return (
 		<>

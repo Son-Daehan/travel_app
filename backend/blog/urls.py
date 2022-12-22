@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/account/log_out/', views.log_out),
     path('api/account/user_profile/', views.user_profile),
     path('api/account/password_change/', views.password_change),
+    path('api/account/image_upload/', views.image_upload),
 
     
     # RESTAURANT

@@ -21,6 +21,10 @@ const ReviewsSection = () => {
 	const { usernameParam } = useParams();
 	const [displayComments, setDisplayComments] = useState(false);
 
+	const handleRefreshPage = () => {
+		window.location.reload();
+	};
+
 	useEffect(() => {
 		if (!usernameParam) {
 			// AXIOS CALL TO BACKEND TO GET ALL REVIEWS FOR THE HOMEPAGE
@@ -32,7 +36,7 @@ const ReviewsSection = () => {
 			// AXIOS CALL TO BACKEND TO GET THE USER'S REVIEWS FOR THEIR PROFILE PAGE
 			dispatch(getReviewsByUser(data));
 		}
-	}, []);
+	}, [usernameParam]);
 
 	return (
 		<div className="home-middle-wrapper">

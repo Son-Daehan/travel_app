@@ -11,6 +11,7 @@ class User(AbstractUser):
         unique=True,
     )
     is_active = models.BooleanField(default=True)
+    profile_img = models.ImageField(upload_to='images/', blank=True)
 
     # notice the absence of a "Password field", that is built in.
 

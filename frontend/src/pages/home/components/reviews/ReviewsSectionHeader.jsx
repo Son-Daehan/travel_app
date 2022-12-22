@@ -24,6 +24,7 @@ const ReviewsSectionHeader = () => {
 		};
 
 		dispatch(createReview(data));
+		window.location.reload();
 	};
 
 	return (

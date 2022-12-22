@@ -9,6 +9,7 @@ import requests
 import json
 from dotenv import load_dotenv
 import os
+from django.core.files.storage import default_storage
 
 
 load_dotenv()
@@ -102,6 +103,26 @@ def user_profile(request):
         return JsonResponse({'authenticated':False})
 
 
+@api_view(['POST'])
+def image_upload(request):
+    try:
+        
+        file = request.FILES['img']
+        username = request.data['username']
+
+        file_name = default_storage.save(f'{username}', file)
+
+        user = User.objects.get(email=username)
+        user.profile_img = file_name
+        user.save(update_fields=['profile_img'])
+
+        return JsonResponse({'img_url':f'/media/{file_name}/'})
+
+    except Exception as e:
+
+        return JsonResponse({'success':False})
+
+
 @api_view(['PUT'])
 def password_change(request):
     try:
@@ -127,7 +148,7 @@ def reviews(request):
 
         serialized_reviews = ReviewSerializer(reviews, many=True)
 
-        return JsonResponse({'reviews':serialized_reviews.data})
+        return JsonResponse({'reviews':serialized_reviews.data[::-1]})
 
     if request.method == 'POST':
         response = request.data

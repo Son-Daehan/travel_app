@@ -9,6 +9,7 @@ const initialState = {
 	success: false,
 	userLocation: JSON.parse(localStorage.getItem("userLocation")) || null,
 	userPositionLoading: true,
+	profileImg: JSON.parse(localStorage.getItem("profileImg")) || null,
 };
 
 export const signUp = createAsyncThunk(
@@ -54,6 +55,18 @@ export const getUserLocation = createAsyncThunk(
 	async (data, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(`http://ip-api.com/json/`);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error);
+		}
+	}
+);
+
+export const imageUpload = createAsyncThunk(
+	"imageUpload",
+	async (data, { rejectWithValue }) => {
+		try {
+			const response = await axios.postForm("/api/account/image_upload/", data);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -115,6 +128,12 @@ const AuthSlice = createSlice({
 			state.error = payload.message;
 			state.loading = false;
 		},
+		[imageUpload.pending]: (state, action) => {},
+		[imageUpload.fulfilled]: (state, action) => {
+			state.profileImg = action.payload;
+			localStorage.setItem("profileImg", JSON.stringify(state.profileImg));
+		},
+		[imageUpload.rejected]: (state, { payload }) => {},
 		[getUserLocation.pending]: (state) => {},
 		[getUserLocation.fulfilled]: (state, action) => {
 			const lat = action.payload.lat;
