@@ -1,0 +1,30 @@
+.register-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 68vh;
+}
+
+.register-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 400px;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.register-wrapper input {
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 2px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.register-wrapper button {
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 2px;
+    border-radius: 5px;
+    background-color: rgba(72, 160, 255, 0.384)
+}

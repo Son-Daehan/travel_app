@@ -3,8 +3,9 @@
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-content: center;
-    margin-top: 10rem;
-    height: calc(100vh - 305px);
+    /* margin-top: 10rem; */
+    /* height: calc(100vh - 305px); */
+    height: calc(100vh - 135px);
 
 }
 

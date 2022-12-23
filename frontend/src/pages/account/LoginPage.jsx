@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserLocation, signIn } from "../../redux/reducers/AuthSlice";
 // STYLING
 import "./account.css";
+import "./loginpage.css";
 
 const LoginPage = () => {
 	const [username, setUsername] = useState("");
@@ -32,18 +33,27 @@ const LoginPage = () => {
 
 	return (
 		<div className="login-container">
-			<input
-				type="text"
-				placeholder="username"
-				onChange={(event) => setUsername(event.target.value)}
-			/>
-			<input
-				type="password"
-				placeholder="password"
-				onChange={(event) => setPassword(event.target.value)}
-			/>
-			<button onClick={loginUser}>login</button>
-			{error && <div>{error}</div>}
+			<div className="login-wrapper">
+				<h4>Login</h4>
+				<div>
+					<em>Username</em>
+				</div>
+				<input
+					type="text"
+					placeholder="username"
+					onChange={(event) => setUsername(event.target.value)}
+				/>
+				<div>
+					<em>Password</em>
+				</div>
+				<input
+					type="password"
+					placeholder="password"
+					onChange={(event) => setPassword(event.target.value)}
+				/>
+				<button onClick={loginUser}>login</button>
+				{error && <div>{error}</div>}
+			</div>
 		</div>
 	);
 };
