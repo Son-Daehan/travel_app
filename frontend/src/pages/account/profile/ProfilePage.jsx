@@ -76,15 +76,21 @@ const ProfilePage = () => {
 					<>
 						<div className="profile-page-left-wrapper-left-container">
 							<div className="profile-img-container">
-								<img src={profileImg.img_url} />
+								<img className="profile-img" src={profileImg.img_url} />
 							</div>
-							<div>
-								<input
-									type="file"
-									accept="image/"
-									onChange={(event) => setImage(event.target.files[0])}
-								/>
-								<button onClick={handleImageUpload}>Upload</button>
+							<div className="profile-img-upload-container">
+								<label className="img-upload-label">
+									Choose an image...
+									<input
+										className="img-upload-input"
+										type="file"
+										accept="image/"
+										onChange={(event) => setImage(event.target.files[0])}
+									/>
+								</label>
+								<button className="upload-button" onClick={handleImageUpload}>
+									Upload
+								</button>
 							</div>
 							<div className="profile-info-container">
 								<div>Email: {userInfo.email}</div>
