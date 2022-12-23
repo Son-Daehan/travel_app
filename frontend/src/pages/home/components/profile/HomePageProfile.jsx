@@ -14,9 +14,11 @@ const HomePageProfile = () => {
 						)}
 					</div>
 					<div className="profile-name-container">
-						<h5>
-							{userInfo.firstName} {userInfo.lastName}
-						</h5>
+						{userInfo && (
+							<h5>
+								{userInfo.firstName} {userInfo.lastName}
+							</h5>
+						)}
 					</div>
 				</div>
 			</div>
