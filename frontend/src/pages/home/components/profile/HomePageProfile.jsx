@@ -9,7 +9,9 @@ const HomePageProfile = () => {
 			<div className="home-page-profile-wrapper">
 				<div className="home-page-profile-inner-wrapper">
 					<div className="profile-img-container">
-						<img className="profile-img" src={profileImg.img_url} />
+						{profileImg && (
+							<img className="profile-img" src={profileImg.img_url} />
+						)}
 					</div>
 					<div className="profile-name-container">
 						<h5>
