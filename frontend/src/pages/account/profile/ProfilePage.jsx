@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { changePassword, imageUpload } from "../../../redux/reducers/AuthSlice";
 import {
 	deleteReview,
@@ -13,10 +14,12 @@ const ProfilePage = () => {
 	const [confirmNewPassword, setConfirmNewPassword] = useState(null);
 	const [displayChangePassword, setDisplayChangePassword] = useState(false);
 	const [image, setImage] = useState(null);
-	const [img, setImg] = useState(null);
 
-	const { userInfo, profileImg } = useSelector((state) => state.user);
+	const { userInfo, profileImg, authorized } = useSelector(
+		(state) => state.user
+	);
 	const { reviews } = useSelector((state) => state.review);
+	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 
@@ -66,7 +69,11 @@ const ProfilePage = () => {
 	};
 
 	useEffect(() => {
-		handleGetReviewsByUser();
+		if (authorized) {
+			handleGetReviewsByUser();
+		} else if (!authorized) {
+			navigate("/account/login");
+		}
 	}, []);
 
 	return (
@@ -75,11 +82,13 @@ const ProfilePage = () => {
 				{userInfo && (
 					<>
 						<div className="profile-page-left-wrapper-left-container">
-							{profileImg && (
-								<div className="profile-img-container">
+							<div className="profile-img-container">
+								{profileImg ? (
 									<img className="profile-img" src={profileImg.img_url} />
-								</div>
-							)}
+								) : (
+									<div className="profile-img">Upload an image...</div>
+								)}
+							</div>
 							<div className="profile-img-upload-container">
 								<label className="img-upload-label">
 									Choose an image...
@@ -147,8 +156,7 @@ const ProfilePage = () => {
 			<div className="profile-page-right-wrapper">
 				{!reviews ? (
 					<div className="profile-review-container">
-						You have made no reviews... does not work cause reviews is still an
-						empty list
+						You have made no reviews...
 					</div>
 				) : (
 					reviews.map((review) => {

@@ -1,5 +1,5 @@
 // REACT
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // AXIOS
 import axios from "axios";
 // REDUX
@@ -12,11 +12,13 @@ const Navbar = () => {
 	const { authorized } = useSelector((state) => state.user);
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	// BUTTON CLICK EVENT, SENDS AXIOS REQUEST TO BACKEND TO LOG OUT THE USER
 	const logout = async () => {
 		const response = await axios.post("/api/account/log_out/");
 		dispatch(signOut());
+		navigate("/account/login");
 	};
 
 	return (
@@ -32,9 +34,11 @@ const Navbar = () => {
 							<Link to="/account/register">Register</Link>
 						</>
 					)}
-					<Link onClick={logout} to="/">
-						Logout
-					</Link>
+					{authorized && (
+						<Link onClick={logout} to="/">
+							Logout
+						</Link>
+					)}
 				</ul>
 			</nav>
 		</>

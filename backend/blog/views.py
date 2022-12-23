@@ -10,6 +10,7 @@ import json
 from dotenv import load_dotenv
 import os
 from django.core.files.storage import default_storage
+from django.core.validators import validate_email
 
 
 load_dotenv()
@@ -24,66 +25,71 @@ def index(request):
 
 @api_view(['POST'])
 def signup(request):
-    try:
+    if request.method == 'POST':
         body = request.data
-        data = {
-            'username': body['email'],
-            'email': body['email'],
-            'password': body['password'],
-            'first_name': body['firstName'],
-            'last_name': body['lastName'],
-        }
+        try:
+            try:
+                validate_email(body['email'])
+            except:
+                return JsonResponse({'success': False, 'message': 'This email address is not valid.'}, status=422)
 
-        try: 
-            User.objects.create_user(**data)
+            data = {
+                'username': body['email'],
+                'email': body['email'],
+                'password': body['password'],
+                'first_name': body['firstName'],
+                'last_name': body['lastName'],
+            }
 
-        except:
-            return JsonResponse({'status':'false', 'message': 'there is def something wrong'}, status=403)
+            try: 
+                User.objects.create_user(**data)
+                return JsonResponse({'success':True})
+
+            except:
+                return JsonResponse({'status':'false', 'error': 'Something went wrong when signing up.'}, status=422)
 
 
-        return JsonResponse({'success':True})
 
-    except Exception as e:
+        except Exception as e:
 
-        return JsonResponse({'success':False})
+            return JsonResponse({'success':False}, status=422)
 
 
 @api_view(['POST'])
 def log_in(request):
-    try:
-        body = request.data
-        username = body['username']
-        password = body['password']
+    if request.method == 'POST':
+        try:
+            body = request.data
+            username = body['username']
+            password = body['password']
 
-        user = authenticate(username=username, password=password)
+            user = authenticate(username=username, password=password)
 
 
-        if user is not None:
-            if user.is_active:
-                try:
-                    login(request, user)
+            if user is not None:
+                if user.is_active:
+                    try:
+                        login(request, user)
 
-                    serializedUser = UserSerializer(user)
-                    return JsonResponse({'user_info': serializedUser.data})
-                except Exception as e:
-                    # print('oops!')
-                    # print(str(e))
-                    return JsonResponse({'login':False}, status=401)
-                # Redirect to a success page.
+                        serializedUser = UserSerializer(user)
+                        return JsonResponse({'user_info': serializedUser.data})
+                    except Exception as e:
+                        return JsonResponse({'login':False}, status=422)
+                else:
+                    return JsonResponse({'active':False}, status=422)
+                    # Return a 'disabled account' error message
             else:
-                return JsonResponse({'active':False}, status=401)
-                # Return a 'disabled account' error message
-        else:
-            return JsonResponse({'user':False}, status=401)
-            # Return an 'invalid login' error message.
-    except Exception as e:
-        return JsonResponse({'success':False}, status=401)
+                return JsonResponse({'user':False}, status=422)
+                # Return an 'invalid login' error message.
+        except Exception as e:
+            return JsonResponse({'success':False, 'error':'Username or password is incorrect.'}, status=422)
         
 
 @api_view(['POST'])
 def log_out(request):
-    logout(request)
-    return JsonResponse({'success':True})
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'success':True})
 
 
 @api_view(['GET'])
@@ -97,46 +103,48 @@ def user_profile(request):
                     'first_name': request.user.first_name
                 })
             else:
-                return JsonResponse({'user':None})
+                return JsonResponse({'user':None}, status=422)
     except Exception as e:
 
-        return JsonResponse({'authenticated':False})
+        return JsonResponse({'authenticated':False}, status=422)
 
 
 @api_view(['POST'])
 def image_upload(request):
-    try:
-        
-        file = request.FILES['img']
-        username = request.data['username']
+    if request.method == 'POST':
+        try:
+            
+            file = request.FILES['img']
+            username = request.data['username']
 
-        file_name = default_storage.save(f'{username}', file)
+            file_name = default_storage.save(f'{username}', file)
 
-        user = User.objects.get(email=username)
-        user.profile_img = file_name
-        user.save(update_fields=['profile_img'])
+            user = User.objects.get(email=username)
+            user.profile_img = file_name
+            user.save(update_fields=['profile_img'])
 
-        return JsonResponse({'img_url':f'/media/{file_name}/'})
+            return JsonResponse({'img_url':f'/media/{file_name}/'})
 
-    except Exception as e:
+        except Exception as e:
 
-        return JsonResponse({'success':False})
+            return JsonResponse({'success':False}, status=422)
 
 
 @api_view(['PUT'])
 def password_change(request):
-    try:
-        print(request.data)
-        response = request.data
-        user = User.objects.get(email=response['username'])
-        print(user)
-        user.set_password(response['new_password'])
-        user.save()
-        return JsonResponse({'success':True})
+    if request.method == 'PUT':
+        try:
+            print(request.data)
+            response = request.data
+            user = User.objects.get(email=response['username'])
+            print(user)
+            user.set_password(response['new_password'])
+            user.save()
+            return JsonResponse({'success':True})
 
-    except:
+        except:
 
-        return JsonResponse({'success':False})
+            return JsonResponse({'success':False}, status=422)
 
 
 
@@ -169,19 +177,17 @@ def reviews(request):
 
 @api_view(['GET', 'POST'])
 def reviews_by_user(request, profile_name):
-    print(profile_name)
     if request.method == 'GET':
-        user = User.objects.get(email=profile_name)
-        reviews = Review.objects.filter(user=user)
-        # print(reviews)
-        if reviews:
-
+        try:
+            user = User.objects.get(email=profile_name)
+            reviews = Review.objects.filter(user=user)
+            # print(reviews)
             serialized_reviews = ReviewSerializer(reviews, many=True)
 
-        else:
-            serialized_reviews = None
 
-        return JsonResponse({'reviews':serialized_reviews.data})
+            return JsonResponse({'reviews':serialized_reviews.data})
+        except Exception as e:
+            return JsonResponse({'reviews': None}, status=422)
 
 
 @api_view(['DELETE'])
@@ -219,7 +225,6 @@ def comments(request):
 
 @api_view(['GET', 'POST'])
 def review_likes(request):
-    print(request.data)
 
     if request.method == 'POST':
 
@@ -254,7 +259,6 @@ def review_likes_delete(request):
 
             review_like = ReviewLike.objects.get(user=user, review_id=review_id)
             review_like.delete()
-            print('working')
 
             return JsonResponse({'success':True})
         

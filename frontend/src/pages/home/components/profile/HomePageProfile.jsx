@@ -9,8 +9,10 @@ const HomePageProfile = () => {
 			<div className="home-page-profile-wrapper">
 				<div className="home-page-profile-inner-wrapper">
 					<div className="profile-img-container">
-						{profileImg && (
+						{profileImg ? (
 							<img className="profile-img" src={profileImg.img_url} />
+						) : (
+							<div className="profile-img">Upload an image..</div>
 						)}
 					</div>
 					<div className="profile-name-container">

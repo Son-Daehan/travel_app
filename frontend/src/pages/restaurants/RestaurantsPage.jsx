@@ -20,7 +20,7 @@ const RestaurantsPage = () => {
 	const { restaurants, restaurantsLoading } = useSelector(
 		(state) => state.restaurants
 	);
-	const { userLocation } = useSelector((state) => state.user);
+	const { userLocation, authorized } = useSelector((state) => state.user);
 	const { restaurantNameParam } = useParams();
 
 	const navigate = useNavigate();
@@ -40,59 +40,63 @@ const RestaurantsPage = () => {
 
 		// ON PAGE LOAD, IF A USER CLICKED ON A RESTAURANT NAME SEARCH PARAM FROM HOMEPAGE
 		// USE THE PARAM, IF NOT, LOAD A GENERIC FOOD SEARCH
-		if (restaurantNameParam) {
-			dispatch(
-				getRestaurants({
-					lat: userLocation.lat,
-					long: userLocation.long,
-					search: `${restaurantNameParam}`,
-				})
-			);
-		} else if (!restaurantNameParam) {
-			dispatch(
-				getRestaurants({
-					lat: userLocation.lat,
-					long: userLocation.long,
-					search: "food",
-				})
-			);
+		else if (authorized) {
+			if (restaurantNameParam) {
+				dispatch(
+					getRestaurants({
+						lat: userLocation.lat,
+						long: userLocation.long,
+						search: `${restaurantNameParam}`,
+					})
+				);
+			} else if (!restaurantNameParam) {
+				dispatch(
+					getRestaurants({
+						lat: userLocation.lat,
+						long: userLocation.long,
+						search: "food",
+					})
+				);
+			}
 		}
 	}, []);
 
 	return (
 		<>
-			<div className="restaurants-container">
-				<div className="restaurants-top-container">
-					<ReastaurantsHeader />
-				</div>
-				<div className="restaurants-bottom-container">
-					<div className="restaurants-bottom-wrapper">
-						<div className="restaurants-scroll-container">
-							{!restaurantsLoading &&
-								restaurants.map((restaurant) => {
-									return (
-										<>
-											<div
-												onClick={() => {
-													handleGetRestaurantDetail(restaurant.id);
-												}}
-											>
-												<RestaurantCard
-													restaurant={restaurant}
-													setSingleRestaurantLocation={
-														setSingleRestaurantLocation
-													}
-												/>
-											</div>
-										</>
-									);
-								})}
-						</div>
+			{authorized && (
+				<div className="restaurants-container">
+					<div className="restaurants-top-container">
+						<ReastaurantsHeader />
+					</div>
+					<div className="restaurants-bottom-container">
+						<div className="restaurants-bottom-wrapper">
+							<div className="restaurants-scroll-container">
+								{!restaurantsLoading &&
+									restaurants.map((restaurant) => {
+										return (
+											<>
+												<div
+													onClick={() => {
+														handleGetRestaurantDetail(restaurant.id);
+													}}
+												>
+													<RestaurantCard
+														restaurant={restaurant}
+														setSingleRestaurantLocation={
+															setSingleRestaurantLocation
+														}
+													/>
+												</div>
+											</>
+										);
+									})}
+							</div>
 
-						<LeafletMap singleRestaurantLocation={singleRestaurantLocation} />
+							<LeafletMap singleRestaurantLocation={singleRestaurantLocation} />
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };
