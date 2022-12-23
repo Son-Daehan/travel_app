@@ -4,12 +4,43 @@
 
 .home-page-profile-wrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     position: fixed;
     width: 17rem;
     margin-left: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-profile-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+}
+
+.profile-img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-name-container {
+    display: flex;
+    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
 }
