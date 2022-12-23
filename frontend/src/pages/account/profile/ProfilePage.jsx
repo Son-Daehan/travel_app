@@ -75,9 +75,11 @@ const ProfilePage = () => {
 				{userInfo && (
 					<>
 						<div className="profile-page-left-wrapper-left-container">
-							<div className="profile-img-container">
-								<img className="profile-img" src={profileImg.img_url} />
-							</div>
+							{profileImg && (
+								<div className="profile-img-container">
+									<img className="profile-img" src={profileImg.img_url} />
+								</div>
+							)}
 							<div className="profile-img-upload-container">
 								<label className="img-upload-label">
 									Choose an image...
@@ -92,11 +94,13 @@ const ProfilePage = () => {
 									Upload
 								</button>
 							</div>
-							<div className="profile-info-container">
-								<div>Email: {userInfo.email}</div>
-								<div>First Name: {userInfo.firstName}</div>
-								<div>Last Name: {userInfo.lastName}</div>
-							</div>
+							{userInfo && (
+								<div className="profile-info-container">
+									<div>Email: {userInfo.email}</div>
+									<div>First Name: {userInfo.firstName}</div>
+									<div>Last Name: {userInfo.lastName}</div>
+								</div>
+							)}
 						</div>
 						<div className="profile-page-left-wrapper-right-container">
 							<div className="profile-about-me-container">ABOUTME</div>
