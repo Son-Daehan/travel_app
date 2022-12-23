@@ -46,14 +46,16 @@ const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
 					{/* <p>{restaurant.location.display_address[1]}</p> */}
 				</div>
 				<div className="restaurant-card-wrapper-right">
-					<a href={restaurant.url}>
-						<div>Yelp</div>
-					</a>
 					<div>
-						<p>Distance: {restaurant.distance}</p>
+						<a href={restaurant.url}>
+							<div>Yelp</div>
+						</a>
+						<p>{restaurant.price}</p>
+					</div>
+					<div>
+						<p>Distance: {Math.round(restaurant.distance)} meters</p>
 					</div>
 					<Link to={`/`}>View reviews!</Link>
-					<p>{restaurant.price}</p>
 				</div>
 			</div>
 		</div>
