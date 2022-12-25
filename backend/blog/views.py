@@ -155,35 +155,48 @@ def reviews(request):
         reviews = Review.objects.all()
 
         serialized_reviews = ReviewSerializer(reviews, many=True)
+        print(serialized_reviews.data)
 
         return JsonResponse({'reviews':serialized_reviews.data[::-1]})
 
     if request.method == 'POST':
-        response = request.data
+        try:
+            response = request.data
 
-        user = User.objects.get(email=response['username'])
+            user = User.objects.get(email=response['username'])
 
-        data = {
-            'title': response['review_title'],
-            'text': response['review'],
-            'restaurant_name': response['restaurant_name'],
-            'user': user
-        }
+            data = {
+                'title': response['review_title'],
+                'text': response['review'],
+                'restaurant_name': response['restaurant_name'],
+                'user': user,
+            }
 
-        new_review = Review(**data)
-        new_review.save()
+            new_review = Review(**data)
+            new_review.save()
 
-        return JsonResponse({'success':True})
+            return JsonResponse({'success':True})
+
+        except:
+            return JsonResponse({'success':False}, status=422)
 
 @api_view(['GET', 'POST'])
 def reviews_by_user(request, profile_name):
     if request.method == 'GET':
         try:
             user = User.objects.get(email=profile_name)
+            # serialized_user = UserSerializer(user)
+            # print(serialized_user)
+            
             reviews = Review.objects.filter(user=user)
-            # print(reviews)
-            serialized_reviews = ReviewSerializer(reviews, many=True)
 
+            serialized_reviews = ReviewSerializer(reviews, many=True)
+            print(serialized_reviews.data)
+            
+            # if len(serialized_user_reviews) == 0:
+            #     return JsonResponse({'reviews':None}, status=422)
+                
+            # print(serialized_user_reviews)
 
             return JsonResponse({'reviews':serialized_reviews.data})
         except Exception as e:

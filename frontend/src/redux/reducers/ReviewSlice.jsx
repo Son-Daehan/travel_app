@@ -97,6 +97,7 @@ const ReviewSlice = createSlice({
 			state.reviews = null;
 		},
 		[getAllReviews.fulfilled]: (state, action) => {
+			console.log(action.payload);
 			state.reviews = action.payload;
 		},
 		[getAllReviews.rejected]: (state, { payload }) => {

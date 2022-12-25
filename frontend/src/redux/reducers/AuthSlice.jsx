@@ -102,6 +102,12 @@ const AuthSlice = createSlice({
 				lastName: payload.user_info.last_name,
 			};
 			state.userInfo = newUserInfo;
+			state.profileImg = payload.user_info.profile_img;
+
+			localStorage.setItem(
+				"profileImg",
+				JSON.stringify({ img_url: `${state.profileImg}/` })
+			);
 			localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
 			localStorage.setItem("authorized", JSON.stringify(true));
 			// state.sessionID = payload.sessionID;

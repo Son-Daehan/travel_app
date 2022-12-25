@@ -11,13 +11,14 @@ class User(AbstractUser):
         unique=True,
     )
     is_active = models.BooleanField(default=True)
-    profile_img = models.ImageField(upload_to='images/', blank=True)
+    profile_img = models.ImageField(upload_to='images/', blank=True, null=True)
 
     # notice the absence of a "Password field", that is built in.
 
     # django uses the 'username' to identify users by default, but many modern applications use 'email' instead
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [] # Email & Password are required by default.
+
     
 
 # not migrated as of yet

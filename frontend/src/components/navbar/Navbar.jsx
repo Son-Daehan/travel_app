@@ -25,17 +25,27 @@ const Navbar = () => {
 		<>
 			<nav className="navbar-container">
 				<ul className="navbar-wrapper">
-					<Link to="/">Home</Link>
-					<Link to="/restaurants">Restaurants</Link>
-					<Link to="/account/profile">Profile</Link>
+					<Link className="navbar-link" to="/">
+						Home
+					</Link>
+					<Link className="navbar-link" to="/restaurants">
+						Restaurants
+					</Link>
+					<Link className="navbar-link" to="/account/profile">
+						Profile
+					</Link>
 					{!authorized && (
 						<>
-							<Link to="/account/login">Login</Link>
-							<Link to="/account/register">Register</Link>
+							<Link className="navbar-link" to="/account/login">
+								Login
+							</Link>
+							<Link className="navbar-link" to="/account/register">
+								Register
+							</Link>
 						</>
 					)}
 					{authorized && (
-						<Link onClick={logout} to="/">
+						<Link className="navbar-link" onClick={logout} to="/">
 							Logout
 						</Link>
 					)}
