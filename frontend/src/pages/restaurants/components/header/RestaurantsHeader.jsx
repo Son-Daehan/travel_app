@@ -30,16 +30,14 @@ const ReastaurantsHeader = () => {
 				<div>Search for restaurants in you area!</div>
 				<div>
 					<input
+						className="small-container"
+						style={{ width: "300px" }}
 						type="search"
 						placeholder="Search"
-						className="me-2"
 						aria-label="Search"
 						onChange={(event) => setInputSearch(event.target.value)}
 					/>
-					<button
-						className="button-container"
-						onClick={handleSearchRestaurants}
-					>
+					<button className="small-container" onClick={handleSearchRestaurants}>
 						Search
 					</button>
 				</div>
