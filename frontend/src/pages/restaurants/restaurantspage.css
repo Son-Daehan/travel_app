@@ -7,6 +7,7 @@
 
 .restaurants-top-container {
     display: grid;
+
     position: fixed;
     /* left: 21rem; */
     width: calc(100vw - 115px);

@@ -115,12 +115,9 @@ const ProfilePage = () => {
 							)}
 						</div>
 						<div className="profile-page-left-wrapper-right-container">
-							<div className="profile-about-me-container large-container">
-								ABOUTME
-							</div>
 							<div className="profile-change-password-container">
 								<button
-									className="profile-change-password-btn"
+									className="extra-extra-small-container"
 									onClick={() => {
 										!displayChangePassword
 											? setDisplayChangePassword(true)

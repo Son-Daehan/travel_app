@@ -64,7 +64,7 @@ const RestaurantsPage = () => {
 	return (
 		<>
 			{authorized && (
-				<div className="restaurants-container">
+				<div className="restaurants-container grid-container">
 					<div className="restaurants-top-container large-container">
 						<ReastaurantsHeader />
 					</div>

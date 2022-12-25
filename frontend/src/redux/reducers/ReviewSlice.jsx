@@ -105,7 +105,12 @@ const ReviewSlice = createSlice({
 			state.reviews = null;
 		},
 		[getReviewsByUser.fulfilled]: (state, action) => {
-			state.reviews = action.payload;
+			console.log(action.payload);
+			if (action.payload.length == 0) {
+				state.reviews = null;
+			} else {
+				state.reviews = action.payload;
+			}
 		},
 		[getReviewsByUser.rejected]: (state, { payload }) => {
 			state.reviews = null;

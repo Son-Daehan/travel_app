@@ -8,7 +8,6 @@ const initialState = {
 	error: null,
 	success: false,
 	userLocation: JSON.parse(localStorage.getItem("userLocation")) || null,
-	userPositionLoading: true,
 	profileImg: JSON.parse(localStorage.getItem("profileImg")) || null,
 };
 
@@ -85,6 +84,7 @@ const AuthSlice = createSlice({
 			state.error = null;
 			state.authorized = false;
 			state.userLocation = null;
+			state.profileImg = null;
 		},
 	},
 	extraReducers: {
@@ -142,7 +142,6 @@ const AuthSlice = createSlice({
 			const lat = action.payload.lat;
 			const long = action.payload.lon;
 			const city = action.payload.city;
-			state.userPositionLoading = false;
 
 			const userLocation = {
 				lat: lat,
