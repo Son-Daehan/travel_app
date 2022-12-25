@@ -53,19 +53,23 @@ const ReviewsSection = () => {
 												src={`${review.user.profile_img}/`}
 											/>
 										</div>
-										{/* LINKS TO USER'S PROFILE PAGE */}
-										<Link
-											className="review-profile-name-link"
-											to={`/profile/${review.user.email}`}
-										>
-											{review.user.email}
-										</Link>
 									</div>
 									<div className="home-reviews-header-title-container">
-										<div className="home-reviews-header-title">
-											{review.title}
+										<div>
+											{/* LINKS TO USER'S PROFILE PAGE */}
+											<Link
+												className="review-profile-name-link"
+												to={`/profile/${review.user.email}`}
+											>
+												{review.user.email}
+											</Link>
+											<div className="home-reviews-header-title">
+												{review.title}
+											</div>
 										</div>
 										{/* LINKS TO RESTAURANTS PAGE BASED ON THE ITEM CLICKED AS THE SEARCH PARAM */}
+									</div>
+									<div className="home-reviews-header-restaurant-name-container">
 										<Link
 											className="home-reviews-header-restaurant-name"
 											to={`/restaurants/${review.restaurant_name}`}

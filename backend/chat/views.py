@@ -15,14 +15,10 @@ def manage_chat_log(request, **data):
     # RETREIVES ALL CHAT LOG FOR A SPECIFIC ROOM
     if request.method == 'GET':
         room_name = data['room_name']
-        print('name', room_name)
         response = redis_instance.lrange(room_name, 0, 10)
-        print(response)
-        # print(request)
         data = []
 
         for dict in response:
-            print(json.loads(dict))
             data.append(json.loads(dict))
 
         data.append({'user':'Chat Bot', 'msg':f'Welcome to the {room_name} chat room!'})
@@ -39,8 +35,6 @@ def manage_chat_log(request, **data):
         room_name = response['room_name']
         user = response['user']
         message = response['message']
-        print(room_name)
-        print(response)
 
         redis_instance.lpush(room_name, json.dumps({'user':user, 'msg':message}))
         data = {

@@ -5,6 +5,7 @@ const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
 	// BUTTON EVENT HANDLER, SETS THE STATE OF SINGLERESTAURANTLOCATION ON THE RESTAURANTS PAGE
 	const handleSetSingleRestaurantLocation = () => {
 		const location = {
+			name: restaurant.name,
 			lat: restaurant.coordinates.latitude,
 			long: restaurant.coordinates.longitude,
 		};

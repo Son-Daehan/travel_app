@@ -11,6 +11,7 @@ export const sendMessage = createAsyncThunk(
 				`/chat/chat_log/${data.data.room_name}`,
 				data.data
 			);
+
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
@@ -42,9 +43,11 @@ export const ChatSlice = createSlice({
 	reducers: {
 		setMessages: (state, action) => {
 			try {
+				console.log(JSON.parse(action.payload));
 				state.messages.push(JSON.parse(action.payload));
 			} catch {
 				// for non json data
+				console.log(action.payload);
 				state.messages.push(action.payload);
 			}
 		},

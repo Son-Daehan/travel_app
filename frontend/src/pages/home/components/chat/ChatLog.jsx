@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getChatLog,
-	setMessages,
 	setRoomName,
 	sendMessage,
+	setMessages,
 } from "../../../../redux/reducers/ChatSlice";
 
 import "./chatlog.css";
@@ -12,7 +12,6 @@ import { useEffect } from "react";
 
 const ChatLog = ({ user }) => {
 	// TO GET THE ROOM NAME
-	const [inputRoomName, setInputRoomName] = useState(null);
 	const [displayChat, setDisplayChat] = useState(false);
 
 	const [text, setText] = useState([]);
@@ -28,16 +27,6 @@ const ChatLog = ({ user }) => {
 
 	const dispatch = useDispatch();
 
-	// HAVE THE ONCLOSE HAVE A POST REQUEST SENT TO REDIS STORING CHAT LOG
-	// chat.onclose = function (e) {
-	// 	console.error("Chat socket closed unexpectedly");
-	// };
-
-	// HAVE THE ONOPEN HAVE A GET REQUEST TO GET CHAT LOG FROM REDIS
-	// chatSocket.onopen = function (e) {
-	// 	console.log("Chat socket has been connected");
-	// };
-
 	const sendText = () => {
 		const data = {
 			room_name: userLocation.city,
@@ -51,71 +40,12 @@ const ChatLog = ({ user }) => {
 		// sends the data to the server
 		socket.send(
 			JSON.stringify({
-				message: `${userInfo.email}: ${text}`,
+				// message: `${userInfo.email}: ${text}`,
+				user: `${userInfo.email}`,
+				msg: `${text}`,
 			})
 		);
 	};
-
-	// const getChatLog = async () => {
-	// 	const response = await axios.get(`/chat/chat_log/${inputRoomName}`);
-	// 	const data = response.data.data;
-	// 	console.log(inputRoomName);
-	// 	// console.log(data);
-	// 	// const messageLog = data.map((msg) => {
-	// 	// 	return {
-	// 	// 		user: msg.user,
-	// 	// 		message: msg.msg,
-	// 	// 	};
-	// 	// });
-	// 	// console.log(messageLog);
-	// 	// console.log(messageLog);
-	// 	return data;
-	// };
-	// if (socket) {
-	// 	socket.onOpen = async () => {
-	// 		const response = await axios.get(`/chat/chat_log/${inputRoomName}`);
-	// 		console.log(inputRoomName);
-	// 		const data = response.data.data;
-	// 		console.log(response);
-	// 		// console.log(data);
-	// 		// const messageLog = data.map((msg) => {
-	// 		// 	return {
-	// 		// 		user: msg.user,
-	// 		// 		message: msg.msg,
-	// 		// 	};
-	// 		// });
-	// 		// console.log(messageLog);
-	// 		// console.log(messageLog);
-	// 		return data;
-	// 	};
-	// }
-
-	// event when a message is sent - socket.send()
-	// this will trigger whenever a server sends a message
-	// the if statement ensures it does not fire on first load due to null value on socket
-	// useEffect(() => {
-	// 	if (chatLogLoading) {
-	// 		socket.onmessage = async (event) => {
-	// 			// chat that is sent will be pushed into messages state that holds a history of chat messages for the current state
-	// 			// console.log(getChatLog());
-
-	// 			// chat log from REDIS
-	// 			// todo - have to change the way data is pulled or sort it to go from oldest to earliest
-	// 			const data = await getChatLog();
-	// 			console.log(data);
-	// 			data.map((msg) =>
-	// 				dispatch(
-	// 					setMessages({
-	// 						user: msg.user,
-	// 						message: msg.msg,
-	// 					})
-	// 				)
-	// 			);
-
-	// 			dispatch(setMessages(event.data));
-	// 		};
-	// 	}
-	// }, [chatLogLoading]);
 
 	useEffect(() => {
 		if (chatLogLoading) {
@@ -135,6 +65,15 @@ const ChatLog = ({ user }) => {
 		}
 	};
 
+	const handleRoomDisconnect = () => {
+		try {
+			socket.close();
+			setSocket(null);
+		} catch {
+			console.log("Not connected");
+		}
+	};
+
 	const handleDisplayChat = () => {
 		if (displayChat) {
 			setDisplayChat(false);
@@ -145,6 +84,15 @@ const ChatLog = ({ user }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (displayChat) {
+			socket.onmessage = function (e) {
+				const data = JSON.parse(e.data);
+				dispatch(setMessages({ user: data.user, msg: data.message }));
+			};
+		}
+	}, [displayChat]);
+
 	return (
 		<div className="chat-container">
 			<div className="chat-wrapper" id="change-this">
@@ -152,8 +100,11 @@ const ChatLog = ({ user }) => {
 					<div>
 						Chat with people in {userLocation ? userLocation.city : ""}!
 					</div>
-					<button className="chat-button" onClick={handleRoomConnect}>
-						Enter room
+					<button
+						className="chat-button"
+						onClick={!displayChat ? handleRoomConnect : handleRoomConnect}
+					>
+						{!displayChat ? "Enter Room" : "Disconnect"}
 					</button>
 				</div>
 				{displayChat && (
@@ -171,7 +122,7 @@ const ChatLog = ({ user }) => {
 													: { "align-items": "flex-start" }
 											}
 										>
-											<div className="chat-message-container">
+											<div className="chat-message-container" id="chat-log">
 												<div>
 													<em>{message.user}</em>
 												</div>

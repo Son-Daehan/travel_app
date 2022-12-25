@@ -41,7 +41,7 @@ const LeafletMap = ({ singleRestaurantLocation }) => {
 								singleRestaurantLocation.long,
 							]}
 						>
-							<Popup>It's working!</Popup>
+							<Popup>{singleRestaurantLocation.name}</Popup>
 						</Marker>
 					)}
 				</MapContainer>

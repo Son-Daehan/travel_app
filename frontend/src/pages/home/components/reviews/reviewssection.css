@@ -20,8 +20,9 @@
 }
 
 .home-reviews-header {
-    display: grid;
-    grid-template-columns: 30% 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .home-reviews-header-profile-container{
@@ -59,8 +60,9 @@
 
 .home-reviews-header-title-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -73,6 +75,10 @@
     align-items: center;
 }
 
+.home-reviews-header-restaurant-name-container {
+    display: flex;
+    align-items: center;
+}
 
 .home-reviews-header-restaurant-name {
     display: flex;
