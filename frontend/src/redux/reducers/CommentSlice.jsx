@@ -51,9 +51,7 @@ const CommentSlice = createSlice({
 	reducers: {},
 	extraReducers: {
 		[createComment.pending]: (state) => {},
-		[createComment.fulfilled]: (state, action) => {
-			console.log(action.payload);
-		},
+		[createComment.fulfilled]: (state, action) => {},
 		[createComment.rejected]: (state, { payload }) => {},
 	},
 });

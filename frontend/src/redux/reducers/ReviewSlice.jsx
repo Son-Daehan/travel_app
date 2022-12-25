@@ -47,7 +47,6 @@ export const getAllReviews = createAsyncThunk(
 export const getReviewsByUser = createAsyncThunk(
 	"getReviewsByUser",
 	async (data, { rejectWithValue }) => {
-		console.log(data.username);
 		try {
 			const response = await axios.get(
 				`/api/reviews/profile/${data.username}/`
@@ -97,7 +96,6 @@ const ReviewSlice = createSlice({
 			state.reviews = null;
 		},
 		[getAllReviews.fulfilled]: (state, action) => {
-			console.log(action.payload);
 			state.reviews = action.payload;
 		},
 		[getAllReviews.rejected]: (state, { payload }) => {

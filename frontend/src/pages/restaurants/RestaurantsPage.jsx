@@ -65,7 +65,7 @@ const RestaurantsPage = () => {
 		<>
 			{authorized && (
 				<div className="restaurants-container">
-					<div className="restaurants-top-container">
+					<div className="restaurants-top-container large-container">
 						<ReastaurantsHeader />
 					</div>
 					<div className="restaurants-bottom-container">

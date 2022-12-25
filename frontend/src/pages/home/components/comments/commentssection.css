@@ -6,9 +6,6 @@
 
 .home-reviews-comments-section-container {
     display: flex;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     flex-direction: column;
     row-gap: 20px;
 }
@@ -27,9 +24,6 @@
 
 .home-reviews-comments-section-user {
     display: flex;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 3px;
-    border-radius: 5px;
     background-color: aliceblue;
     height: 30px;
     justify-content: center;
@@ -37,9 +31,6 @@
 
 .home-reviews-comments-section-text {
     display: grid;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .home-reviews-comments-section-bottom-wrapper {
@@ -57,12 +48,6 @@
     justify-content: flex-end;
 }
 
-.comment-like-section-like-button {
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
-}
-
 
 /* COMMENT CREATE SECTION */
 
@@ -72,9 +57,3 @@
     grid-template-columns: 10% 65% 5% 20%;
 }
 
-
-.home-reviews-create-comments-section-text-input {
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
-}

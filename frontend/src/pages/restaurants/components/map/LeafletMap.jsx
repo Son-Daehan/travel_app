@@ -16,7 +16,7 @@ const LeafletMap = ({ singleRestaurantLocation }) => {
 				<MapContainer
 					center={[userLocation.lat, userLocation.long]}
 					zoom={10}
-					className="map-wrapper"
+					className="map-wrapper med-container"
 				>
 					<TileLayer
 						attribution='&copy <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'

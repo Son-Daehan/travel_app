@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changePassword, imageUpload } from "../../../redux/reducers/AuthSlice";
+import { changePassword, imageUpload } from "../../redux/reducers/AuthSlice";
 import {
 	deleteReview,
 	getReviewsByUser,
-} from "../../../redux/reducers/ReviewSlice";
+} from "../../redux/reducers/ReviewSlice";
 import "./profilepage.css";
 
 const ProfilePage = () => {
@@ -78,11 +78,11 @@ const ProfilePage = () => {
 
 	return (
 		<div className="profile-page-container">
-			<div className="profile-page-left-wrapper">
+			<div className="profile-page-left-wrapper large-container">
 				{userInfo && (
 					<>
 						<div className="profile-page-left-wrapper-left-container">
-							<div className="profile-img-container">
+							<div className="profile-img-container large-container">
 								{profileImg ? (
 									<img className="profile-img" src={profileImg.img_url} />
 								) : (
@@ -90,7 +90,7 @@ const ProfilePage = () => {
 								)}
 							</div>
 							<div className="profile-img-upload-container">
-								<label className="img-upload-label">
+								<label className="img-upload-label extra-extra-small-container">
 									Choose an image...
 									<input
 										className="img-upload-input"
@@ -99,12 +99,15 @@ const ProfilePage = () => {
 										onChange={(event) => setImage(event.target.files[0])}
 									/>
 								</label>
-								<button className="upload-button" onClick={handleImageUpload}>
+								<button
+									className="upload-button extra-extra-small-container"
+									onClick={handleImageUpload}
+								>
 									Upload
 								</button>
 							</div>
 							{userInfo && (
-								<div className="profile-info-container">
+								<div className="profile-info-container extra-extra-small-container">
 									<div>Email: {userInfo.email}</div>
 									<div>First Name: {userInfo.firstName}</div>
 									<div>Last Name: {userInfo.lastName}</div>
@@ -112,7 +115,9 @@ const ProfilePage = () => {
 							)}
 						</div>
 						<div className="profile-page-left-wrapper-right-container">
-							<div className="profile-about-me-container">ABOUTME</div>
+							<div className="profile-about-me-container large-container">
+								ABOUTME
+							</div>
 							<div className="profile-change-password-container">
 								<button
 									className="profile-change-password-btn"
@@ -128,19 +133,19 @@ const ProfilePage = () => {
 									{displayChangePassword && (
 										<>
 											<input
-												className="password-input"
+												className="password-input extra-extra-small-container"
 												placeholder="New Password"
 												onChange={(event) => setNewPassword(event.target.value)}
 											/>
 											<input
-												className="password-input"
+												className="password-input extra-extra-small-container"
 												placeholder="Confirm New Password"
 												onChange={(event) =>
 													setConfirmNewPassword(event.target.value)
 												}
 											/>
 											<button
-												className="profile-change-password-btn"
+												className="profile-change-password-btn extra-extra-small-container"
 												onClick={handleChangePassword}
 											>
 												Submit
@@ -153,7 +158,7 @@ const ProfilePage = () => {
 					</>
 				)}
 			</div>
-			<div className="profile-page-right-wrapper">
+			<div className="profile-page-right-wrapper large-container">
 				{!reviews ? (
 					<div className="profile-review-container">
 						You have made no reviews...
@@ -161,12 +166,12 @@ const ProfilePage = () => {
 				) : (
 					reviews.map((review) => {
 						return (
-							<div className="profile-review-container">
+							<div className="profile-review-container large-container">
 								<div>
 									Review Title: <em>{review.title}</em>
 								</div>
 								<button
-									className="delete-button"
+									className="delete-button extra-extra-small-container"
 									onClick={() => handleDeleteReview(review.id)}
 								>
 									Delete

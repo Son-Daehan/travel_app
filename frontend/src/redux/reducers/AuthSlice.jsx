@@ -95,7 +95,6 @@ const AuthSlice = createSlice({
 		},
 		[signIn.fulfilled]: (state, { payload }) => {
 			state.loading = false;
-			// THE RESPONSE SENT FROM BACKEND IS AN OBJECT WITH PROPERTIES?? WONT SET TO STATE
 			const newUserInfo = {
 				email: payload.user_info.email,
 				firstName: payload.user_info.first_name,
@@ -110,7 +109,6 @@ const AuthSlice = createSlice({
 			);
 			localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
 			localStorage.setItem("authorized", JSON.stringify(true));
-			// state.sessionID = payload.sessionID;
 			state.authorized = true;
 		},
 		[signIn.rejected]: (state, { payload }) => {
@@ -130,7 +128,6 @@ const AuthSlice = createSlice({
 			state.success = true; // registration successful
 		},
 		[signUp.rejected]: (state, { payload }) => {
-			// console.log(action.payload.message);
 			state.error = payload.message;
 			state.loading = false;
 		},

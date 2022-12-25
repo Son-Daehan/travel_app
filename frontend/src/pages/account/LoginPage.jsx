@@ -33,12 +33,13 @@ const LoginPage = () => {
 
 	return (
 		<div className="login-container">
-			<div className="login-wrapper">
+			<div className="login-wrapper large-container">
 				<h4>Login</h4>
 				<div>
 					<em>Username</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="text"
 					placeholder="username"
 					onChange={(event) => setUsername(event.target.value)}
@@ -47,11 +48,14 @@ const LoginPage = () => {
 					<em>Password</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="password"
 					placeholder="password"
 					onChange={(event) => setPassword(event.target.value)}
 				/>
-				<button onClick={loginUser}>login</button>
+				<button className="extra-extra-small-container" onClick={loginUser}>
+					login
+				</button>
 				{error && <div>{error}</div>}
 			</div>
 		</div>

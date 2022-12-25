@@ -15,31 +15,31 @@ const RestaurantCard = ({ restaurant, setSingleRestaurantLocation }) => {
 
 	return (
 		<div
-			className="restaurant-card-container"
+			className="restaurant-card-container med-container"
 			onClick={handleSetSingleRestaurantLocation}
 		>
 			<div className="restaurant-card-wrapper">
 				{/* <p>{restaurant.id}</p> */}
 				<div className="restaurant-card-wrapper-left">
-					<div className="restaurant-img-container">
+					<div className="restaurant-img-container small-container-no-padding">
 						<img src={restaurant.image_url} className="restaurant-img" />
 					</div>
-					<div className="restaurant-name-container">
+					<div className="restaurant-name-container small-container">
 						<h5>{restaurant.name}</h5>
 					</div>
 				</div>
 				{/* <p>{restaurant.image_url}</p> */}
 				<div className="restaurant-card-wrapper-middle">
-					<div className="restaurant-card-status-container">
+					<div className="restaurant-card-status-container small-container">
 						{!restaurant.is_closed ? "Open" : "Closed"}
 					</div>
 					{/* <p>{restaurant.review_count}</p> */}
 					{/* <p>{restaurant.rating}</p> */}
-					<div className="restaurant-card-phone-container">
+					<div className="restaurant-card-phone-container small-container-no-padding">
 						<p>{restaurant.display_phone}</p>
 					</div>
 
-					<div className="restaurant-card-address-container">
+					<div className="restaurant-card-address-container small-container-no-padding">
 						{restaurant.location.display_address.map((address) => {
 							return <div>{address}</div>;
 						})}

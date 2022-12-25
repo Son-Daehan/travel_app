@@ -7,10 +7,6 @@
 
 .restaurants-top-container {
     display: grid;
-    padding: 3rem;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 20px;
-    border-radius: 5px;
     position: fixed;
     /* left: 21rem; */
     width: calc(100vw - 115px);

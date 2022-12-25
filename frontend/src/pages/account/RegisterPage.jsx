@@ -44,12 +44,13 @@ const RegisterPage = () => {
 
 	return (
 		<div className="register-container">
-			<div className="register-wrapper">
+			<div className="register-wrapper large-container">
 				<h4>Register an Account</h4>
 				<div>
 					<em>First Name</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="text"
 					placeholder="first name"
 					onChange={(event) => setFirstName(event.target.value)}
@@ -58,6 +59,7 @@ const RegisterPage = () => {
 					<em>Last Name</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="text"
 					placeholder="last name"
 					onChange={(event) => setLastName(event.target.value)}
@@ -66,6 +68,7 @@ const RegisterPage = () => {
 					<em>Email</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="email"
 					placeholder="email"
 					onChange={(event) => setEmail(event.target.value)}
@@ -74,11 +77,16 @@ const RegisterPage = () => {
 					<em>Password</em>
 				</div>
 				<input
+					className="extra-extra-small-container"
 					type="password"
 					placeholder="password"
 					onChange={(event) => setPassword(event.target.value)}
 				/>
-				<button onClick={createUser} disabled={loading}>
+				<button
+					className="extra-extra-small-container"
+					onClick={createUser}
+					disabled={loading}
+				>
 					create a user
 				</button>
 				{error && <div>{error}</div>}

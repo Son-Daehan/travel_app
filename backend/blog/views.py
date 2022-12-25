@@ -1,4 +1,3 @@
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Review, Comment, ReviewLike, CommentLike
 from django.http import HttpResponse, JsonResponse
@@ -6,7 +5,6 @@ from rest_framework.decorators import api_view
 from .user_serializer import UserSerializer
 from .review_serializer import ReviewSerializer
 import requests
-import json
 from dotenv import load_dotenv
 import os
 from django.core.files.storage import default_storage
@@ -134,10 +132,9 @@ def image_upload(request):
 def password_change(request):
     if request.method == 'PUT':
         try:
-            print(request.data)
             response = request.data
             user = User.objects.get(email=response['username'])
-            print(user)
+
             user.set_password(response['new_password'])
             user.save()
             return JsonResponse({'success':True})
@@ -155,7 +152,6 @@ def reviews(request):
         reviews = Review.objects.all()
 
         serialized_reviews = ReviewSerializer(reviews, many=True)
-        print(serialized_reviews.data)
 
         return JsonResponse({'reviews':serialized_reviews.data[::-1]})
 
@@ -185,18 +181,10 @@ def reviews_by_user(request, profile_name):
     if request.method == 'GET':
         try:
             user = User.objects.get(email=profile_name)
-            # serialized_user = UserSerializer(user)
-            # print(serialized_user)
             
             reviews = Review.objects.filter(user=user)
 
             serialized_reviews = ReviewSerializer(reviews, many=True)
-            print(serialized_reviews.data)
-            
-            # if len(serialized_user_reviews) == 0:
-            #     return JsonResponse({'reviews':None}, status=422)
-                
-            # print(serialized_user_reviews)
 
             return JsonResponse({'reviews':serialized_reviews.data})
         except Exception as e:
@@ -281,7 +269,6 @@ def review_likes_delete(request):
 
 @api_view(['GET', 'POST'])
 def comment_likes(request):
-    print(request.data)
 
     if request.method == 'POST':
 

@@ -5,17 +5,17 @@ import "./commentssection.css";
 
 const CommentsSection = ({ comments }) => {
 	return (
-		<div className="home-reviews-comments-section-container">
+		<div className="home-reviews-comments-section-container small-container">
 			{comments &&
 				comments.map((comment) => {
 					return (
 						<div className="home-reviews-commits-section-wrapper">
 							<div className="home-reviews-comments-section-top-wrapper">
-								<div className="home-reviews-comments-section-user">
+								<div className="home-reviews-comments-section-user extra-small-container">
 									{comment.user}
 								</div>
 								<div></div>
-								<div className="home-reviews-comments-section-text">
+								<div className="home-reviews-comments-section-text small-container">
 									{comment.text}
 								</div>
 							</div>

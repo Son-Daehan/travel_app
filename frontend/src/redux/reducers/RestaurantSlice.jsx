@@ -43,7 +43,6 @@ const RestaurantSlice = createSlice({
 	initialState,
 	reducers: {
 		setCuisine: (state, action) => {
-			console.log(action.payload);
 			state.cuisine = action.payload.cuisine;
 		},
 	},

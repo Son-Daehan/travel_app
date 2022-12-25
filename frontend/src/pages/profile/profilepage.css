@@ -12,9 +12,6 @@
 .profile-page-left-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     width: 90%;
     height: 20rem;
 }
@@ -31,9 +28,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     width: 200px;
     height: 150px;
 }
@@ -45,9 +39,6 @@
 }
 
 .profile-info-container {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
     width: 10rem;
 }
 
@@ -58,9 +49,6 @@
 }
 
 .profile-about-me-container {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     width: 100%;
     height: 150px;
 }
@@ -73,16 +61,10 @@
 }
 
 .password-input {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
     width: 100%;
 }
 
 .profile-change-password-btn {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
     background-color: rgba(72, 160, 255, 0.384)
 }
 
@@ -91,9 +73,6 @@
     flex-direction: column;
     gap: 20px;
     overflow-y:scroll;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     width: 90%;
     height: 20rem;
 }
@@ -102,15 +81,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
 }
 
 .delete-button {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
     background-color: rgba(72, 160, 255, 0.384)
 }
 
@@ -125,9 +98,6 @@
 }
 .img-upload-label {
     cursor: pointer;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
 }
 
 .img-upload-input {
@@ -135,8 +105,5 @@
 }
 
 .upload-button {
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 2px;
-    border-radius: 5px;
     background-color: rgba(72, 160, 255, 0.384)
 }

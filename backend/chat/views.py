@@ -12,7 +12,6 @@ redis_instance = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS
 def manage_chat_log(request, **data):
 
 
-    # RETREIVES ALL CHAT LOG FOR A SPECIFIC ROOM
     if request.method == 'GET':
         room_name = data['room_name']
         response = redis_instance.lrange(room_name, 0, 10)
@@ -23,11 +22,9 @@ def manage_chat_log(request, **data):
 
         data.append({'user':'Chat Bot', 'msg':f'Welcome to the {room_name} chat room!'})
 
-        # print(data[::-1])
-        #  data is stored 
+
         return JsonResponse({'data':data[::-1]},status=200)
         
-    # ADDS MESSAGE SENT TO THE SPECIFIC ROOM
     elif request.method == 'POST':
 
         response = request.data
@@ -44,60 +41,3 @@ def manage_chat_log(request, **data):
 
         return JsonResponse(data)
 
-
-
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def manage_item(request, *args, **kwargs):
-#     if request.method == 'GET':
-#         if kwargs['key']:
-#             value = redis_instance.get(kwargs['key'])
-#             if value:
-#                 response = {
-#                     'key': kwargs['key'],
-#                     'value': value,
-#                     'msg': 'success'
-#                 }
-#                 return Response(response, status=200)
-#             else:
-#                 response = {
-#                     'key': kwargs['key'],
-#                     'value': None,
-#                     'msg': 'Not found'
-#                 }
-#                 return Response(response, status=404)
-#     elif request.method == 'PUT':
-#         if kwargs['key']:
-#             request_data = json.loads(request.body)
-#             new_value = request_data['new_value']
-#             value = redis_instance.get(kwargs['key'])
-#             if value:
-#                 redis_instance.set(kwargs['key'], new_value)
-#                 response = {
-#                     'key': kwargs['key'],
-#                     'value': value,
-#                     'msg': f"Successfully updated {kwargs['key']}"
-#                 }
-#                 return Response(response, status=200)
-#             else:
-#                 response = {
-#                     'key': kwargs['key'],
-#                     'value': None,
-#                     'msg': 'Not found'
-#                 }
-#                 return Response(response, status=404)
-
-#     elif request.method == 'DELETE':
-#         if kwargs['key']:
-#             result = redis_instance.delete(kwargs['key'])
-#             if result == 1:
-#                 response = {
-#                     'msg': f"{kwargs['key']} successfully deleted"
-#                 }
-#                 return Response(response, status=404)
-#             else:
-#                 response = {
-#                     'key': kwargs['key'],
-#                     'value': None,
-#                     'msg': 'Not found'
-#                 }
-#                 return Response(response, status=404)

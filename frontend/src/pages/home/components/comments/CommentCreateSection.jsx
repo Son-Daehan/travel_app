@@ -26,14 +26,14 @@ const CommentCreateSection = ({ reviewID }) => {
 			<div className="home-reviews-create-comments-section">
 				<div>img</div>
 				<input
-					className="home-reviews-create-comments-section-text-input"
+					className="home-reviews-create-comments-section-text-input small-container"
 					placeholder="Write a comment..."
 					onChange={(event) => {
 						setInputComment(event.target.value);
 					}}
 				/>
 				<div></div>
-				<button className="button-container" onClick={handleCreateComment}>
+				<button className="small-container" onClick={handleCreateComment}>
 					Post Comment
 				</button>
 			</div>

@@ -8,14 +8,14 @@ const HomePageProfile = () => {
 		<div className="home-page-profile-container">
 			<div className="home-page-profile-wrapper">
 				<div className="home-page-profile-inner-wrapper">
-					<div className="profile-img-container">
+					<div className="profile-img-container med-container">
 						{profileImg ? (
 							<img className="profile-img" src={profileImg.img_url} />
 						) : (
 							<div className="profile-img">Upload an image..</div>
 						)}
 					</div>
-					<div className="profile-name-container">
+					<div className="profile-name-container large-container">
 						{userInfo && (
 							<h5>
 								{userInfo.firstName} {userInfo.lastName}

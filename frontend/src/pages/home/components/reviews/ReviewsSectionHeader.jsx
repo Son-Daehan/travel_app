@@ -28,11 +28,11 @@ const ReviewsSectionHeader = () => {
 	};
 
 	return (
-		<div className="home-create-review-container">
+		<div className="home-create-review-container medium-container">
 			<div className="home-create-review-top-wrapper">
 				<div>Image</div>
 				<input
-					className="review-title-input"
+					className="review-title-input small-container"
 					placeholder="Review Title"
 					onChange={(event) => {
 						setReviewTitle(event.target.value);
@@ -40,7 +40,7 @@ const ReviewsSectionHeader = () => {
 				/>
 				<div></div>
 				<input
-					className="review-name-input"
+					className="review-name-input small-container"
 					placeholder="Restaurant Name"
 					onChange={(event) => {
 						setRestaurantName(event.target.value);
@@ -49,7 +49,7 @@ const ReviewsSectionHeader = () => {
 			</div>
 			<div className="home-create-review-middle-wrapper">
 				<input
-					className="review-description-input"
+					className="review-description-input small-container"
 					placeholder="Write a review on a restaurant!"
 					onChange={(event) => {
 						setReview(event.target.value);
@@ -57,7 +57,7 @@ const ReviewsSectionHeader = () => {
 				/>
 			</div>
 			<div className="home-create-review-bottom-wrapper">
-				<button className="button-container" onClick={handleCreateReview}>
+				<button className="small-container" onClick={handleCreateReview}>
 					Post Review
 				</button>
 			</div>

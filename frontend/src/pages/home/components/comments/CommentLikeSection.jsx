@@ -58,7 +58,7 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 			<div className="comment-like-section-wrapper">
 				{!commentLiked ? (
 					<button
-						className="comment-like-section-like-button"
+						className="small-container"
 						style={{ backgroundColor: "white" }}
 						onClick={handleLikeComment}
 					>
@@ -67,7 +67,7 @@ const CommentLikeSection = ({ commentID, commentLikes }) => {
 					</button>
 				) : (
 					<button
-						className="comment-like-section-like-button"
+						className="small-container"
 						style={{ backgroundColor: "white" }}
 						onClick={handleDeleteCommentLike}
 					>

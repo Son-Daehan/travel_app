@@ -44,10 +44,10 @@ const ReviewsSection = () => {
 				reviews.map((review) => {
 					return (
 						<div className="home-reviews-container">
-							<div className="home-reviews-wrapper">
+							<div className="home-reviews-wrapper med-container">
 								<div className="home-reviews-header">
 									<div className="home-reviews-header-profile-container">
-										<div className="review-profile-img-container">
+										<div className="review-profile-img-container med-container-no-radius">
 											<img
 												className="review-profile-img"
 												src={`${review.user.profile_img}/`}
@@ -58,12 +58,12 @@ const ReviewsSection = () => {
 										<div>
 											{/* LINKS TO USER'S PROFILE PAGE */}
 											<Link
-												className="review-profile-name-link"
+												className="review-profile-name-link small-container"
 												to={`/profile/${review.user.email}`}
 											>
 												{review.user.email}
 											</Link>
-											<div className="home-reviews-header-title">
+											<div className="home-reviews-header-title small-container">
 												{review.title}
 											</div>
 										</div>
@@ -71,7 +71,7 @@ const ReviewsSection = () => {
 									</div>
 									<div className="home-reviews-header-restaurant-name-container">
 										<Link
-											className="home-reviews-header-restaurant-name"
+											className="home-reviews-header-restaurant-name small-container"
 											to={`/restaurants/${review.restaurant_name}`}
 										>
 											{review.restaurant_name}
@@ -80,7 +80,9 @@ const ReviewsSection = () => {
 								</div>
 								<hr />
 								<div>
-									<p className="home-reviews-description">{review.text}</p>
+									<p className="home-reviews-description med-container">
+										{review.text}
+									</p>
 								</div>
 								{/* HANDLES AND DISPLAYS THE NUMBER OF LIKES AND COMMENTS */}
 								<ReviewLikeSection

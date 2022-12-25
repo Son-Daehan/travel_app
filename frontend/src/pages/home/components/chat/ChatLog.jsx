@@ -95,13 +95,13 @@ const ChatLog = ({ user }) => {
 
 	return (
 		<div className="chat-container">
-			<div className="chat-wrapper" id="change-this">
+			<div className="chat-wrapper large-container" id="change-this">
 				<div onClick={handleDisplayChat} className="chat-header-wrapper">
 					<div>
 						Chat with people in {userLocation ? userLocation.city : ""}!
 					</div>
 					<button
-						className="chat-button"
+						className="extra-extra-small-container"
 						onClick={!displayChat ? handleRoomConnect : handleRoomConnect}
 					>
 						{!displayChat ? "Enter Room" : "Disconnect"}
@@ -122,7 +122,10 @@ const ChatLog = ({ user }) => {
 													: { "align-items": "flex-start" }
 											}
 										>
-											<div className="chat-message-container" id="chat-log">
+											<div
+												className="chat-message-container extra-extra-small-container"
+												id="chat-log"
+											>
 												<div>
 													<em>{message.user}</em>
 												</div>
@@ -134,12 +137,15 @@ const ChatLog = ({ user }) => {
 						</div>
 						<div className="chat-message-wrapper">
 							<input
-								className="chat-message-input"
+								className="chat-message-input extra-extra-small-input"
 								type="text"
 								placeholder="Write a message..."
 								onChange={(event) => setText(event.target.value)}
 							/>
-							<button className="chat-button" onClick={sendText}>
+							<button
+								className="extra-extra-small-container"
+								onClick={sendText}
+							>
 								Send
 							</button>
 						</div>

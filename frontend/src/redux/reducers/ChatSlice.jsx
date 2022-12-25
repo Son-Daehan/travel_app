@@ -5,7 +5,6 @@ import axios from "axios";
 export const sendMessage = createAsyncThunk(
 	"sendMessage",
 	async (data, { rejectWithValue }) => {
-		console.log(data.data.room_name);
 		try {
 			const response = await axios.post(
 				`/chat/chat_log/${data.data.room_name}`,
@@ -43,11 +42,9 @@ export const ChatSlice = createSlice({
 	reducers: {
 		setMessages: (state, action) => {
 			try {
-				console.log(JSON.parse(action.payload));
 				state.messages.push(JSON.parse(action.payload));
 			} catch {
 				// for non json data
-				console.log(action.payload);
 				state.messages.push(action.payload);
 			}
 		},
@@ -88,8 +85,6 @@ export const ChatSlice = createSlice({
 		},
 	},
 });
-
-// export const selectMessages = (state) => state.chat.messages;
 
 export const { setMessages, setRoomName } = ChatSlice.actions;
 export default ChatSlice.reducer;

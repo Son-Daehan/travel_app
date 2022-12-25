@@ -23,7 +23,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<nav className="navbar-container">
+			<nav className="navbar-container large-container">
 				<ul className="navbar-wrapper">
 					<Link className="navbar-link" to="/">
 						Home

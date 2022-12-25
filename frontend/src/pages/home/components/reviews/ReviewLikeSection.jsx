@@ -72,7 +72,7 @@ const ReviewLikeSection = ({
 		<>
 			<div className="home-reviews-likes-comments">
 				<>
-					<div className="home-reviews-likes-wrapper">
+					<div className="home-reviews-likes-wrapper small-container">
 						{!reviewLiked ? (
 							<button
 								onClick={handleLikeAReview}
@@ -92,7 +92,7 @@ const ReviewLikeSection = ({
 						{likesCount > 1 ? <div>Likes</div> : <div>Like</div>}
 					</div>
 				</>
-				<div className="home-reviews-comments-wrapper">
+				<div className="home-reviews-comments-wrapper small-container">
 					<div onClick={handleSetDisplayComments}>
 						{comments.length} Comments
 					</div>

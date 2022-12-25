@@ -14,9 +14,6 @@
 
 .home-reviews-wrapper {
     display: grid;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
 }
 
 .home-reviews-header {
@@ -34,8 +31,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
     border-radius: 45%;
     width: 60px;
     height: 60px;
@@ -51,9 +46,6 @@
 .review-profile-name-link {
     display: flex;
     justify-content: center;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     width: 100px;
 }
 
@@ -68,9 +60,6 @@
 
 .home-reviews-header-title {
     display: flex;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 3px;
-    border-radius: 5px;
     justify-content: center;
     align-items: center;
 }
@@ -82,9 +71,6 @@
 
 .home-reviews-header-restaurant-name {
     display: flex;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 3px;
-    border-radius: 5px;
     justify-content: center;
     align-items: center;
 }
@@ -93,9 +79,6 @@
 
 .home-reviews-description {
     display: grid;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     align-items: center;
 }
 
@@ -111,18 +94,12 @@
     display: flex;
     flex-direction: row;
     gap: 5px;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .home-reviews-comments-wrapper {
     display: flex;
     flex-direction: row;
     gap: 5px;
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -133,9 +110,6 @@
 /* REVIEWS PAGE HEADER */
 .home-create-review-container {
     display: grid;
-    box-shadow: 2px 2px 2px 2px rgb(198, 198, 198);
-    padding: 10px;
-    border-radius: 5px;
     gap: 10px;
 }
 
@@ -145,15 +119,9 @@
 }
 
 .review-title-input {
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     width: 100%
 }
 .review-name-input {
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     width: 100%
 }
 
@@ -161,9 +129,6 @@
     height: 60px;
 }
 .review-description-input {
-    box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-    padding: 5px;
-    border-radius: 5px;
     width: 100%;
     height: 100%;
 }
