@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	getChatLog,
@@ -19,9 +19,7 @@ const ChatLog = ({ user }) => {
 	const [socket, setSocket] = useState(null);
 
 	const { userInfo } = useSelector((state) => state.user);
-	const { messages, loading, chatLogLoading, roomName } = useSelector(
-		(state) => state.chat
-	);
+	const { messages, chatLogLoading } = useSelector((state) => state.chat);
 
 	const { userLocation } = useSelector((state) => state.user);
 
@@ -93,6 +91,14 @@ const ChatLog = ({ user }) => {
 		}
 	}, [displayChat]);
 
+	const bottomRef = useRef(null);
+
+	useEffect(() => {
+		if (messages) {
+			bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [messages]);
+
 	return (
 		<div className="chat-container">
 			<div className="chat-wrapper large-container" id="change-this">
@@ -134,10 +140,11 @@ const ChatLog = ({ user }) => {
 										</div>
 									);
 								})}
+							<div ref={bottomRef}></div>
 						</div>
 						<div className="chat-message-wrapper">
 							<input
-								className="chat-message-input extra-extra-small-input"
+								className="chat-message-input extra-extra-small-container"
 								type="text"
 								placeholder="Write a message..."
 								onChange={(event) => setText(event.target.value)}

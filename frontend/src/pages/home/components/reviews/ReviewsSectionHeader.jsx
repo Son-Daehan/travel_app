@@ -11,7 +11,7 @@ const ReviewsSectionHeader = () => {
 	const [review, setReview] = useState(null);
 	const [reviewTitle, setReviewTitle] = useState(null);
 
-	const { userInfo } = useSelector((state) => state.user);
+	const { userInfo, profileImg } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	// BUTTON EVENT HANDLER THAT SENDS AN AXIOS REQUEST TO CREATE A REVIEW
@@ -28,9 +28,15 @@ const ReviewsSectionHeader = () => {
 	};
 
 	return (
-		<div className="home-create-review-container medium-container">
+		<div className="home-create-review-container med-container">
 			<div className="home-create-review-top-wrapper">
-				<div>Image</div>
+				<div className="review-profile-img-container med-container-no-radius">
+					{profileImg ? (
+						<img className="review-profile-img" src={profileImg.img_url} />
+					) : (
+						<div>Upload an image...</div>
+					)}
+				</div>
 				<input
 					className="review-title-input small-container"
 					placeholder="Review Title"

@@ -113,7 +113,7 @@ const AuthSlice = createSlice({
 		},
 		[signIn.rejected]: (state, { payload }) => {
 			state.loading = false;
-			state.error = payload.message;
+			state.error = "Username or password is incorrect.";
 			state.authorized = false;
 			localStorage.clear();
 		},

@@ -53,16 +53,16 @@ const ReviewsSection = () => {
 												src={`${review.user.profile_img}/`}
 											/>
 										</div>
+										{/* LINKS TO USER'S PROFILE PAGE */}
+										<Link
+											className="review-profile-name-link small-container"
+											to={`/profile/${review.user.email}`}
+										>
+											{review.user.email}
+										</Link>
 									</div>
 									<div className="home-reviews-header-title-container">
 										<div>
-											{/* LINKS TO USER'S PROFILE PAGE */}
-											<Link
-												className="review-profile-name-link small-container"
-												to={`/profile/${review.user.email}`}
-											>
-												{review.user.email}
-											</Link>
 											<div className="home-reviews-header-title small-container">
 												{review.title}
 											</div>

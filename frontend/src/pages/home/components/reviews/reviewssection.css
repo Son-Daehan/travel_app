@@ -34,6 +34,7 @@
     border-radius: 45%;
     width: 60px;
     height: 60px;
+    margin-left: 20px;
 }
 
 
@@ -46,7 +47,6 @@
 .review-profile-name-link {
     display: flex;
     justify-content: center;
-    width: 100px;
 }
 
 
@@ -136,4 +136,9 @@
 .home-create-review-bottom-wrapper {
     display:grid;
     justify-content: middle;
+}
+
+
+@media (max-width: 400px) {
+    
 }

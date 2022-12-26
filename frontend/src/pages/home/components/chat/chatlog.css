@@ -1,12 +1,19 @@
 .chat-container {
 }
+@media (max-width: 400px) {
+    .chat-container {
+        display: none;
+    }
+}
 
 .chat-wrapper {
+    display: flex;
+    flex-direction: column;
     margin-left: 2rem;
     position: fixed;
-    /* width: 100%; */
     height: 3rem;
     width: 24rem;
+    justify-content: center;
 }
 
 .chat-header-wrapper {
@@ -15,6 +22,7 @@
     justify-content: space-between;
     cursor: pointer;
     align-items: center;
+    
 }
 
 .chat-log-wrapper {
@@ -29,6 +37,7 @@
     display: flex !important;
     flex-direction: column;
     gap: 20px;
+    padding: 8px;
 }
 
 .chat-message-container {
