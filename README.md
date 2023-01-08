@@ -1,81 +1,34 @@
-Chat Application + Travel Blog/Information
+# Chat and Restaurant Finder
 
-WHAT IS IT?
+Welcome to Chat and Restaurant Finder! This web-based platform allows you to chat with others in your area, discover local restaurants, and leave reviews and comments about those restaurants.
 
-A social media platform specifically targeting reviews for restaurants.
-Users are able to search for restaurants near their area and share their experience with other users through the form of reviews.
+## Features
 
-BACKEND
+- Chat with others in your area based on your geolocation, which is determined using the ip-api API.
+- Search for restaurants near you using the Yelp API.
+- View restaurants on a map using React Leaflet, with your own location and the restaurant locations marked.
+- Leave reviews and comments about restaurants on the homepage, which functions like a social media platform.
 
-The backend consists of several tools:
+## Technologies
 
-- Python/Django
-- Django Channels
-- Redis
+Chat and Restaurant Finder is built using the following technologies:
 
-MODELS
-
-- Users
-  - Full CRUD functionality
-- Reviews
-  - Full CRUD functionality
-  - Has many comments
-  - Has many likes
-- Comments
-  - Full CRUD functionality
-  - Belongs to a Review
-  - Has many likes
-- Liking a Review
-  - Belongs to a Review
-- Liking a Comment
-  - Belongs to a Comment
-- Chat log
-  - Get and Post to Redis
-  - Allows users to chat with people in their area based on their geolation which is tracked by `http://ip-api.com/json/`.
-
-FRONTEND
-
-The frontend consists of several tools:
-
-- ReactJS
-- Redux
-- Websocket
-
-API
-
-- http://ip-api.com/json/
-  - Gets the user's current geolocation which is used to find restaurants nearby
+- React
+- Django
+- Django Rest Framework
+- ip-api API
 - Yelp API
-  - Used to get restaurants information based on the current location of the user
-- LeafletMap
-  - Used to map the locations of the restaurants results from the Yelp API call
+- React Leaflet
+- Redux
+- Redis
+- Django Channels
 
-There are three parts to this application:
+## Installation
 
-- First Part
+To install Chat and Restaurant Finder on your own machine, follow these steps:
 
-  - First part consists of a user experience in interacting with a search function for restaurants near their area which is mapped through the use of Leaflet Map.
-
-- Second Part
-
-  - Users are able to create reviews and comments as well as being able to read both reviews and comments and leaving a like.
-
-- Third Part
-  - Users are able to connect to a real time chat application to interact with other users in their current location.
-  - Websockets allows users to connect to the server based on the url params which Django Channels intercepts to form a 2-way connection.
-  - Users outputs and inputs are also provided through an axios call which sends the data to django which is then saved to Redis.
-
-INSTALL
-
-1. Clone reposoitory into your local repository
-2. Create a virtual environment - python3 -m venv .venv
-3. Activate source - source .venv/bin/activate
-4. Install requirements - pip install -r requirements.txt
-5. Create a database - createdb restaurant_social_media_db
-6. Go into your frontend folder - npm install
-7. Start your frontend server - npm run
-8. Go into your backend folder - python manage.py runserver
-
-CHAT FEATURE WILL NOT RUN WITHOUT REDIS SERVER RUNNING
-
-1. Install Redis and run the server on port 6379
+1. Clone this repository.
+2. Install dependencies using `npm install` or `yarn install`.
+3. Set up the backend by following the instructions in the `backend` directory.
+4. Set up the frontend by following the instructions in the `frontend` directory.
+5. Run the development server using `npm start` or `yarn start`.

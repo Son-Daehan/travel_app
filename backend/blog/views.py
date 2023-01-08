@@ -186,7 +186,7 @@ def reviews_by_user(request, profile_name):
 
             serialized_reviews = ReviewSerializer(reviews, many=True)
 
-            return JsonResponse({'reviews':serialized_reviews.data})
+            return JsonResponse({'reviews':serialized_reviews.data[::-1]})
         except Exception as e:
             return JsonResponse({'reviews': None}, status=422)
 

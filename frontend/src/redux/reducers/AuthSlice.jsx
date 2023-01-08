@@ -128,7 +128,7 @@ const AuthSlice = createSlice({
 			state.success = true; // registration successful
 		},
 		[signUp.rejected]: (state, { payload }) => {
-			state.error = payload.message;
+			state.error = "Please enter a valid email address.";
 			state.loading = false;
 		},
 		[imageUpload.pending]: (state, action) => {},
